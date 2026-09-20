@@ -36,7 +36,7 @@ function Typing() {
 // Demonstração do atendimento automático. Roda em loop, pausa fora da tela
 // e mostra tudo estático para quem prefere movimento reduzido.
 export function ChatDemo() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const [typing, setTyping] = useState(false);
   const reduced = useRef(false);
   const boxRef = useRef<HTMLDivElement>(null);
@@ -84,7 +84,7 @@ export function ChatDemo() {
       timers.push(
         setTimeout(() => {
           if (!alive) return;
-          setCount(0);
+          setCount(1);
           timers = [];
           run();
         }, t + 5000)
@@ -116,7 +116,7 @@ export function ChatDemo() {
           <div
             ref={boxRef}
             aria-hidden
-            className="flex h-72 flex-col gap-2 overflow-hidden px-1 py-3"
+            className="flex h-60 flex-col gap-2 overflow-hidden px-1 py-3"
           >
             {visible.map((m, i) => (
               <div

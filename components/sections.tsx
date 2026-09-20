@@ -149,15 +149,15 @@ export function Hero() {
             Disponível para novos projetos
           </p>
         </div>
-        <div className="mx-auto mt-6 max-w-xl">
+        <div className="mx-auto mt-6 max-w-md">
           <Image
             src="/logo-dark.png"
             alt="i9BASE"
             width={1420}
             height={371}
             priority
-            sizes="(max-width: 768px) 100vw, 576px"
-            className="h-auto w-full"
+            sizes="(max-width: 768px) 100vw, 448px"
+            className="h-auto w-full mix-blend-screen"
           />
           <p className="mt-4 text-center font-display text-sm font-bold uppercase tracking-[0.22em] text-i9-blue-soft">
             {SLOGAN}
@@ -177,20 +177,20 @@ export function Hero() {
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-i9-blue-soft">
                 WhatsApp + CRM, juntos
               </p>
-              <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-semibold">
-                <span className="rounded-md bg-i9-blue px-2.5 py-1.5 text-white">
+              <div className="mt-3 flex flex-nowrap items-center gap-2 overflow-x-auto text-xs font-semibold">
+                <span className="shrink-0 rounded-md bg-i9-blue px-2.5 py-1.5 text-white">
                   Conversa entra
                 </span>
-                <span aria-hidden className="text-slate-400">→</span>
-                <span className="rounded-md bg-white/10 px-2.5 py-1.5 text-slate-100">
+                <span aria-hidden className="shrink-0 text-slate-400">→</span>
+                <span className="shrink-0 rounded-md bg-white/10 px-2.5 py-1.5 text-slate-100">
                   Vira lead no funil
                 </span>
-                <span aria-hidden className="text-slate-400">→</span>
-                <span className="rounded-md bg-white/10 px-2.5 py-1.5 text-slate-100">
+                <span aria-hidden className="shrink-0 text-slate-400">→</span>
+                <span className="shrink-0 rounded-md bg-white/10 px-2.5 py-1.5 text-slate-100">
                   Follow-up sozinho
                 </span>
-                <span aria-hidden className="text-slate-400">→</span>
-                <span className="rounded-md bg-emerald-400 px-2.5 py-1.5 text-i9-ink">
+                <span aria-hidden className="shrink-0 text-slate-400">→</span>
+                <span className="shrink-0 rounded-md bg-emerald-400 px-2.5 py-1.5 text-i9-ink">
                   Você fecha
                 </span>
               </div>
@@ -226,17 +226,6 @@ export function Hero() {
             </div>
           </div>
           <ChatDemo />
-        </div>
-      </div>
-      <div className="relative border-t border-white/10 bg-white/5 py-3 backdrop-blur-sm">
-        <div className="flex overflow-hidden">
-          <div className="animate-marquee flex shrink-0 items-center gap-8 pr-8">
-            {[...OFERTAS, ...OFERTAS].map((n, i) => (
-              <span key={i} className="whitespace-nowrap text-sm font-medium text-slate-200">
-                {n} <span className="ml-8 text-i9-blue-soft">·</span>
-              </span>
-            ))}
-          </div>
         </div>
       </div>
     </section>
@@ -437,60 +426,95 @@ export function InvitePhone() {
 }
 
 export function CrmSection() {
-  const benefits = [
+  const checks = [
+    'Cada conversa vira lead no funil, sem digitar nada',
+    'Follow-up em 24h e 48h para quem esfriou',
+    'Histórico completo por cliente e por atendente',
+    'A IA atende e chama gente quando precisa',
+  ];
+  const cols = [
     {
-      name: "Funil visual",
-      desc: "Cada conversa vira um cartão que anda sozinho: novo, qualificando, proposta, fechado.",
+      name: 'Novo contato',
+      cards: [
+        { n: 'Carlos · Lanchonete', tag: 'Site', hot: false },
+        { n: 'Ana · 15 anos', tag: 'Convite', hot: false },
+      ],
     },
     {
-      name: "Follow-up automático",
-      desc: "Quem esfria recebe retorno em 24h e 48h sem você lembrar de nada.",
+      name: 'Qualificando',
+      cards: [{ n: 'Carlos · Lanchonete', tag: 'R$ 300+', hot: true }],
     },
     {
-      name: "Histórico completo",
-      desc: "Toda mensagem, proposta e ligação registrada por cliente e por atendente.",
-    },
-    {
-      name: "Humano na hora certa",
-      desc: "A IA resolve o simples e chama sua equipe quando precisa de gente.",
-    },
-    {
-      name: "Multi-número",
-      desc: "Vários WhatsApps e atendentes na mesma base, sem misturar conversa.",
-    },
-    {
-      name: "Relatórios",
-      desc: "Origem do lead, conversão por etapa e performance de cada atendente.",
+      name: 'Proposta',
+      cards: [{ n: 'Padaria Pão Dourado', tag: 'Aguardando', hot: false }],
     },
   ];
   return (
-    <section id="crm" className="border-y border-slate-200 bg-white">
+    <section id="crm" className="border-y border-slate-200 bg-[#E8EFFD]">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
           label="CRM para empresas"
           title="Atendimento que vira gestão"
-          sub="O WhatsApp atende e o CRM organiza: funil, follow-up e histórico trabalhando juntos pela sua equipe."
+          sub="O WhatsApp atende e o CRM organiza. Sua equipe abre o dia sabendo quem chamar, o que oferecer e o que fechou."
         />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {benefits.map((b) => (
-            <div
-              key={b.name}
-              className="rounded-xl border border-slate-200 bg-i9-paper p-5 transition hover:-translate-y-1 hover:border-i9-blue hover:shadow-lg"
+        <div className="grid items-start gap-8 lg:grid-cols-2">
+          <div>
+            <ul className="space-y-3">
+              {checks.map((c) => (
+                <li key={c} className="flex items-start gap-2.5 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-i9-slate">
+                  <span className="mt-0.5 text-emerald-500">
+                    <CheckIcon />
+                  </span>
+                  {c}
+                </li>
+              ))}
+            </ul>
+            <a
+              href={waLink('Oi! Quero um CRM com WhatsApp para a minha empresa.')}
+              target="_blank"
+              rel="noopener"
+              onClick={() => track('whatsapp_click', { from: 'crm_section' })}
+              className="mt-6 inline-block rounded-lg bg-i9-blue px-6 py-3 font-semibold text-white hover:bg-i9-blue-deep"
             >
-              <p className="font-display text-base font-bold text-i9-ink">{b.name}</p>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">{b.desc}</p>
+              Quero CRM na minha empresa
+            </a>
+          </div>
+          <div aria-label="Exemplo de funil do CRM" className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
+            <div className="flex items-center justify-between border-b border-slate-200 bg-i9-ink px-4 py-3">
+              <p className="font-display text-sm font-bold text-white">Funil · Orçamentos</p>
+              <span className="rounded-md bg-emerald-400 px-2 py-0.5 text-[11px] font-bold text-i9-ink">
+                4 leads
+              </span>
             </div>
-          ))}
+            <div className="grid grid-cols-3 gap-2 p-3">
+              {cols.map((col) => (
+                <div key={col.name} className="rounded-lg bg-i9-paper p-2">
+                  <p className="px-1 text-[11px] font-bold uppercase tracking-wide text-slate-500">
+                    {col.name}
+                  </p>
+                  <div className="mt-2 space-y-2">
+                    {col.cards.map((card) => (
+                      <div key={card.n} className="rounded-md border border-slate-200 bg-white p-2 shadow-sm">
+                        <p className="text-xs font-bold text-i9-ink">{card.n}</p>
+                        <div className="mt-1.5 flex items-center justify-between">
+                          <span className="rounded bg-i9-paper px-1.5 py-0.5 text-[10px] font-semibold text-i9-blue">
+                            {card.tag}
+                          </span>
+                          {card.hot && (
+                            <span className="relative flex h-2 w-2">
+                              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-        <a
-          href={waLink("Oi! Quero um CRM com WhatsApp para a minha empresa.")}
-          target="_blank"
-          rel="noopener"
-          onClick={() => track("whatsapp_click", { from: "crm_section" })}
-          className="mt-6 inline-block rounded-lg bg-i9-blue px-6 py-3 font-semibold text-white hover:bg-i9-blue-deep"
-        >
-          Quero CRM na minha empresa
-        </a>
       </div>
     </section>
   );
@@ -511,7 +535,7 @@ export function InviteEnvelope() {
       >
         <span
           aria-hidden
-          className={`absolute inset-x-6 top-2 bottom-6 rounded-lg bg-white shadow-xl transition-all duration-700 motion-safe:duration-700 ${
+          className={`absolute inset-x-6 top-2 bottom-6 rounded-lg bg-white shadow-xl transition-all duration-700 ${
             open ? "translate-y-[-38%]" : "translate-y-[-6%]"
           }`}
         >
@@ -530,7 +554,7 @@ export function InviteEnvelope() {
         <span aria-hidden className="absolute inset-0 rounded-xl bg-[#1d4ed8] shadow-2xl" />
         <span
           aria-hidden
-          className={`absolute inset-x-0 top-0 h-1/2 origin-top transition-transform duration-500 motion-safe:duration-500 ${
+          className={`absolute inset-x-0 top-0 h-1/2 origin-top transition-transform duration-500 ${
             open ? "[transform:rotateX(180deg)] opacity-90" : ""
           }`}
           style={{ clipPath: "polygon(0 0, 100% 0, 50% 100%)", background: "#2563eb" }}
