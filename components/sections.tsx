@@ -1073,9 +1073,15 @@ export function Partners() {
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <p className="label-eyebrow text-slate-400">Parceria de indicação cruzada</p>
         <div className="mt-4 flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-5 sm:flex-row sm:items-center sm:gap-6">
-          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-xl bg-i9-ink font-display text-lg font-bold text-white">
-            PT
-          </div>
+          <Image
+            src="/parceiros/pecatech.png"
+            alt="Peça Tech, gráfica, tecnologia e soluções digitais"
+            width={800}
+            height={800}
+            sizes="(max-width: 640px) 50vw, 180px"
+            className="h-28 w-28 shrink-0 rounded-xl border border-slate-100 bg-white object-contain p-1"
+            loading="lazy"
+          />
           <div className="flex-1">
             <p className="font-display text-lg font-bold text-i9-ink">Peça Tech</p>
             <p className="mt-1 text-sm text-slate-600">
@@ -1094,8 +1100,8 @@ export function Partners() {
             Pedir produção física
           </a>
         </div>
-        <p className="mt-2 text-xs text-slate-400">
-          Logo oficial deles entra aqui assim que chegar.
+        <p className="mt-3 text-xs text-slate-400">
+          Gráfica, tecnologia e soluções digitais. Parceira de balcão e de bairro.
         </p>
       </div>
     </section>
