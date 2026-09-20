@@ -124,3 +124,24 @@ body {
     animation: none;
   }
 }
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-panel {
+  animation: panel-in 0.24s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-panel {
+    animation: none;
+  }
+}

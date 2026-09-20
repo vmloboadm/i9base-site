@@ -6,8 +6,10 @@ import {
   CASES,
   CONTACT_EMAIL,
   INSTAGRAM_URL,
+  INVITES,
   METHOD,
   NICHES,
+  SLOGAN,
   SOLUTIONS,
   TECHS,
   TRACKS,
@@ -82,13 +84,16 @@ export function Hero() {
         <div className="mx-auto max-w-xl">
           <Image
             src="/logo-dark.png"
-            alt="i9BASE, sua base de tecnologia e inovação"
+            alt="i9BASE"
             width={1420}
             height={371}
             priority
             sizes="(max-width: 768px) 100vw, 576px"
             className="h-auto w-full"
           />
+          <p className="mt-4 text-center font-display text-sm font-bold uppercase tracking-[0.22em] text-i9-blue-soft">
+            {SLOGAN}
+          </p>
         </div>
 
         <div className="mt-10 grid items-center gap-10 lg:grid-cols-2">
@@ -210,7 +215,7 @@ export function Solutions() {
         </div>
         <div
           key={active}
-          className="overflow-hidden rounded-xl border border-white/10 bg-white text-i9-ink"
+          className="animate-panel overflow-hidden rounded-xl border border-white/10 bg-white"
         >
           <div className="border-b border-slate-200 bg-i9-paper px-5 py-4 sm:px-6">
             <p className="font-display text-lg font-bold text-i9-ink">{trackInfo.name}</p>
@@ -338,8 +343,8 @@ export function Convites() {
         <SectionHead
           dark
           label="Convites interativos"
-          title="Convites que vendem por você"
-          sub="Convite digital com confirmação de presença, mapa e galeria de fotos em tempo real. Teste aqui como o convidado vive a experiência."
+          title="A festa começa no convite"
+          sub="Convite digital para aniversário, 15 anos, casamento e eventos da família: confirmação de presença, mapa e galeria de fotos em tempo real. Teste aqui como o convidado vive a experiência."
         />
         <div className="grid items-center gap-8 md:grid-cols-2">
           <InvitePhone />
@@ -382,6 +387,23 @@ export function Convites() {
             >
               Quero um convite como esse
             </a>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {INVITES.map((inv) => (
+                <a
+                  key={inv.url}
+                  href={inv.url}
+                  target="_blank"
+                  rel="noopener"
+                  onClick={() => track("cta_click", { from: "convites", to: inv.name })}
+                  className="rounded-lg border border-white/30 px-4 py-2 text-sm font-semibold text-white hover:border-white hover:bg-white/10"
+                >
+                  Ver exemplo: {inv.name}
+                </a>
+              ))}
+            </div>
+            <p className="mt-3 text-xs text-blue-100">
+              Exemplos reais de festas de clientes, abertos para visitação.
+            </p>
           </div>
         </div>
       </div>
@@ -566,8 +588,13 @@ export function Cases() {
                       <Chevron />
                     </span>
                   </button>
-                  {isOpen && (
-                    <div className="border-t border-slate-100 px-5 py-4">
+                  <div
+                    className={`grid transition-all duration-300 ${
+                      isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <div className="border-t border-slate-100 px-5 py-4">
                       <p className="text-sm leading-relaxed text-slate-600">{c.desc}</p>
                       {c.result && (
                         <p className="mt-3 rounded-lg bg-i9-paper px-3 py-2 text-sm font-semibold text-i9-blue">
@@ -595,8 +622,9 @@ export function Cases() {
                       >
                         Quero um projeto como esse
                       </a>
+                      </div>
                     </div>
-                  )}
+                  </div>
                 </article>
               );
             })}
@@ -688,11 +716,21 @@ export function Contact() {
               <textarea
                 id="cta-msg"
                 rows={4}
+                maxLength={300}
                 value={msg}
                 onChange={(e) => setMsg(e.target.value)}
                 placeholder="Ex: preciso de um site para minha lanchonete e quero atender pelo WhatsApp"
+                aria-describedby="cta-msg-hint cta-msg-count"
                 className="mt-2 w-full rounded-lg border border-white/15 bg-i9-ink px-3 py-2.5 text-sm text-white placeholder:text-slate-500"
               />
+              <div className="mt-1.5 flex items-center justify-between">
+                <p id="cta-msg-hint" className="text-xs text-slate-400">
+                  Escreva com suas palavras, sem pressa.
+                </p>
+                <p id="cta-msg-count" className="text-xs text-slate-500">
+                  {msg.length}/300
+                </p>
+              </div>
               <a
                 href={waLink(
                   msg.trim()

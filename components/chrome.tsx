@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { SLOGAN } from "@/lib/data";
 import { INSTAGRAM_URL, NAV, WHATSAPP_URL, waLink } from "@/lib/data";
 import { track } from "@/lib/analytics";
 
@@ -87,10 +88,13 @@ export function Footer() {
             alt="i9BASE"
             width={810}
             height={756}
-            className="h-14 w-auto"
+            className="h-16 w-auto"
           />
-          <p className="mt-2 text-sm text-slate-500">
-            Sua base de tecnologia e inovação. Estruture, automatize e evolua.
+          <p className="mt-3 font-display text-sm font-bold text-i9-ink">
+            {SLOGAN}
+          </p>
+          <p className="mt-1 text-sm text-slate-500">
+            Estruture, automatize e evolua.
           </p>
         </div>
         <div>
@@ -141,8 +145,7 @@ export function Footer() {
   );
 }
 
-export function FloatWhats() {
-  return (
+export function FloatWhats() {  return (
     <a
       href={waLink("Oi! Vim pelo site da i9BASE e quero conversar sobre meu negócio.")}
       target="_blank"
@@ -153,6 +156,39 @@ export function FloatWhats() {
     >
       <svg viewBox="0 0 24 24" className="h-7 w-7 fill-white" aria-hidden>
         <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 2a8 8 0 1 1-4.1 14.9l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 0 1 12 4Zm-3.2 3.9c-.2 0-.5 0-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 3 4.7 4 .6.3 1.1.4 1.5.6.6.2 1.2.2 1.6.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3l-2-1c-.3-.1-.5-.2-.7 0l-.9 1.1c-.2.2-.3.2-.6.1a7.6 7.6 0 0 1-2.2-1.4 8.3 8.3 0 0 1-1.5-1.9c-.2-.3 0-.4.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5L8.4 8c-.2-.4-.4-.3-.6-.3H8.8Z" />
+      </svg>
+    </a>
+  );
+}
+
+export function BackToTop() {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > 600);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  if (!show) return null;
+  return (
+    <a
+      href="#topo"
+      aria-label="Voltar ao topo"
+      className="fixed bottom-5 left-5 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-i9-slate shadow-lg transition hover:border-i9-blue hover:text-i9-blue"
+    >
+      <svg
+        viewBox="0 0 16 16"
+        aria-hidden
+        className="h-4 w-4"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M8 13V3 M3.5 7.5 8 3l4.5 4.5" />
       </svg>
     </a>
   );

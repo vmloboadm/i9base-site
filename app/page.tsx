@@ -1,4 +1,4 @@
-import { Footer, FloatWhats, Header } from "@/components/chrome";
+import { BackToTop, Footer, FloatWhats, Header } from "@/components/chrome";
 import {
   Cases,
   Contact,
@@ -26,6 +26,7 @@ export default function Home() {
       </main>
       <Footer />
       <FloatWhats />
+      <BackToTop />
     </>
   );
 }

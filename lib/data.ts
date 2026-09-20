@@ -398,3 +398,16 @@ export const NAV = [
   { href: "#metodo", label: "Método" },
   { href: "#contato", label: "Contato" },
 ];
+
+export const SLOGAN = "Sua base de tecnologia e inovação";
+
+export const INVITES = [
+  {
+    name: "15 anos · Ana Carolina",
+    url: "https://ana-carolina-15-anos.vercel.app/",
+  },
+  {
+    name: "1 ano · Vicente",
+    url: "https://vicente-1-ano.vercel.app/",
+  },
+];
