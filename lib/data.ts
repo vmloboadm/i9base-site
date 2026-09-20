@@ -10,56 +10,76 @@ export function waLink(message: string) {
 export type Solution = {
   name: string;
   desc: string;
-  base: string;
+  msg: string;
 };
 
 export const SOLUTIONS: Solution[] = [
   {
     name: "Sites e Landing Pages",
     desc: "Site institucional, página de campanha ou hub que carrega rápido e converte visita em contato.",
-    base: "a partir de R$ 300",
+    msg: "Oi! Quero um site para o meu negócio.",
   },
   {
     name: "Sistemas Personalizados",
     desc: "Aplicação web, painel ou dashboard feito sob medida para a sua operação.",
-    base: "a partir de R$ 1.500",
+    msg: "Oi! Preciso de um sistema para a minha operação.",
   },
   {
     name: "Automação de Processos",
     desc: "Integrações e fluxos que tiram o trabalho manual do seu dia a dia.",
-    base: "a partir de R$ 300",
+    msg: "Oi! Quero automatizar processos no meu negócio.",
   },
   {
     name: "Atendimento com IA",
     desc: "Agente que atende, qualifica o cliente e registra tudo no CRM, 24h por dia.",
-    base: "a partir de R$ 250/mês",
+    msg: "Oi! Quero um atendimento com IA no meu negócio.",
   },
   {
     name: "WhatsApp Automatizado",
     desc: "Seu WhatsApp como canal de venda, com funil, follow-up e histórico organizado.",
-    base: "a partir de R$ 400/mês",
+    msg: "Oi! Quero automatizar meu WhatsApp.",
+  },
+  {
+    name: "CRM e Funil de Vendas",
+    desc: "Pipeline, follow-up automático e histórico de cada cliente num só lugar.",
+    msg: "Oi! Quero um CRM para organizar minhas vendas.",
   },
   {
     name: "QR Code e NFC",
     desc: "Placa, cardápio, etiqueta ou cartão que leva o cliente direto ao seu digital.",
-    base: "a partir de R$ 300",
+    msg: "Oi! Quero QR Code e NFC para o meu negócio.",
+  },
+  {
+    name: "Convites Interativos",
+    desc: "Convite digital com confirmação, mapa e galeria de fotos em tempo real na festa.",
+    msg: "Oi! Quero um convite como esse para meu evento.",
   },
   {
     name: "Experiências Digitais",
-    desc: "Convites interativos e galeria de fotos em tempo real para eventos.",
-    base: "a partir de R$ 120",
+    desc: "Hubs de evento, galerias ao vivo e interações que conectam o físico ao digital.",
+    msg: "Oi! Quero uma experiência digital para meu evento.",
+  },
+  {
+    name: "Identidade Visual",
+    desc: "Logo e identidade que posicionam sua marca, do cartão ao Instagram.",
+    msg: "Oi! Preciso de identidade visual para minha marca.",
+  },
+  {
+    name: "Curadoria Digital",
+    desc: "Você precisa, a gente resolve e entrega pronto: pesquisa, compra e implantação.",
+    msg: "Oi! Preciso resolver uma questão digital.",
   },
   {
     name: "Gestão e Consultoria",
     desc: "Diagnóstico e organização digital: presença, processos e operação.",
-    base: "a partir de R$ 300",
+    msg: "Oi! Quero um diagnóstico do meu negócio.",
   },
 ];
 
 export type CaseItem = {
   slug: string;
   name: string;
-  category: "Sites" | "Sistemas" | "Branding";
+  category: "Sites" | "Sistemas" | "Branding" | "Experiências";
   niche: string;
   desc: string;
   tags: string[];
@@ -67,6 +87,33 @@ export type CaseItem = {
 };
 
 export const CASES: CaseItem[] = [
+  {
+    slug: "convite-ana",
+    name: "15 anos Ana Carolina",
+    category: "Experiências",
+    niche: "Convite interativo",
+    desc: "Convite digital com save the date, confirmação e galeria em tempo real na festa.",
+    tags: ["Convite digital", "Galeria realtime", "QR Code"],
+    image: "/cases/convite-ana.jpg",
+  },
+  {
+    slug: "panela-da-roca",
+    name: "Panela da Roça",
+    category: "Sistemas",
+    niche: "Restaurante",
+    desc: "Avaliação via QR, gestão e atendimento conectando salão e digital.",
+    tags: ["QR Code", "Gestão", "Avaliações"],
+    image: "/cases/panela-da-roca.png",
+  },
+  {
+    slug: "gymfitness",
+    name: "GymFitness Campos",
+    category: "Sistemas",
+    niche: "Academia",
+    desc: "Check-in digital e gestão pensados para a rotina da academia.",
+    tags: ["Check-in", "Gestão", "App"],
+    image: "/cases/gymfitness.png",
+  },
   {
     slug: "alien-burger",
     name: "Alien Burger",
@@ -220,8 +267,24 @@ export const METHOD = [
   },
 ];
 
+export const TECHS = ["Vercel", "Next.js", "Supabase", "n8n", "OpenAI", "Node.js"];
+
+export const NICHES = [
+  "Restaurantes",
+  "Academias",
+  "Eventos",
+  "Salões de festa",
+  "Clínicas",
+  "Pet shops",
+  "Lojas locais",
+  "Cerimonialistas",
+  "Transporte escolar",
+  "Profissionais autônomos",
+];
+
 export const NAV = [
   { href: "#solucoes", label: "Soluções" },
+  { href: "#convites", label: "Convites" },
   { href: "#cases", label: "Cases" },
   { href: "#metodo", label: "Método" },
   { href: "#contato", label: "Contato" },

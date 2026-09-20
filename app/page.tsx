@@ -2,6 +2,7 @@ import { Footer, FloatWhats, Header } from "@/components/chrome";
 import {
   Cases,
   Contact,
+  Convites,
   Hero,
   Method,
   Partners,
@@ -17,6 +18,7 @@ export default function Home() {
         <Hero />
         <Strip />
         <Solutions />
+        <Convites />
         <Cases />
         <Method />
         <Partners />
