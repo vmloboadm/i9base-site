@@ -139,33 +139,30 @@ export function Hero() {
       <HeroCanvas />
       <div aria-hidden className="absolute -left-24 top-16 h-72 w-72 rounded-full bg-i9-blue/20 blur-[100px]" />
       <div aria-hidden className="absolute -right-24 top-64 h-80 w-80 rounded-full bg-[#7c3aed]/15 blur-[110px]" />
-      <div className="animate-hero-in relative mx-auto max-w-6xl px-4 pb-10 pt-14 sm:px-6 sm:pt-20">
-        <div className="flex justify-center">
-          <p className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-1.5 text-xs font-semibold text-emerald-300">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-            </span>
-            Disponível para novos projetos
-          </p>
-        </div>
-        <div className="mx-auto mt-6 max-w-md rounded-2xl border border-white/10 bg-[#0b0f14] px-8 py-6 shadow-2xl">
-          <Image
-            src="/logo-dark.png"
-            alt="i9BASE"
-            width={1420}
-            height={371}
-            priority
-            sizes="(max-width: 768px) 100vw, 448px"
-            className="h-auto w-full"
-          />
-          <p className="mt-4 text-center font-display text-sm font-bold uppercase tracking-[0.22em] text-i9-blue-soft">
-            {SLOGAN}
-          </p>
-        </div>
-
-        <div className="mt-10 grid items-center gap-10 lg:grid-cols-2">
+      <div className="animate-hero-in relative mx-auto max-w-6xl px-4 pb-10 pt-28 sm:px-6 sm:pt-32">
+        <div className="mt-2 grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
+            <p className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-1.5 text-xs font-semibold text-emerald-300">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+              </span>
+              Disponível para novos projetos
+            </p>
+            <div className="mt-5 max-w-sm">
+              <Image
+                src="/logo-dark.png"
+                alt="i9BASE"
+                width={1420}
+                height={371}
+                priority
+                sizes="(max-width: 1024px) 70vw, 400px"
+                className="h-auto w-full mix-blend-screen"
+              />
+              <p className="mt-3 font-display text-xs font-bold uppercase tracking-[0.22em] text-i9-blue-soft">
+                {SLOGAN}
+              </p>
+            </div>
             <h1 className="font-display text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
               Estruture. Automatize. Evolua.
             </h1>
@@ -225,7 +222,30 @@ export function Hero() {
               ))}
             </div>
           </div>
-          <ChatDemo />
+          <div className="relative">
+            <ChatDemo />
+            <div
+              aria-hidden
+              className="animate-float-a absolute -left-3 top-10 hidden rounded-xl border border-white/15 bg-i9-ink/85 px-3 py-2 backdrop-blur-md sm:block"
+            >
+              <p className="text-[11px] font-bold text-white">QR na mesa</p>
+              <p className="text-[10px] text-slate-400">pedido sem espera</p>
+            </div>
+            <div
+              aria-hidden
+              className="animate-float-b absolute -right-2 top-1/3 hidden rounded-xl border border-white/15 bg-i9-ink/85 px-3 py-2 backdrop-blur-md sm:block"
+            >
+              <p className="text-[11px] font-bold text-white">IA atendendo</p>
+              <p className="text-[10px] text-emerald-300">24h, sem pausa</p>
+            </div>
+            <div
+              aria-hidden
+              className="animate-float-a absolute -bottom-4 left-8 hidden rounded-xl border border-white/15 bg-i9-ink/85 px-3 py-2 backdrop-blur-md sm:block"
+            >
+              <p className="text-[11px] font-bold text-white">Lead no funil</p>
+              <p className="text-[10px] text-slate-400">follow-up sozinho</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

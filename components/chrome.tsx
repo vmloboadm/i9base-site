@@ -36,7 +36,12 @@ export function Header() {
   }, [open ]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[rgba(37,99,235,0.15)] bg-[#0b0f14]/60 backdrop-blur-xl transition-all duration-300">
+    <header
+      className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
+        scrolled
+          ? 'border-b border-[rgba(37,99,235,0.15)] bg-[#0b0f14]/75 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl'
+          : 'border-b border-transparent bg-transparent'
+      }`}>
       <div
         className={`mx-auto flex max-w-6xl items-center justify-between px-4 transition-all duration-300 sm:px-6 ${scrolled ? 'h-16 shadow-[0_4px_24px_rgba(37,99,235,0.15)]' : 'h-20'}`}
       >

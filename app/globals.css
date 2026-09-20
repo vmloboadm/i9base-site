@@ -248,3 +248,38 @@ body {
     animation: none;
   }
 }
+
+@keyframes float-a {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes float-b {
+  0%,
+  100% {
+    transform: translateY(-5px);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+.animate-float-a {
+  animation: float-a 5s ease-in-out infinite;
+}
+
+.animate-float-b {
+  animation: float-b 6.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-a,
+  .animate-float-b {
+    animation: none;
+  }
+}
