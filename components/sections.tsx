@@ -137,6 +137,8 @@ export function Hero() {
         }}
       />
       <HeroCanvas />
+      <div aria-hidden className="absolute -left-24 top-16 h-72 w-72 rounded-full bg-i9-blue/20 blur-[100px]" />
+      <div aria-hidden className="absolute -right-24 top-64 h-80 w-80 rounded-full bg-[#7c3aed]/15 blur-[110px]" />
       <div className="relative mx-auto max-w-6xl px-4 pb-10 pt-14 sm:px-6 sm:pt-20">
         <div className="flex justify-center">
           <p className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-1.5 text-xs font-semibold text-emerald-300">
@@ -171,7 +173,29 @@ export function Hero() {
               Sites, sistemas, automação e atendimento com IA para negócios
               locais. Do QR ao pedido, sua operação conectada em uma única base.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-6 rounded-xl border border-white/15 bg-white/5 p-4 backdrop-blur-sm">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-i9-blue-soft">
+                WhatsApp + CRM, juntos
+              </p>
+              <div className="mt-3 flex flex-wrap items-center gap-2 text-xs font-semibold">
+                <span className="rounded-md bg-i9-blue px-2.5 py-1.5 text-white">
+                  Conversa entra
+                </span>
+                <span aria-hidden className="text-slate-400">→</span>
+                <span className="rounded-md bg-white/10 px-2.5 py-1.5 text-slate-100">
+                  Vira lead no funil
+                </span>
+                <span aria-hidden className="text-slate-400">→</span>
+                <span className="rounded-md bg-white/10 px-2.5 py-1.5 text-slate-100">
+                  Follow-up sozinho
+                </span>
+                <span aria-hidden className="text-slate-400">→</span>
+                <span className="rounded-md bg-emerald-400 px-2.5 py-1.5 text-i9-ink">
+                  Você fecha
+                </span>
+              </div>
+            </div>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <a
                 href={waLink("Oi! Vim pelo site da i9BASE e quero estruturar meu negócio.")}
                 target="_blank"
@@ -219,8 +243,7 @@ export function Hero() {
   );
 }
 
-export function Strip() {
-  const items = [
+export function Strip() {  const items = [
     [`${CASES.length}`, "cases em destaque"],
     ["+40", "projetos entregues"],
     ["24/7", "atendimento no WhatsApp"],
@@ -256,6 +279,13 @@ export function Solutions() {
           title="Escolha por onde começar"
           sub="Quatro trilhas, um destino: seu negócio rodando numa base só. Toque numa trilha para explorar."
         />
+        <ol className="mb-6 flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-300">
+          <li className="rounded-md border border-white/15 bg-white/5 px-2.5 py-1.5">1 · Escolha a trilha</li>
+          <li aria-hidden>→</li>
+          <li className="rounded-md border border-white/15 bg-white/5 px-2.5 py-1.5">2 · Toque na solução</li>
+          <li aria-hidden>→</li>
+          <li className="rounded-md border border-white/15 bg-white/5 px-2.5 py-1.5">3 · Chame no WhatsApp</li>
+        </ol>
         <div className="mb-6 flex flex-wrap gap-2">
           {TRACKS.map((t) => {
             const count = SOLUTIONS.filter((s) => s.track === t.id).length;
@@ -295,6 +325,9 @@ export function Solutions() {
                 <h3 className="font-display text-base font-bold text-i9-ink group-hover:text-i9-blue">
                   {s.name}
                 </h3>
+                <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">
+                  {TRACKS.find((t) => t.id === s.track)?.name}
+                </p>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{s.desc}</p>
                 <p className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-md bg-i9-paper px-2.5 py-1 text-xs font-bold text-i9-blue">
                   {s.badge}
@@ -403,6 +436,121 @@ export function InvitePhone() {
   );
 }
 
+export function CrmSection() {
+  const benefits = [
+    {
+      name: "Funil visual",
+      desc: "Cada conversa vira um cartão que anda sozinho: novo, qualificando, proposta, fechado.",
+    },
+    {
+      name: "Follow-up automático",
+      desc: "Quem esfria recebe retorno em 24h e 48h sem você lembrar de nada.",
+    },
+    {
+      name: "Histórico completo",
+      desc: "Toda mensagem, proposta e ligação registrada por cliente e por atendente.",
+    },
+    {
+      name: "Humano na hora certa",
+      desc: "A IA resolve o simples e chama sua equipe quando precisa de gente.",
+    },
+    {
+      name: "Multi-número",
+      desc: "Vários WhatsApps e atendentes na mesma base, sem misturar conversa.",
+    },
+    {
+      name: "Relatórios",
+      desc: "Origem do lead, conversão por etapa e performance de cada atendente.",
+    },
+  ];
+  return (
+    <section id="crm" className="border-y border-slate-200 bg-white">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <SectionHead
+          label="CRM para empresas"
+          title="Atendimento que vira gestão"
+          sub="O WhatsApp atende e o CRM organiza: funil, follow-up e histórico trabalhando juntos pela sua equipe."
+        />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {benefits.map((b) => (
+            <div
+              key={b.name}
+              className="rounded-xl border border-slate-200 bg-i9-paper p-5 transition hover:-translate-y-1 hover:border-i9-blue hover:shadow-lg"
+            >
+              <p className="font-display text-base font-bold text-i9-ink">{b.name}</p>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">{b.desc}</p>
+            </div>
+          ))}
+        </div>
+        <a
+          href={waLink("Oi! Quero um CRM com WhatsApp para a minha empresa.")}
+          target="_blank"
+          rel="noopener"
+          onClick={() => track("whatsapp_click", { from: "crm_section" })}
+          className="mt-6 inline-block rounded-lg bg-i9-blue px-6 py-3 font-semibold text-white hover:bg-i9-blue-deep"
+        >
+          Quero CRM na minha empresa
+        </a>
+      </div>
+    </section>
+  );
+}
+
+export function InviteEnvelope() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="mx-auto w-full max-w-[320px]">
+      <button
+        onClick={() => {
+          setOpen((v) => !v);
+          track("envelope_demo", { open: open ? "close" : "open" });
+        }}
+        aria-expanded={open}
+        aria-label={open ? "Fechar a carta" : "Abrir a carta com o selo"}
+        className="relative block aspect-[4/3] w-full [perspective:800px]"
+      >
+        <span
+          aria-hidden
+          className={`absolute inset-x-6 top-2 bottom-6 rounded-lg bg-white shadow-xl transition-all duration-700 motion-safe:duration-700 ${
+            open ? "translate-y-[-38%]" : "translate-y-[-6%]"
+          }`}
+        >
+          <span className="flex h-full flex-col items-center justify-center px-6 text-center">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-amber-600">
+              Convite especial
+            </span>
+            <span className="mt-2 font-display text-xl font-bold leading-tight text-i9-ink">
+              Você foi convidado!
+            </span>
+            <span className="mt-2 rounded-md bg-i9-blue px-3 py-1.5 text-xs font-bold text-white">
+              Confirmar presença
+            </span>
+          </span>
+        </span>
+        <span aria-hidden className="absolute inset-0 rounded-xl bg-[#1d4ed8] shadow-2xl" />
+        <span
+          aria-hidden
+          className={`absolute inset-x-0 top-0 h-1/2 origin-top transition-transform duration-500 motion-safe:duration-500 ${
+            open ? "[transform:rotateX(180deg)] opacity-90" : ""
+          }`}
+          style={{ clipPath: "polygon(0 0, 100% 0, 50% 100%)", background: "#2563eb" }}
+        />
+        <span
+          aria-hidden
+          className={`absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-br from-amber-300 to-amber-500 font-display text-lg font-bold text-[#5b3a00] shadow-lg transition-all duration-500 ${
+            open ? "scale-90 opacity-0" : "scale-100 opacity-100"
+          }`}
+        >
+          i9
+        </span>
+      </button>
+      <p className="mt-3 text-center text-xs text-blue-100">
+        {open ? "Toque no selo para fechar" : "Toque no selo para abrir"}
+      </p>
+    </div>
+  );
+}
+
 export function Convites() {
   return (
     <>
@@ -490,7 +638,7 @@ export function Convites() {
               Exemplos reais de festas de clientes, abertos para visitação.
             </p>
           </div>
-          <InvitePhone />
+          <InviteEnvelope />
         </div>
       </div>
     </section>

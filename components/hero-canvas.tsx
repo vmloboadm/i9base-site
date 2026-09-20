@@ -33,7 +33,7 @@ export function HeroCanvas() {
       canvas.width = Math.floor(w * dpr);
       canvas.height = Math.floor(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const n = Math.min(80, Math.floor((w * h) / 18000));
+      const n = Math.min(120, Math.floor((w * h) / 12000));
       pts = Array.from({ length: n }, (_, i) => ({
         x: Math.random() * w,
         y: Math.random() * h,
@@ -86,8 +86,8 @@ export function HeroCanvas() {
           const a = pts[i];
           const b = pts[j];
           const d = Math.hypot(a.x - b.x, a.y - b.y);
-          if (d < 130) {
-            ctx.strokeStyle = `rgba(37, 99, 235, ${((1 - d / 130) * 0.35).toFixed(3)})`;
+          if (d < 150) {
+            ctx.strokeStyle = `rgba(37, 99, 235, ${((1 - d / 150) * 0.35).toFixed(3)})`;
             ctx.beginPath();
             ctx.moveTo(a.x + ox, a.y + oy);
             ctx.lineTo(b.x + ox, b.y + oy);

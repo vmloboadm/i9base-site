@@ -4,6 +4,7 @@ import {
   Cases,
   Contact,
   Convites,
+  CrmSection,
   Diferencial,
   Hero,
   Method,
@@ -22,6 +23,7 @@ export default function Home() {
         <OfferStrip />
         <Strip />
         <Solutions />
+        <CrmSection />
         <Convites />
         <Cases />
         <Artes />

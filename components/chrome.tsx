@@ -41,12 +41,9 @@ export function Header() {
         className={`mx-auto flex max-w-6xl items-center justify-between px-4 transition-all duration-300 sm:px-6 ${scrolled ? 'h-16 shadow-[0_4px_24px_rgba(37,99,235,0.15)]' : 'h-20'}`}
       >
         <a href={hrefFor('#topo')} className="flex items-center gap-2.5">
-          <Image src="/logo-icon.png" alt="i9BASE" width={512} height={587} className="h-9 w-auto rounded-lg" />
-          <span className="hidden flex-col leading-none sm:flex">
-            <span className="font-display text-lg font-bold tracking-tight text-white">
-              i9BASE
-            </span>
-            <span className="text-[11px] text-slate-400">Sua base de tecnologia e inovação</span>
+          <Image src="/logo-dark.png" alt="i9BASE" width={1420} height={371} className="h-8 w-auto" />
+          <span className="hidden text-[11px] text-slate-400 lg:inline">
+            Sua base de tecnologia e inovação
           </span>
         </a>
         <nav className="hidden items-center gap-6 md:flex">
@@ -169,6 +166,36 @@ export function Footer() {
                 Instagram @i9base
               </a>
             </li>
+          </ul>
+        </div>
+      </div>
+      <div className="border-t border-slate-200">
+        <div className="mx-auto max-w-6xl px-4 py-4 sm:px-6">
+          <p className="label-eyebrow text-slate-400">Tecnologias que usamos</p>
+          <ul className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
+            {[
+              { name: "Vercel", slug: "vercel" },
+              { name: "Next.js", slug: "nextdotjs" },
+              { name: "Supabase", slug: "supabase" },
+              { name: "n8n", slug: "n8n" },
+              { name: "OpenAI", slug: "openai" },
+              { name: "Node.js", slug: "nodedotjs" },
+              { name: "Tailwind", slug: "tailwindcss" },
+              { name: "WhatsApp", slug: "whatsapp" },
+            ].map((t) => (
+              <li key={t.slug} className="flex items-center gap-1.5">
+                <img
+                  src={`https://cdn.simpleicons.org/${t.slug}/3A4A5C`}
+                  alt=""
+                  aria-hidden
+                  width={16}
+                  height={16}
+                  loading="lazy"
+                  className="h-4 w-4"
+                />
+                <span className="text-xs font-medium text-slate-500">{t.name}</span>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
