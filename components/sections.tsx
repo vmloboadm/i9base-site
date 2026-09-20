@@ -149,7 +149,7 @@ export function Hero() {
             Disponível para novos projetos
           </p>
         </div>
-        <div className="mx-auto mt-6 max-w-md">
+        <div className="mx-auto mt-6 max-w-md rounded-2xl border border-white/10 bg-[#0b0f14] px-8 py-6 shadow-2xl">
           <Image
             src="/logo-dark.png"
             alt="i9BASE"
@@ -157,7 +157,7 @@ export function Hero() {
             height={371}
             priority
             sizes="(max-width: 768px) 100vw, 448px"
-            className="h-auto w-full mix-blend-screen"
+            className="h-auto w-full"
           />
           <p className="mt-4 text-center font-display text-sm font-bold uppercase tracking-[0.22em] text-i9-blue-soft">
             {SLOGAN}
@@ -177,7 +177,7 @@ export function Hero() {
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-i9-blue-soft">
                 WhatsApp + CRM, juntos
               </p>
-              <div className="mt-3 flex flex-nowrap items-center gap-2 overflow-x-auto text-xs font-semibold">
+              <div className="mt-3 flex flex-nowrap items-center gap-1.5 overflow-x-auto text-[11px] font-semibold">
                 <span className="shrink-0 rounded-md bg-i9-blue px-2.5 py-1.5 text-white">
                   Conversa entra
                 </span>
@@ -436,17 +436,17 @@ export function CrmSection() {
     {
       name: 'Novo contato',
       cards: [
-        { n: 'Carlos · Lanchonete', tag: 'Site', hot: false },
-        { n: 'Ana · 15 anos', tag: 'Convite', hot: false },
+        { n: 'Dono de lanchonete', tag: 'Site', hot: false },
+        { n: 'Mãe da debutante', tag: 'Convite', hot: false },
       ],
     },
     {
       name: 'Qualificando',
-      cards: [{ n: 'Carlos · Lanchonete', tag: 'R$ 300+', hot: true }],
+      cards: [{ n: 'Dono de lanchonete', tag: 'Proposta', hot: true }],
     },
     {
       name: 'Proposta',
-      cards: [{ n: 'Padaria Pão Dourado', tag: 'Aguardando', hot: false }],
+      cards: [{ n: 'Padaria no centro', tag: 'Aguardando', hot: false }],
     },
   ];
   return (
