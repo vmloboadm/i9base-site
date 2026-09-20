@@ -16,6 +16,7 @@ import {
   STATS,
   TECHS,
   TRACKS,
+  VALORES_BASE,
   WHATSAPP_URL,
   waLink,
   type CaseImage,
@@ -1070,24 +1071,67 @@ export function Partners() {
   return (
     <section className="bg-i9-paper">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <p className="label-eyebrow text-slate-400">Parceira oficial de produção física</p>
-        <div className="mt-4 flex flex-col gap-2 rounded-xl border border-slate-200 bg-white p-5 sm:flex-row sm:items-center sm:justify-between">
-          <div>
+        <p className="label-eyebrow text-slate-400">Parceria de indicação cruzada</p>
+        <div className="mt-4 flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-5 sm:flex-row sm:items-center sm:gap-6">
+          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-xl bg-i9-ink font-display text-lg font-bold text-white">
+            PT
+          </div>
+          <div className="flex-1">
             <p className="font-display text-lg font-bold text-i9-ink">Peça Tech</p>
             <p className="mt-1 text-sm text-slate-600">
-              Papelaria, convites, adesivos e personalizados com produção parceira.
-              Do digital ao físico sem você procurar fornecedor.
+              Papelaria, informática e lan house. A gente se indica de verdade:
+              quem chega lá conhece o digital, quem chega aqui resolve o físico.
+              Sem vínculo oficial, com confiança de vizinho.
             </p>
           </div>
           <a
-            href={waLink("Oi! Quero saber sobre produção física com a parceira de vocês.")}
+            href={waLink('Oi! Quero saber sobre produção física com a parceira de vocês.')}
             target="_blank"
             rel="noopener"
-            onClick={() => track("whatsapp_click", { from: "partners" })}
-            className="mt-3 shrink-0 rounded-lg border border-i9-blue px-4 py-2 text-center text-sm font-semibold text-i9-blue hover:bg-i9-blue hover:text-white sm:mt-0"
+            onClick={() => track('whatsapp_click', { from: 'partners' })}
+            className="shrink-0 rounded-lg border border-i9-blue px-4 py-2 text-center text-sm font-semibold text-i9-blue hover:bg-i9-blue hover:text-white"
           >
             Pedir produção física
           </a>
+        </div>
+        <p className="mt-2 text-xs text-slate-400">
+          Logo oficial deles entra aqui assim que chegar.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+export function ValoresBase() {
+  return (
+    <section id="valores" className="border-t border-slate-200 bg-white">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <SectionHead
+          label="Valores base"
+          title="Preço de partida, sem surpresa"
+          sub="Tabela de apoio. O orçamento final é personalizado após entender o seu caso."
+        />
+        <div className="overflow-hidden rounded-xl border border-slate-200">
+          <ul className="divide-y divide-slate-100 bg-white">
+            {VALORES_BASE.map((v) => (
+              <li key={v.nome}>
+                <a
+                  href={waLink('Oi! Vi na tabela e quero saber sobre: ' + v.nome + ' (' + v.base + ').')}
+                  target="_blank"
+                  rel="noopener"
+                  onClick={() => track('whatsapp_click', { from: 'valores', solution: v.nome })}
+                  className="group flex items-center justify-between gap-4 px-5 py-3.5 transition hover:bg-i9-paper"
+                >
+                  <span className="text-sm font-medium text-i9-slate group-hover:text-i9-ink">
+                    {v.nome}
+                  </span>
+                  <span className="shrink-0 rounded-md bg-i9-paper px-2.5 py-1 text-sm font-bold text-i9-blue group-hover:bg-i9-blue group-hover:text-white">
+                    {v.base}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

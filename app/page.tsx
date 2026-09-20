@@ -6,6 +6,7 @@ import {
   Convites,
   CrmSection,
   Diferencial,
+  ValoresBase,
   Hero,
   Method,
   OfferStrip,
@@ -31,6 +32,7 @@ export default function Home() {
         <Artes />
         <Method />
         <Diferencial />
+        <ValoresBase />
         <Partners />
         <Contact />
         <Faq />

@@ -645,3 +645,14 @@ export const CONVITE_FLOW = [
 export type Depoimento = { nome: string; papel: string; texto: string };
 
 export const DEPOIMENTOS: Depoimento[] = [];
+
+export const VALORES_BASE = [
+  { nome: 'Currículo Profissional Premium', base: 'R$ 79' },
+  { nome: 'Otimização de LinkedIn + banner', base: 'R$ 97' },
+  { nome: 'Currículo + LinkedIn (combo)', base: 'R$ 147' },
+  { nome: 'Carta de Apresentação', base: 'R$ 57' },
+  { nome: 'Portfólio Profissional (PDF)', base: 'R$ 197' },
+  { nome: 'Convite Digital Imersivo', base: 'R$ 127' },
+  { nome: 'Quadro Netflix Personalizado', base: 'R$ 32' },
+  { nome: 'Combo Eterno (Netflix + Polaroids + Carta)', base: 'R$ 64' },
+];
