@@ -3,14 +3,17 @@
 import { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import {
+  ARTES,
   CASES,
   CONTACT_EMAIL,
+  DIFERENCIAL,
   INSTAGRAM_URL,
   INVITES,
   METHOD,
-  NICHES,
+  OFERTAS,
   SLOGAN,
   SOLUTIONS,
+  STATS,
   TECHS,
   TRACKS,
   WHATSAPP_URL,
@@ -141,7 +144,7 @@ export function Hero() {
       <div className="relative border-t border-white/10 bg-white/5 py-3 backdrop-blur-sm">
         <div className="flex overflow-hidden">
           <div className="animate-marquee flex shrink-0 items-center gap-8 pr-8">
-            {[...NICHES, ...NICHES].map((n, i) => (
+            {[...OFERTAS, ...OFERTAS].map((n, i) => (
               <span key={i} className="whitespace-nowrap text-sm font-medium text-slate-200">
                 {n} <span className="ml-8 text-i9-blue-soft">·</span>
               </span>
@@ -156,7 +159,7 @@ export function Hero() {
 export function Strip() {
   const items = [
     [`${CASES.length}`, "cases em destaque"],
-    ["4", "trilhas de solução"],
+    ["+40", "projetos entregues"],
     ["24/7", "atendimento no WhatsApp"],
   ];
   return (
@@ -259,7 +262,7 @@ export function Solutions() {
   );
 }
 
-function InvitePhone() {
+export function InvitePhone() {
   const [rsvp, setRsvp] = useState<"none" | "yes" | "no">("none");
   return (
     <div className="mx-auto w-full max-w-[300px] rounded-[2rem] border-8 border-i9-ink bg-i9-ink p-1 shadow-xl">
@@ -347,12 +350,11 @@ export function Convites() {
           sub="Convite digital para aniversário, 15 anos, casamento e eventos da família: confirmação de presença, mapa e galeria de fotos em tempo real. Teste aqui como o convidado vive a experiência."
         />
         <div className="grid items-center gap-8 md:grid-cols-2">
-          <InvitePhone />
           <div>
             <ul className="space-y-4 text-sm leading-relaxed text-blue-50">
               <li>
                 <strong className="font-display text-base font-bold text-white">
-                  Para o anfitrião
+                  Para a família
                 </strong>
                 <p className="mt-1">
                   Confirmação organizada, sem planilha e sem correria no
@@ -370,7 +372,7 @@ export function Convites() {
               </li>
               <li>
                 <strong className="font-display text-base font-bold text-white">
-                  No impresso também
+                  Na festa também
                 </strong>
                 <p className="mt-1">
                   Centro de mesa, cardápio e tag com QR que leva à galeria,
@@ -378,15 +380,24 @@ export function Convites() {
                 </p>
               </li>
             </ul>
-            <a
-              href={waLink("Oi! Quero um convite como esse para meu evento.")}
-              target="_blank"
-              rel="noopener"
-              onClick={() => track("whatsapp_click", { from: "convites" })}
-              className="mt-6 inline-block rounded-lg bg-white px-6 py-3 font-semibold text-i9-blue hover:bg-i9-paper"
-            >
-              Quero um convite como esse
-            </a>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <a
+                href="/convites"
+                onClick={() => track("cta_click", { from: "convites_teaser", to: "convites_page" })}
+                className="rounded-lg bg-white px-6 py-3 text-center font-semibold text-i9-blue hover:bg-i9-paper"
+              >
+                Ver como funciona
+              </a>
+              <a
+                href={waLink("Oi! Quero um convite como esse para meu evento.")}
+                target="_blank"
+                rel="noopener"
+                onClick={() => track("whatsapp_click", { from: "convites" })}
+                className="rounded-lg border border-white/40 px-6 py-3 text-center font-semibold text-white hover:bg-white/10"
+              >
+                Quero um convite como esse
+              </a>
+            </div>
             <div className="mt-5 flex flex-wrap gap-2">
               {INVITES.map((inv) => (
                 <a
@@ -405,6 +416,7 @@ export function Convites() {
               Exemplos reais de festas de clientes, abertos para visitação.
             </p>
           </div>
+          <InvitePhone />
         </div>
       </div>
     </section>
@@ -499,7 +511,7 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
   );
 }
 
-const FILTERS = ["Todos", "Sites", "Sistemas", "Branding", "Experiências"] as const;
+const FILTERS = ["Todos", "Sites", "Sistemas", "Branding", "Experiências", "Materiais"] as const;
 
 export function Cases() {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>("Todos");
@@ -630,6 +642,112 @@ export function Cases() {
             })}
           </div>
         )}
+      </div>
+    </section>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M2.5 8.5 6.5 12.5 13.5 3.5" />
+    </svg>
+  );
+}
+
+function CrossIcon() {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round">
+      <path d="M3.5 3.5l9 9 M12.5 3.5l-9 9" />
+    </svg>
+  );
+}
+
+export function Artes() {
+  return (
+    <section id="artes" className="border-y border-slate-200 bg-white">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <SectionHead
+          label="Artes e peças"
+          title="Design que destaca no feed e no mundo real"
+          sub="Uma seleção de peças criadas para clientes: do post ao uniforme, do windbanner ao avental."
+        />
+        <div className="columns-2 gap-4 md:columns-3">
+          {ARTES.map((a) => (
+            <figure
+              key={a.src}
+              className="mb-4 overflow-hidden rounded-xl border border-slate-200 break-inside-avoid"
+            >
+              <Image
+                src={a.src}
+                alt={a.alt}
+                width={600}
+                height={600}
+                sizes="(max-width: 768px) 50vw, 33vw"
+                className="h-auto w-full"
+                loading="lazy"
+              />
+              <figcaption className="px-3 py-2 text-xs font-medium text-slate-500">
+                {a.alt}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function Diferencial() {
+  return (
+    <section id="diferencial" className="bg-i9-paper">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <SectionHead
+          label="Diferencial"
+          title="Por que a i9BASE é diferente"
+          sub="A maioria vende peça. A gente entrega a base funcionando."
+        />
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="rounded-xl border border-slate-200 bg-white p-6">
+            <p className="font-display text-base font-bold text-slate-400">
+              A maioria das agências
+            </p>
+            <ul className="mt-4 space-y-3">
+              {DIFERENCIAL.map((d) => (
+                <li key={d.ruim} className="flex items-start gap-2.5 text-sm text-slate-500">
+                  <span className="mt-0.5 text-slate-300">
+                    <CrossIcon />
+                  </span>
+                  {d.ruim}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-xl border border-i9-blue bg-i9-ink p-6 text-white">
+            <p className="font-display text-base font-bold text-white">A i9BASE</p>
+            <ul className="mt-4 space-y-3">
+              {DIFERENCIAL.map((d) => (
+                <li key={d.bom} className="flex items-start gap-2.5 text-sm text-slate-100">
+                  <span className="mt-0.5 text-emerald-400">
+                    <CheckIcon />
+                  </span>
+                  {d.bom}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div className="mt-6 grid grid-cols-3 gap-4">
+          {STATS.map(([n, label]) => (
+            <div
+              key={label}
+              className="rounded-xl border border-slate-200 bg-white px-4 py-5 text-center"
+            >
+              <p className="font-display text-3xl font-bold text-i9-blue">{n}</p>
+              <p className="mt-1 text-sm text-slate-600">{label}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

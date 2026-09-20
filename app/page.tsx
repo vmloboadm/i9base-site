@@ -1,8 +1,10 @@
 import { BackToTop, Footer, FloatWhats, Header } from "@/components/chrome";
 import {
+  Artes,
   Cases,
   Contact,
   Convites,
+  Diferencial,
   Hero,
   Method,
   Partners,
@@ -20,7 +22,9 @@ export default function Home() {
         <Solutions />
         <Convites />
         <Cases />
+        <Artes />
         <Method />
+        <Diferencial />
         <Partners />
         <Contact />
       </main>

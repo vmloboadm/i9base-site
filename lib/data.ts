@@ -116,6 +116,24 @@ export const SOLUTIONS: Solution[] = [
     msg: "Oi! Quero um diagnóstico do meu negócio.",
     track: "operacao",
   },
+  {
+    name: "E-commerce",
+    desc: "Loja virtual com catálogo, pedido e pagamento para vender todo dia.",
+    msg: "Oi! Quero uma loja virtual para o meu negócio.",
+    track: "operacao",
+  },
+  {
+    name: "Aplicativos",
+    desc: "App sob medida para o seu público, do pedido ao acompanhamento.",
+    msg: "Oi! Quero um aplicativo para o meu negócio.",
+    track: "operacao",
+  },
+  {
+    name: "Social Media e Tráfego",
+    desc: "Conteúdo que posiciona e campanhas que trazem cliente novo.",
+    msg: "Oi! Quero social media e tráfego para o meu negócio.",
+    track: "presenca",
+  },
 ];
 
 export type CaseImage = { src: string; alt: string };
@@ -123,7 +141,7 @@ export type CaseImage = { src: string; alt: string };
 export type CaseItem = {
   slug: string;
   name: string;
-  category: "Sites" | "Sistemas" | "Branding" | "Experiências";
+  category: "Sites" | "Sistemas" | "Branding" | "Experiências" | "Materiais";
   niche: string;
   desc: string;
   tags: string[];
@@ -145,18 +163,61 @@ export const CASES: CaseItem[] = [
     result: "Avaliações virando desconto e retorno",
   },
   {
-    slug: "afranio-tattoo",
-    name: "Afranio Tattoo",
+    slug: "paga-facil",
+    name: "Paga Fácil",
     category: "Sistemas",
-    niche: "Estúdio de tatuagem",
-    desc: "Site com portfólio e orçamento inteligente para tatuador em Campos.",
-    tags: ["Site", "Portfólio", "Orçamento inteligente"],
+    niche: "Cobrança e organização",
+    desc: "Plataforma para organizar e cobrar dívidas informais sem constrangimento.",
+    tags: ["Sistema web", "Cobrança", "Organização"],
     images: [
-      img("/cases/afranio-hero.png", "Site do estúdio Afranio Tattoo"),
-      img("/cases/afranio-port.png", "Portfólio de tatuagens do estúdio"),
-      img("/cases/afranio-cta.png", "Chamada para orçamento do estúdio"),
-      img("/cases/afranio-logo.png", "Logo do estúdio Afranio Tattoo"),
+      img("/cases/paga-1.png", "Plataforma Paga Fácil"),
+      img("/cases/paga-2.png", "Organização de dívidas Paga Fácil"),
+      img("/cases/paga-3.png", "Cobrança Paga Fácil"),
     ],
+  },
+  {
+    slug: "veloz",
+    name: "Veloz Rastreamento",
+    category: "Sistemas",
+    niche: "Rastreamento veicular",
+    desc: "Presença digital para empresa de rastreamento veicular.",
+    tags: ["Site", "Branding", "Social media"],
+    images: [
+      img("/cases/veloz-1.png", "Veloz Rastreamento"),
+      img("/cases/veloz-2.jpg", "Rastreamento veicular"),
+      img("/cases/veloz-3.png", "Arte Veloz Rastreamento"),
+      img("/cases/veloz-4.png", "Post Veloz Rastreamento"),
+    ],
+  },
+  {
+    slug: "ensaio",
+    name: "Ensaio Fotográfico",
+    category: "Branding",
+    niche: "Fotografia",
+    desc: "Identidade e peças para cobertura de ensaios fotográficos.",
+    tags: ["Branding", "Social media"],
+    images: [
+      img("/cases/ensaio-1.jpg", "Ensaio fotográfico"),
+      img("/cases/ensaio-2.png", "Post ensaio fotográfico"),
+    ],
+  },
+  {
+    slug: "tia-josy",
+    name: "Transporte Tia Josy",
+    category: "Branding",
+    niche: "Transporte escolar",
+    desc: "Identidade carinhosa e confiável para transporte escolar.",
+    tags: ["Logo", "Identidade visual"],
+    images: [img("/cases/tiajosy-1.jpg", "Transporte Escolar Tia Josy")],
+  },
+  {
+    slug: "gengibre",
+    name: "Gengibre",
+    category: "Branding",
+    niche: "Alimentação",
+    desc: "Cartão e identidade para marca de gengibre.",
+    tags: ["Branding", "Cartão"],
+    images: [img("/cases/gengibre-1.png", "Cartão Gengibre")],
   },
   {
     slug: "s7ven",
@@ -283,8 +344,8 @@ export const CASES: CaseItem[] = [
     slug: "gigidog",
     name: "GigiDog",
     category: "Branding",
-    niche: "Pet shop",
-    desc: "Identidade, uniformes e materiais promocionais para pet shop.",
+    niche: "Hot dog",
+    desc: "Identidade, uniformes e materiais para o hot dog mais completo e quentinho da cidade.",
     tags: ["Logo", "Identidade visual", "Materiais"],
     images: [
       img("/cases/gigidog.png", "Combo GigiDog"),
@@ -331,70 +392,93 @@ export const CASES: CaseItem[] = [
       img("/cases/oro-padrao.jpg", "Padrão topográfico OroGenese"),
     ],
   },
+  {
+    slug: "personalizados",
+    name: "Papelaria e Personalizados",
+    category: "Materiais",
+    niche: "Produção física",
+    desc: "Canecas, travesseiros, adesivos e velas com identidade, via parceira Peça Tech.",
+    tags: ["Brindes", "Papelaria", "Parceria Peça Tech"],
+    images: [
+      img("/cases/pers-caneca.jpg", "Caneca personalizada"),
+      img("/cases/pers-travesseiro.jpg", "Travesseiro personalizado"),
+      img("/cases/pers-adesivo.png", "Adesivo personalizado"),
+      img("/cases/pers-vela.jpg", "Vela aromática personalizada"),
+    ],
+  },
 ];
 
 export const METHOD = [
   {
     n: "01",
     name: "Diagnóstico estratégico",
-    desc: "Entendemos posicionamento, público e os pontos que travam o seu negócio.",
+    desc: "Analisamos posicionamento, público, concorrência e pontos fracos do seu negócio para construir uma base sólida.",
   },
   {
     n: "02",
     name: "Mapeamento territorial",
-    desc: "Fluxo de pessoas, concorrentes e oportunidades da sua região.",
+    desc: "Fluxo de pessoas, concorrentes próximos e oportunidades da região identificados com precisão.",
   },
   {
     n: "03",
     name: "Posicionamento de marca",
-    desc: "Identidade e comunicação que diferenciam e elevam o seu negócio.",
+    desc: "Branding, identidade visual, comunicação e proposta de valor que diferencia e eleva seu negócio.",
   },
   {
     n: "04",
     name: "Presença digital estruturada",
-    desc: "Site, redes, Google e conteúdo com autoridade no digital local.",
+    desc: "Site, redes sociais, Google e conteúdo com autoridade para dominar o ambiente digital local.",
   },
   {
     n: "05",
     name: "Experiência física da marca",
-    desc: "QR, NFC, embalagens e materiais que reforçam a marca no mundo real.",
+    desc: "Banners, copos, brindes, embalagens e materiais para eventos que reforçam sua identidade no mundo real.",
   },
   {
     n: "06",
     name: "Aquisição de clientes",
-    desc: "Campanhas, tráfego e ações locais para atrair cliente novo.",
+    desc: "Campanhas, tráfego pago, ações locais e parcerias para atrair novos clientes de forma consistente.",
   },
   {
     n: "07",
     name: "Parcerias estratégicas",
-    desc: "Eventos, influenciadores e negócios parceiros para ampliar alcance.",
+    desc: "Eventos, influenciadores locais e outros negócios para ampliar seu alcance e autoridade.",
   },
   {
     n: "08",
     name: "Retenção e fidelização",
-    desc: "Atendimento, follow-up e experiência que transformam cliente em fã.",
+    desc: "Experiência no atendimento, percepção de valor e indicações para transformar clientes em fãs.",
   },
 ];
 
 export const TECHS = ["Vercel", "Next.js", "Supabase", "n8n", "OpenAI", "Node.js"];
 
-export const NICHES = [
-  "Restaurantes",
-  "Academias",
+export const OFERTAS = [
+  "Sites Profissionais",
+  "Sistemas Web",
+  "Identidade Visual",
+  "Branding",
+  "Marketing Digital",
+  "Social Media",
+  "Tráfego Pago",
+  "Landing Pages",
+  "E-commerce",
+  "Aplicativos",
+  "Automação",
+  "QR Code e NFC",
+  "Convites Interativos",
+  "Uniformes",
+  "Brindes",
+  "Embalagens",
+  "Materiais Personalizados",
   "Eventos",
-  "Salões de festa",
-  "Clínicas",
-  "Pet shops",
-  "Lojas locais",
-  "Cerimonialistas",
-  "Transporte escolar",
-  "Profissionais autônomos",
 ];
 
 export const NAV = [
   { href: "#solucoes", label: "Soluções" },
-  { href: "#convites", label: "Convites" },
+  { href: "/convites", label: "Convites" },
   { href: "#cases", label: "Cases" },
+  { href: "#artes", label: "Artes" },
   { href: "#metodo", label: "Método" },
   { href: "#contato", label: "Contato" },
 ];
@@ -410,4 +494,56 @@ export const INVITES = [
     name: "1 ano · Vicente",
     url: "https://vicente-1-ano.vercel.app/",
   },
+];
+
+export type Arte = { src: string; alt: string };
+
+export const ARTES: Arte[] = [
+  { src: "/artes/alien-chef-com-rodap.png", alt: "Arte Alien Chef" },
+  { src: "/artes/alien-mordida.png", alt: "Arte Alien Mordida" },
+  { src: "/artes/alien-nova-estrategia.png", alt: "Nova estratégia Alien Burger" },
+  { src: "/artes/gigidog-uniforme.png", alt: "Uniforme GigiDog" },
+  { src: "/artes/gigidog-wind.png", alt: "Windbanner GigiDog" },
+  { src: "/artes/oro-camiseta.jpg", alt: "Camiseta OroGenese" },
+  { src: "/artes/oro-moletom.jpg", alt: "Moletom OroGenese" },
+  { src: "/artes/oro-padrao.jpg", alt: "Padrão topográfico OroGenese" },
+  { src: "/artes/s7ven-wind.png", alt: "Windbanner S7ven" },
+  { src: "/artes/mahaflow-wind.png", alt: "Windbanner MahaFlow" },
+  { src: "/artes/mockup-avental-churrasquinho-bom-sabor.jpg", alt: "Avental Churrasquinho Bom Sabor" },
+  { src: "/artes/post-18-experiência-cliente.jpg", alt: "Post experiência do cliente" },
+  { src: "/artes/arte-instagram-com-logo.png", alt: "Arte para Instagram" },
+  { src: "/artes/arte-instagram-self-service.png", alt: "Arte self service" },
+];
+
+export const DIFERENCIAL: { ruim: string; bom: string }[] = [
+  {
+    ruim: "Foco apenas em social media",
+    bom: "Estratégia completa e integrada",
+  },
+  {
+    ruim: "Só tráfego pago, sem estratégia",
+    bom: "Marca forte e bem posicionada",
+  },
+  {
+    ruim: "Sem diagnóstico do negócio",
+    bom: "Presença digital estruturada",
+  },
+  {
+    ruim: "Sem identidade de marca sólida",
+    bom: "Experiência física da marca",
+  },
+  {
+    ruim: "Sem visão de crescimento a longo prazo",
+    bom: "Aquisição e fidelização de clientes",
+  },
+  {
+    ruim: "Resultados fragmentados e inconsistentes",
+    bom: "Crescimento real e mensurável",
+  },
+];
+
+export const STATS: [string, string][] = [
+  ["+40", "projetos entregues"],
+  ["+10", "nichos atendidos"],
+  ["8", "pilares do método"],
 ];
