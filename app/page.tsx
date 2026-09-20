@@ -7,6 +7,7 @@ import {
   Diferencial,
   Hero,
   Method,
+  OfferStrip,
   Partners,
   Solutions,
   Strip,
@@ -18,6 +19,7 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
+        <OfferStrip />
         <Strip />
         <Solutions />
         <Convites />

@@ -19,10 +19,12 @@ export const metadata: Metadata = {
   description:
     "Sites, sistemas, automação e atendimento com IA para negócios locais. Estruture, automatize e evolua com a i9BASE.",
   metadataBase: new URL("https://i9base.com.br"),
+  alternates: { canonical: "https://i9base.com.br" },
   openGraph: {
     title: "i9BASE · Sua base de tecnologia e inovação",
     description:
       "Estruture. Automatize. Evolua. Sites, sistemas, automação e IA para o seu negócio.",
+    url: "https://i9base.com.br",
     type: "website",
     locale: "pt_BR",
   },

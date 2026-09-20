@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
-// Rede de conexões sutil que reage ao mouse. Pausa fora da tela e
-// respeita quem prefere movimento reduzido.
+// Rede neural sobre grid em perspectiva. Reage ao mouse (parallax leve),
+// pausa fora da tela e desliga em movimento reduzido.
 export function HeroCanvas() {
   const ref = useRef<HTMLCanvasElement>(null);
 
@@ -18,9 +18,11 @@ export function HeroCanvas() {
     let h = 0;
     let raf = 0;
     let running = true;
-    const mouse = { x: -9999, y: -9999 };
+    let t = 0;
+    const mouse = { x: 0.5, y: 0.5 };
+    const par = { x: 0, y: 0 };
 
-    type P = { x: number; y: number; vx: number; vy: number };
+    type P = { x: number; y: number; vx: number; vy: number; pulse: number };
     let pts: P[] = [];
 
     const resize = () => {
@@ -31,30 +33,52 @@ export function HeroCanvas() {
       canvas.width = Math.floor(w * dpr);
       canvas.height = Math.floor(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const n = Math.min(90, Math.floor((w * h) / 16000));
-      pts = Array.from({ length: n }, () => ({
+      const n = Math.min(80, Math.floor((w * h) / 18000));
+      pts = Array.from({ length: n }, (_, i) => ({
         x: Math.random() * w,
         y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        pulse: (i * 0.7) % (Math.PI * 2),
       }));
+    };
+
+    const grid = () => {
+      // Grade em perspectiva na base
+      ctx.strokeStyle = "rgba(37, 99, 235, 0.10)";
+      ctx.lineWidth = 1;
+      const horizon = h * 0.62;
+      for (let i = 0; i <= 12; i++) {
+        const x = (w / 12) * i + par.x * 8;
+        ctx.beginPath();
+        ctx.moveTo(w / 2 + (x - w / 2) * 0.25, horizon);
+        ctx.lineTo(w / 2 + (x - w / 2) * 1.6, h);
+        ctx.stroke();
+      }
+      for (let i = 0; i < 6; i++) {
+        const y = horizon + ((h - horizon) / 6) * i;
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(w, y);
+        ctx.stroke();
+      }
     };
 
     const step = () => {
       if (!running) return;
+      t += 0.016;
+      par.x += (mouse.x - 0.5 - par.x) * 0.04;
+      par.y += (mouse.y - 0.5 - par.y) * 0.04;
       ctx.clearRect(0, 0, w, h);
+      grid();
+
+      const ox = par.x * 14;
+      const oy = par.y * 10;
       for (const p of pts) {
         p.x += p.vx;
         p.y += p.vy;
         if (p.x < 0 || p.x > w) p.vx *= -1;
         if (p.y < 0 || p.y > h) p.vy *= -1;
-        const dx = p.x - mouse.x;
-        const dy = p.y - mouse.y;
-        const d = Math.hypot(dx, dy);
-        if (d > 0 && d < 130) {
-          p.x += (dx / d) * 0.6;
-          p.y += (dy / d) * 0.6;
-        }
       }
       ctx.lineWidth = 1;
       for (let i = 0; i < pts.length; i++) {
@@ -62,19 +86,20 @@ export function HeroCanvas() {
           const a = pts[i];
           const b = pts[j];
           const d = Math.hypot(a.x - b.x, a.y - b.y);
-          if (d < 140) {
-            ctx.strokeStyle = `rgba(96, 165, 250, ${((1 - d / 140) * 0.28).toFixed(3)})`;
+          if (d < 130) {
+            ctx.strokeStyle = `rgba(37, 99, 235, ${((1 - d / 130) * 0.35).toFixed(3)})`;
             ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
+            ctx.moveTo(a.x + ox, a.y + oy);
+            ctx.lineTo(b.x + ox, b.y + oy);
             ctx.stroke();
           }
         }
       }
-      ctx.fillStyle = "rgba(147, 197, 253, 0.7)";
       for (const p of pts) {
+        const glow = 0.45 + 0.35 * Math.sin(t * 2 + p.pulse);
+        ctx.fillStyle = `rgba(96, 165, 250, ${glow.toFixed(3)})`;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, 1.4, 0, Math.PI * 2);
+        ctx.arc(p.x + ox, p.y + oy, 1.6, 0, Math.PI * 2);
         ctx.fill();
       }
       raf = requestAnimationFrame(step);
@@ -82,28 +107,12 @@ export function HeroCanvas() {
 
     const onMove = (e: PointerEvent) => {
       const rect = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - rect.left;
-      mouse.y = e.clientY - rect.top;
-    };
-    const onLeave = () => {
-      mouse.x = -9999;
-      mouse.y = -9999;
+      mouse.x = (e.clientX - rect.left) / Math.max(1, rect.width);
+      mouse.y = (e.clientY - rect.top) / Math.max(1, rect.height);
     };
 
     resize();
-    if (reduced) {
-      // Um quadro estático, sem animação
-      running = false;
-      ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = "rgba(147, 197, 253, 0.5)";
-      for (const p of pts) {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 1.4, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    } else {
-      raf = requestAnimationFrame(step);
-    }
+    if (!reduced) raf = requestAnimationFrame(step);
 
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -120,16 +129,15 @@ export function HeroCanvas() {
     );
     io.observe(canvas);
     window.addEventListener("resize", resize);
-    canvas.parentElement?.addEventListener("pointermove", onMove);
-    canvas.parentElement?.addEventListener("pointerleave", onLeave);
+    const parent = canvas.parentElement;
+    parent?.addEventListener("pointermove", onMove);
 
     return () => {
       running = false;
       cancelAnimationFrame(raf);
       io.disconnect();
       window.removeEventListener("resize", resize);
-      canvas.parentElement?.removeEventListener("pointermove", onMove);
-      canvas.parentElement?.removeEventListener("pointerleave", onLeave);
+      parent?.removeEventListener("pointermove", onMove);
     };
   }, []);
 

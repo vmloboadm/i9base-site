@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import {
   ARTES,
@@ -23,7 +23,6 @@ import {
 import { track } from "@/lib/analytics";
 import { HeroCanvas } from "@/components/hero-canvas";
 import { ChatDemo } from "@/components/chat-demo";
-
 function Chevron() {
   return (
     <svg
@@ -38,6 +37,49 @@ function Chevron() {
     >
       <path d="M6 3.5 10.5 8 6 12.5" />
     </svg>
+  );
+}
+
+function Reveal({
+  children,
+  className = "",
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setVisible(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      style={{ transitionDelay: `${delay}ms` }}
+      className={`reveal-scroll ${visible ? "reveal-scroll-on" : ""} ${className}`}
+    >
+      {children}
+    </div>
   );
 }
 
@@ -73,7 +115,7 @@ function SectionHead({
 
 export function Hero() {
   return (
-    <section id="topo" className="relative overflow-hidden bg-i9-ink text-white">
+    <section id="topo" className="grain relative overflow-hidden bg-i9-ink text-white">
       <div
         aria-hidden
         className="absolute inset-0"
@@ -84,7 +126,16 @@ export function Hero() {
       />
       <HeroCanvas />
       <div className="relative mx-auto max-w-6xl px-4 pb-10 pt-14 sm:px-6 sm:pt-20">
-        <div className="mx-auto max-w-xl">
+        <div className="flex justify-center">
+          <p className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-1.5 text-xs font-semibold text-emerald-300">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+            </span>
+            Disponível para novos projetos
+          </p>
+        </div>
+        <div className="mx-auto mt-6 max-w-xl">
           <Image
             src="/logo-dark.png"
             alt="i9BASE"
@@ -216,42 +267,49 @@ export function Solutions() {
             );
           })}
         </div>
-        <div
-          key={active}
-          className="animate-panel overflow-hidden rounded-xl border border-white/10 bg-white"
-        >
-          <div className="border-b border-slate-200 bg-i9-paper px-5 py-4 sm:px-6">
-            <p className="font-display text-lg font-bold text-i9-ink">{trackInfo.name}</p>
-            <p className="mt-1 text-sm text-slate-600">{trackInfo.desc}</p>
-          </div>
-          <ul className="divide-y divide-slate-100">
-            {items.map((s) => (
-              <li key={s.name}>
-                <a
-                  href={waLink(`Oi! Vi no site e quero saber sobre: ${s.name}.`)}
-                  target="_blank"
-                  rel="noopener"
-                  onClick={() =>
-                    track("whatsapp_click", { from: "solution_row", solution: s.name })
-                  }
-                  className="group flex items-center gap-4 px-5 py-4 transition hover:bg-i9-paper sm:px-6"
-                >
-                  <div className="flex-1">
-                    <p className="font-display text-base font-bold text-i9-ink group-hover:text-i9-blue">
-                      {s.name}
-                    </p>
-                    <p className="mt-1 text-sm leading-relaxed text-slate-600">{s.desc}</p>
-                  </div>
-                  <span
-                    aria-hidden
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 text-i9-slate transition group-hover:border-i9-blue group-hover:bg-i9-blue group-hover:text-white"
-                  >
-                    <Chevron />
+        <div key={active} className="animate-panel grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((s) => {
+            const featured = s.name === 'Convites Interativos';
+            return (
+              <div
+                key={s.name}
+                className={`group relative flex flex-col overflow-hidden rounded-xl border bg-white p-5 transition duration-300 hover:-translate-y-1 ${featured ? 'border-i9-blue shadow-[0_0_40px_rgba(37,99,235,0.25)] sm:col-span-2 lg:col-span-2' : 'border-slate-200 hover:border-transparent hover:shadow-[0_0_40px_rgba(37,99,235,0.3)] hover:ring-1 hover:ring-i9-blue'}`}
+              >
+                {featured && (
+                  <span className="absolute right-4 top-4 rounded-md bg-i9-blue px-2 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+                    Destaque
                   </span>
-                </a>
-              </li>
-            ))}
-          </ul>
+                )}
+                <h3 className="font-display text-base font-bold text-i9-ink group-hover:text-i9-blue">
+                  {s.name}
+                </h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{s.desc}</p>
+                <p className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-md bg-i9-paper px-2.5 py-1 text-xs font-bold text-i9-blue">
+                  {s.badge}
+                </p>
+                <div className="mt-4 flex gap-2">
+                  <a
+                    href={waLink('Oi! Vi no site e quero saber sobre: ' + s.name + '.')}
+                    target="_blank"
+                    rel="noopener"
+                    onClick={() => track('whatsapp_click', { from: 'solution_card', solution: s.name })}
+                    className="flex-1 rounded-lg bg-i9-ink px-4 py-2.5 text-center text-sm font-semibold text-white transition group-hover:bg-i9-blue"
+                  >
+                    Quero essa solução
+                  </a>
+                  {featured && (
+                    <a
+                      href="/convites"
+                      onClick={() => track('cta_click', { from: 'solution_card', to: 'convites_page' })}
+                      className="rounded-lg border border-i9-blue px-4 py-2.5 text-center text-sm font-semibold text-i9-blue hover:bg-i9-blue hover:text-white"
+                    >
+                      Ver página completa →
+                    </a>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
         <p className="mt-6 text-sm text-slate-400">
           Orçamento sempre personalizado após entender o seu caso, e parceria é
@@ -423,6 +481,19 @@ export function Convites() {
   );
 }
 
+function CasePlaceholder({ name }: { name: string }) {
+  return (
+    <div className="frame-corners relative flex aspect-[4/3] items-center justify-center bg-[#121820]">
+      <p className="px-6 text-center font-display text-sm font-bold uppercase tracking-[0.18em] text-slate-400">
+        [INSERIR IMAGEM REAL DO CASE]
+        <span className="mt-2 block text-xs font-medium normal-case tracking-normal text-slate-500">
+          {name}
+        </span>
+      </p>
+    </div>
+  );
+}
+
 function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
@@ -438,6 +509,9 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
 
   if (images.length === 1) {
     const im = images[0];
+    if (im.placeholder) {
+      return <CasePlaceholder name={name} />;
+    }
     return (
       <div className="relative aspect-[4/3]">
         <Image
@@ -464,7 +538,12 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
         className="flex h-full snap-x snap-mandatory overflow-x-auto"
         style={{ scrollbarWidth: "none" }}
       >
-        {images.map((im) => (
+        {images.map((im) =>
+          im.placeholder ? (
+            <div key="placeholder" className="h-full w-full shrink-0 snap-center">
+              <CasePlaceholder name={name} />
+            </div>
+          ) : (
           <div key={im.src} className="relative h-full w-full shrink-0 snap-center">
             <Image
               src={im.src}
@@ -476,7 +555,8 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
               draggable={false}
             />
           </div>
-        ))}
+          )
+        )}
       </div>
       <button
         onClick={() => go(index - 1)}
@@ -672,6 +752,7 @@ export function Artes() {
           title="Design que destaca no feed e no mundo real"
           sub="Uma seleção de peças criadas para clientes: do post ao uniforme, do windbanner ao avental."
         />
+        <Reveal>
         <div className="columns-2 gap-4 md:columns-3">
           {ARTES.map((a) => (
             <figure
@@ -693,6 +774,7 @@ export function Artes() {
             </figure>
           ))}
         </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -737,6 +819,7 @@ export function Diferencial() {
             </ul>
           </div>
         </div>
+        <Reveal>
         <div className="mt-6 grid grid-cols-3 gap-4">
           {STATS.map(([n, label]) => (
             <div
@@ -748,6 +831,7 @@ export function Diferencial() {
             </div>
           ))}
         </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -762,6 +846,7 @@ export function Method() {
           title="O método que organiza o crescimento"
           sub="Antes de vender qualquer peça, entendemos o negócio. Oito passos, do diagnóstico à fidelização."
         />
+        <Reveal>
         <ol className="divide-y divide-slate-200 border-y border-slate-200">
           {METHOD.map((m) => (
             <li
@@ -774,6 +859,7 @@ export function Method() {
             </li>
           ))}
         </ol>
+        </Reveal>
       </div>
     </section>
   );
@@ -816,7 +902,7 @@ export function Contact() {
       style={{ background: "linear-gradient(180deg, #f5f6fb 0%, #dbe4f5 30%, #0b0f14 78%)" }}
     >
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <div className="rounded-2xl bg-i9-ink p-6 sm:p-10">
+        <div className="grain relative rounded-2xl bg-i9-ink p-6 sm:p-10">
           <SectionHead
             dark
             label="Contato"
@@ -901,6 +987,66 @@ export function Contact() {
           </div>
         </div>
       </div>
+    </section>
+  );
+}
+
+function OfferDot() {
+  return (
+    <span
+      aria-hidden
+      className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-i9-blue"
+    >
+      <svg viewBox="0 0 12 12" className="h-3 w-3 fill-white" aria-hidden>
+        <path d="M6.5 1 11 6.5 6.5 12 5 10.5 8 7.5H1V5.5h7L5 2.5Z" />
+      </svg>
+    </span>
+  );
+}
+
+export function OfferStrip() {
+  const row = (items: string[], reverse: boolean, label: string) => (
+    <div className="flex overflow-hidden py-2.5" aria-label={label}>
+      <div
+        className={`flex shrink-0 items-center gap-6 pr-6 ${
+          reverse ? "animate-marquee-reverse" : "animate-marquee-slow"
+        } hover:[animation-play-state:paused]`}
+      >
+        {[...items, ...items].map((n, i) => (
+          <span
+            key={i}
+            aria-hidden={i >= items.length}
+            className="flex items-center gap-6 whitespace-nowrap"
+          >
+            <span className="flex items-center gap-2.5">
+              <OfferDot />
+              <span className="text-sm font-semibold text-slate-100">{n}</span>
+            </span>
+            <span aria-hidden className="text-xs font-bold text-i9-blue">
+              ◆
+            </span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+  return (
+    <section
+      aria-label="Nossas ofertas"
+      className="border-y border-[rgba(37,99,235,0.2)] bg-[#121820]"
+    >
+      <div className="border-b border-[rgba(37,99,235,0.12)]">
+        {row(
+          ["Sites e Landing Pages", "Sistemas e CRM", "Automação WhatsApp", "QR e NFC", "Identidade Visual"],
+          false,
+          "Ofertas, linha um"
+        )}
+      </div>
+      {row(
+        ["IA para Conteúdo", "Convites Interativos", "Cardápio Digital", "Gestão de Academias", "Integração ERP"],
+        true,
+        "Ofertas, linha dois"
+      )}
     </section>
   );
 }

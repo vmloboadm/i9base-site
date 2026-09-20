@@ -13,22 +13,40 @@ import { track } from "@/lib/analytics";
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const hrefFor = (href: string) => withHome(pathname, href);
 
   useEffect(() => {
-    track("page_view", { page: pathname === "/" ? "home" : pathname });
+    track('page_view', { page: pathname === '/' ? 'home' : pathname });
   }, [pathname]);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open ]);
+
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <a href={hrefFor("#topo")} className="flex items-baseline gap-2">
-          <span className="font-display text-xl font-bold tracking-tight text-i9-ink">
-            i9<span className="text-i9-blue">BASE</span>
-          </span>
-          <span className="hidden text-xs text-slate-500 sm:inline">
-            Sua base de tecnologia e inovação
+    <header className="sticky top-0 z-40 border-b border-[rgba(37,99,235,0.15)] bg-[#0b0f14]/60 backdrop-blur-xl transition-all duration-300">
+      <div
+        className={`mx-auto flex max-w-6xl items-center justify-between px-4 transition-all duration-300 sm:px-6 ${scrolled ? 'h-16 shadow-[0_4px_24px_rgba(37,99,235,0.15)]' : 'h-20'}`}
+      >
+        <a href={hrefFor('#topo')} className="flex items-center gap-2.5">
+          <Image src="/logo-icon.png" alt="i9BASE" width={512} height={587} className="h-9 w-auto rounded-lg" />
+          <span className="hidden flex-col leading-none sm:flex">
+            <span className="font-display text-lg font-bold tracking-tight text-white">
+              i9BASE
+            </span>
+            <span className="text-[11px] text-slate-400">Sua base de tecnologia e inovação</span>
           </span>
         </a>
         <nav className="hidden items-center gap-6 md:flex">
@@ -36,46 +54,57 @@ export function Header() {
             <a
               key={item.href}
               href={hrefFor(item.href)}
-              className="text-sm font-medium text-i9-slate hover:text-i9-blue"
+              className="text-sm font-medium text-slate-300 hover:text-white"
             >
               {item.label}
             </a>
           ))}
           <a
-            href={waLink("Oi! Vim pelo site da i9BASE e quero conversar sobre meu negócio.")}
+            href={waLink('Oi! Vim pelo site da i9BASE e quero conversar sobre meu negócio.')}
             target="_blank"
             rel="noopener"
-            onClick={() => track("whatsapp_click", { from: "header" })}
+            onClick={() => track('whatsapp_click', { from: 'header' })}
             className="rounded-lg bg-i9-blue px-4 py-2 text-sm font-semibold text-white hover:bg-i9-blue-deep"
           >
             Chamar no WhatsApp
           </a>
         </nav>
         <button
-          className="rounded-lg border border-slate-200 px-3 py-2 text-sm font-semibold text-i9-slate md:hidden"
+          className="rounded-lg border border-white/15 px-3 py-2 text-sm font-semibold text-white md:hidden"
           onClick={() => setOpen((v) => !v)}
-          aria-label="Abrir menu"
+          aria-label={open ? 'Fechar menu' : 'Abrir menu'}
+          aria-expanded={open}
         >
-          Menu
+          {open ? 'Fechar' : 'Menu'}
         </button>
       </div>
+      <div aria-hidden className="animate-lightline h-px bg-[linear-gradient(90deg,transparent,rgba(37,99,235,0.8),transparent)] bg-[length:200%_100%]" />
       {open && (
-        <nav className="border-t border-slate-200 bg-white px-4 py-3 md:hidden">
-          {NAV.map((item) => (
+        <nav className="fixed inset-0 top-0 z-50 flex flex-col bg-i9-ink px-6 pb-10 pt-24 md:hidden">
+          <button
+            className="absolute right-4 top-5 rounded-lg border border-white/15 px-3 py-2 text-sm font-semibold text-white"
+            onClick={() => setOpen(false)}
+            aria-label="Fechar menu"
+          >
+            Fechar
+          </button>
+          {NAV.map((item, i) => (
             <a
               key={item.href}
               href={hrefFor(item.href)}
               onClick={() => setOpen(false)}
-              className="block rounded-lg px-2 py-2 text-sm font-medium text-i9-slate hover:bg-i9-paper"
+              style={{ animationDelay: (i * 60) + 'ms' }}
+              className="animate-drawer-item border-b border-white/10 py-4 font-display text-2xl font-bold text-white"
             >
               {item.label}
             </a>
           ))}
           <a
-            href={waLink("Oi! Vim pelo site da i9BASE e quero conversar sobre meu negócio.")}
+            href={waLink('Oi! Vim pelo site da i9BASE e quero conversar sobre meu negócio.')}
             target="_blank"
             rel="noopener"
-            className="mt-2 block rounded-lg bg-i9-blue px-2 py-2 text-center text-sm font-semibold text-white"
+            style={{ animationDelay: (NAV.length * 60) + 'ms' }}
+            className="animate-drawer-item mt-6 rounded-lg bg-i9-blue px-4 py-3 text-center font-semibold text-white"
           >
             Chamar no WhatsApp
           </a>

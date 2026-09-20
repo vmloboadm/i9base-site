@@ -41,6 +41,7 @@ export type Solution = {
   desc: string;
   msg: string;
   track: string;
+  badge: string;
 };
 
 export const SOLUTIONS: Solution[] = [
@@ -48,95 +49,116 @@ export const SOLUTIONS: Solution[] = [
     name: "Sites e Landing Pages",
     desc: "Site institucional, página de campanha ou hub que carrega rápido e converte visita em contato.",
     msg: "Oi! Quero um site para o meu negócio.",
+    badge: "Do QR ao pedido em poucos toques",
     track: "presenca",
   },
   {
     name: "Identidade Visual",
     desc: "Logo e identidade que posicionam sua marca, do cartão ao Instagram.",
     msg: "Oi! Preciso de identidade visual para minha marca.",
+    badge: "Marca que impõe respeito",
     track: "presenca",
   },
   {
     name: "QR Code e NFC",
     desc: "Placa, cardápio, etiqueta ou cartão que leva o cliente direto ao seu digital.",
     msg: "Oi! Quero QR Code e NFC para o meu negócio.",
+    badge: "Do físico ao digital em 1 scan",
     track: "presenca",
   },
   {
     name: "Atendimento com IA",
     desc: "Agente que atende, qualifica o cliente e registra tudo no CRM, 24h por dia.",
     msg: "Oi! Quero um atendimento com IA no meu negócio.",
+    badge: "Resposta em segundos, 24h",
     track: "atendimento",
   },
   {
     name: "WhatsApp Automatizado",
     desc: "Seu WhatsApp como canal de venda, com funil, follow-up e histórico organizado.",
     msg: "Oi! Quero automatizar meu WhatsApp.",
+    badge: "Nenhum contato esfria",
     track: "atendimento",
   },
   {
     name: "CRM e Funil de Vendas",
     desc: "Pipeline, follow-up automático e histórico de cada cliente num só lugar.",
     msg: "Oi! Quero um CRM para organizar minhas vendas.",
+    badge: "Todo cliente no funil",
     track: "atendimento",
   },
   {
     name: "Convites Interativos",
     desc: "Convite digital com confirmação, mapa e galeria de fotos em tempo real na festa.",
     msg: "Oi! Quero um convite como esse para meu evento.",
+    badge: "Confirmação em 1 toque",
     track: "experiencias",
   },
   {
     name: "Experiências Digitais",
     desc: "Hubs de evento, galerias ao vivo e interações que conectam o físico ao digital.",
     msg: "Oi! Quero uma experiência digital para meu evento.",
+    badge: "Festa que vira memória",
     track: "experiencias",
   },
   {
     name: "Curadoria Digital",
     desc: "Você precisa, a gente resolve e entrega pronto: pesquisa, compra e implantação.",
     msg: "Oi! Preciso resolver uma questão digital.",
+    badge: "Você pede, a gente entrega",
     track: "experiencias",
   },
   {
     name: "Sistemas Personalizados",
     desc: "Aplicação web, painel ou dashboard feito sob medida para a sua operação.",
     msg: "Oi! Preciso de um sistema para a minha operação.",
+    badge: "Sua operação num painel só",
     track: "operacao",
   },
   {
     name: "Automação de Processos",
     desc: "Integrações e fluxos que tiram o trabalho manual do seu dia a dia.",
     msg: "Oi! Quero automatizar processos no meu negócio.",
+    badge: "Menos manual, mais venda",
     track: "operacao",
   },
   {
     name: "Gestão e Consultoria",
     desc: "Diagnóstico e organização digital: presença, processos e operação.",
     msg: "Oi! Quero um diagnóstico do meu negócio.",
+    badge: "Decisão com número",
     track: "operacao",
   },
   {
     name: "E-commerce",
     desc: "Loja virtual com catálogo, pedido e pagamento para vender todo dia.",
     msg: "Oi! Quero uma loja virtual para o meu negócio.",
+    badge: "Loja aberta todo dia",
     track: "operacao",
   },
   {
     name: "Aplicativos",
     desc: "App sob medida para o seu público, do pedido ao acompanhamento.",
     msg: "Oi! Quero um aplicativo para o meu negócio.",
+    badge: "Seu negócio no bolso",
     track: "operacao",
   },
   {
     name: "Social Media e Tráfego",
     desc: "Conteúdo que posiciona e campanhas que trazem cliente novo.",
     msg: "Oi! Quero social media e tráfego para o meu negócio.",
+    badge: "Cliente novo todo mês",
     track: "presenca",
   },
 ];
 
-export type CaseImage = { src: string; alt: string };
+export type CaseImage = { src: string; alt: string; placeholder?: boolean };
+
+export const PANELA_PLACEHOLDER: CaseImage = {
+  src: "",
+  alt: "[INSERIR IMAGEM REAL DO CASE]",
+  placeholder: true,
+};
 
 export type CaseItem = {
   slug: string;
@@ -152,16 +174,6 @@ export type CaseItem = {
 const img = (src: string, alt: string): CaseImage => ({ src, alt });
 
 export const CASES: CaseItem[] = [
-  {
-    slug: "panela-da-roca",
-    name: "Panela da Roça",
-    category: "Sistemas",
-    niche: "Restaurante",
-    desc: "Avaliação via QR, gestão e atendimento conectando salão e digital.",
-    tags: ["QR Code", "Gestão", "Avaliações"],
-    images: [img("/cases/panela-da-roca.png", "Peça de avaliação via QR da Panela da Roça")],
-    result: "Avaliações virando desconto e retorno",
-  },
   {
     slug: "paga-facil",
     name: "Paga Fácil",
@@ -230,20 +242,6 @@ export const CASES: CaseItem[] = [
       img("/cases/s7ven-banner.png", "Campanha da perfumaria S7ven"),
       img("/cases/s7ven-cartao.png", "Cartão de visita S7ven"),
       img("/cases/s7ven-wind.png", "Windbanner S7ven"),
-    ],
-  },
-  {
-    slug: "personalizados",
-    name: "Papelaria e Personalizados",
-    category: "Branding",
-    niche: "Produção física",
-    desc: "Canecas, travesseiros, adesivos e velas com identidade, via parceira Peça Tech.",
-    tags: ["Brindes", "Papelaria", "Parceria Peça Tech"],
-    images: [
-      img("/cases/pers-caneca.jpg", "Caneca personalizada"),
-      img("/cases/pers-travesseiro.jpg", "Travesseiro personalizado"),
-      img("/cases/pers-adesivo.png", "Adesivo personalizado"),
-      img("/cases/pers-vela.jpg", "Vela aromática personalizada"),
     ],
   },
   {
@@ -406,6 +404,16 @@ export const CASES: CaseItem[] = [
       img("/cases/pers-vela.jpg", "Vela aromática personalizada"),
     ],
   },
+  {
+    slug: "panela-da-roca",
+    name: "Panela da Roça",
+    category: "Sistemas",
+    niche: "Restaurante",
+    desc: "Avaliação via QR, gestão e atendimento conectando salão e digital.",
+    tags: ["QR Code", "Gestão", "Avaliações"],
+    images: [PANELA_PLACEHOLDER],
+    result: "Avaliações virando desconto e retorno",
+  },
 ];
 
 export const METHOD = [
@@ -547,3 +555,92 @@ export const STATS: [string, string][] = [
   ["+10", "nichos atendidos"],
   ["8", "pilares do método"],
 ];
+
+export const OFERTAS_STRIP = [
+  "Sites e Landing Pages",
+  "Sistemas e CRM",
+  "Automação WhatsApp",
+  "QR e NFC",
+  "Identidade Visual",
+  "IA para Conteúdo",
+  "Convites Interativos",
+  "Cardápio Digital",
+  "Gestão de Academias",
+  "Integração ERP",
+];
+
+export type Pacote = {
+  id: string;
+  name: string;
+  desc: string;
+  features: string[];
+  destaque?: boolean;
+};
+
+export const PACOTES: Pacote[] = [
+  {
+    id: "essencial",
+    name: "Essencial",
+    desc: "O convite digital para celebrar sem complicação.",
+    features: [
+      "Convite digital personalizado",
+      "Confirmação de presença",
+      "Mapa e informações do evento",
+      "Link direto no WhatsApp",
+    ],
+  },
+  {
+    id: "completo",
+    name: "Completo",
+    desc: "A experiência que o convidado vive do início ao fim.",
+    features: [
+      "Tudo do Essencial",
+      "Música e contagem regressiva",
+      "Galeria de fotos em tempo real",
+      "Lista de presentes e PIX",
+    ],
+    destaque: true,
+  },
+  {
+    id: "premium",
+    name: "Premium",
+    desc: "Do digital ao impresso, a festa inteira na mesma identidade.",
+    features: [
+      "Tudo do Completo",
+      "Centro de mesa com QR",
+      "Tag NFC da festa",
+      "Impressos combinando",
+    ],
+  },
+];
+
+export const CONVITE_FEATURES = [
+  { name: "Galeria em tempo real", desc: "Fotos dos convidados entram na hora." },
+  { name: "Música", desc: "Trilha do evento no próprio convite." },
+  { name: "RSVP em 1 toque", desc: "Confirmação sem cadastro e sem app." },
+  { name: "Mapa", desc: "Como chegar, sem WhatsApp perdido." },
+  { name: "Presentes e PIX", desc: "Lista e chave na mesma tela." },
+  { name: "Contagem regressiva", desc: "Ansiedade boa até o grande dia." },
+];
+
+export const CONVITE_FLOW = [
+  {
+    n: "01",
+    name: "QR no impresso",
+    desc: "Centro de mesa, cardápio e tag com QR levam ao convite digital.",
+  },
+  {
+    n: "02",
+    name: "Confirmação em 1 toque",
+    desc: "O convidado abre no celular e confirma. Você acompanha sem planilha.",
+  },
+  {
+    n: "03",
+    name: "Galeria ao vivo",
+    desc: "Na festa, as fotos entram na galeria em tempo real para todos verem.",
+  },
+];
+
+export type Depoimento = { nome: string; papel: string; texto: string };
+
+export const DEPOIMENTOS: Depoimento[] = [];
