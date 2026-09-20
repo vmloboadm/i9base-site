@@ -227,3 +227,24 @@ body {
     transition: none;
   }
 }
+
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-hero-in {
+  animation: hero-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-in {
+    animation: none;
+  }
+}

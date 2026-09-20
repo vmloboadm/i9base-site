@@ -1,4 +1,4 @@
-import { BackToTop, Footer, FloatWhats, Header } from "@/components/chrome";
+import { BackToTop, Footer, FloatWhats, Header, StickyCta } from "@/components/chrome";
 import {
   Artes,
   Cases,
@@ -11,7 +11,9 @@ import {
   OfferStrip,
   Partners,
   Solutions,
-  Strip,
+  StripStats,
+  Faq,
+  FinalCta,
 } from "@/components/sections";
 
 export default function Home() {
@@ -21,7 +23,7 @@ export default function Home() {
       <main>
         <Hero />
         <OfferStrip />
-        <Strip />
+        <StripStats />
         <Solutions />
         <CrmSection />
         <Convites />
@@ -31,9 +33,12 @@ export default function Home() {
         <Diferencial />
         <Partners />
         <Contact />
+        <Faq />
+        <FinalCta />
       </main>
       <Footer />
       <FloatWhats />
+      <StickyCta />
       <BackToTop />
     </>
   );

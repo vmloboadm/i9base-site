@@ -216,7 +216,7 @@ export function FloatWhats() {  return (
       rel="noopener"
       aria-label="Conversar no WhatsApp"
       onClick={() => track("whatsapp_click", { from: "float" })}
-      className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25d366] shadow-lg transition hover:scale-105"
+      className="fixed bottom-5 right-5 z-40 hidden h-14 w-14 sm:flex items-center justify-center rounded-full bg-[#25d366] shadow-lg transition hover:scale-105"
     >
       <svg viewBox="0 0 24 24" className="h-7 w-7 fill-white" aria-hidden>
         <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 2a8 8 0 1 1-4.1 14.9l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 0 1 12 4Zm-3.2 3.9c-.2 0-.5 0-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 3 4.7 4 .6.3 1.1.4 1.5.6.6.2 1.2.2 1.6.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3l-2-1c-.3-.1-.5-.2-.7 0l-.9 1.1c-.2.2-.3.2-.6.1a7.6 7.6 0 0 1-2.2-1.4 8.3 8.3 0 0 1-1.5-1.9c-.2-.3 0-.4.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5L8.4 8c-.2-.4-.4-.3-.6-.3H8.8Z" />
@@ -255,5 +255,29 @@ export function BackToTop() {
         <path d="M8 13V3 M3.5 7.5 8 3l4.5 4.5" />
       </svg>
     </a>
+  );
+}
+
+export function StickyCta() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > 480);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+  if (!show) return null;
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-i9-ink/95 px-4 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 backdrop-blur-xl sm:hidden">
+      <a
+        href={waLink('Oi! Vim pelo site da i9BASE e quero conversar.')}
+        target="_blank"
+        rel="noopener"
+        onClick={() => track('whatsapp_click', { from: 'sticky_mobile' })}
+        className="block rounded-lg bg-i9-blue px-4 py-3 text-center text-sm font-semibold text-white"
+      >
+        Chamar no WhatsApp · 24h
+      </a>
+    </div>
   );
 }

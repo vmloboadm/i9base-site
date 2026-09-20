@@ -139,7 +139,7 @@ export function Hero() {
       <HeroCanvas />
       <div aria-hidden className="absolute -left-24 top-16 h-72 w-72 rounded-full bg-i9-blue/20 blur-[100px]" />
       <div aria-hidden className="absolute -right-24 top-64 h-80 w-80 rounded-full bg-[#7c3aed]/15 blur-[110px]" />
-      <div className="relative mx-auto max-w-6xl px-4 pb-10 pt-14 sm:px-6 sm:pt-20">
+      <div className="animate-hero-in relative mx-auto max-w-6xl px-4 pb-10 pt-14 sm:px-6 sm:pt-20">
         <div className="flex justify-center">
           <p className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-1.5 text-xs font-semibold text-emerald-300">
             <span className="relative flex h-2 w-2">
@@ -227,25 +227,6 @@ export function Hero() {
           </div>
           <ChatDemo />
         </div>
-      </div>
-    </section>
-  );
-}
-
-export function Strip() {  const items = [
-    [`${CASES.length}`, "cases em destaque"],
-    ["+40", "projetos entregues"],
-    ["24/7", "atendimento no WhatsApp"],
-  ];
-  return (
-    <section className="border-b border-slate-200 bg-white">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 px-4 py-6 sm:grid-cols-3 sm:px-6">
-        {items.map(([n, label]) => (
-          <div key={label} className="flex items-baseline gap-3">
-            <span className="font-display text-3xl font-bold text-i9-blue">{n}</span>
-            <span className="text-sm text-slate-600">{label}</span>
-          </div>
-        ))}
       </div>
     </section>
   );
@@ -1239,6 +1220,161 @@ export function OfferStrip() {
         true,
         "Ofertas, linha dois"
       )}
+    </section>
+  );
+}
+
+const FAQ_ITEMS = [
+  {
+    q: "Vocês atendem 24h mesmo?",
+    a: "Sim. O WhatsApp da i9BASE tem atendimento automático todos os dias, a qualquer hora. O que precisa de gente cai para a equipe.",
+  },
+  {
+    q: "Como funciona o orçamento?",
+    a: "Todo orçamento é personalizado depois de entender o caso. Chama no WhatsApp, conta o que você precisa e recebe a proposta.",
+  },
+  {
+    q: "Vocês atendem só em Campos dos Goytacazes?",
+    a: "A base é em Campos dos Goytacazes e região, e atendemos projetos remotos de qualquer lugar do Brasil.",
+  },
+  {
+    q: "Vocês fazem parceria?",
+    a: "Sim. Temos parceria oficial de produção física com a Peça Tech e modelo B2B para gráficas, lojas e profissionais que querem oferecer digital.",
+  },
+  {
+    q: "Com quanto tempo de antecedência peço meu convite?",
+    a: "Quanto antes, melhor. Chama no WhatsApp com a data da festa que a gente confirma o prazo na hora.",
+  },
+];
+
+export function Faq() {
+  return (
+    <section id="faq" className="border-t border-slate-200 bg-white">
+      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+        <SectionHead
+          label="Dúvidas frequentes"
+          title="Perguntas de quem chega"
+          sub="O que todo mundo pergunta antes de chamar. Não achou a sua? Chama no WhatsApp."
+        />
+        <div className="divide-y divide-slate-200 rounded-xl border border-slate-200">
+          {FAQ_ITEMS.map((f) => (
+            <details key={f.q} className="group px-5 py-4">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-base font-bold text-i9-ink">
+                {f.q}
+                <span
+                  aria-hidden
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-slate-200 text-i9-blue transition group-open:rotate-45"
+                >
+                  <svg viewBox="0 0 12 12" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round">
+                    <path d="M6 1v10 M1 6h10" />
+                  </svg>
+                </span>
+              </summary>
+              <p className="mt-2 pr-10 text-sm leading-relaxed text-slate-600">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function FinalCta() {
+  return (
+    <section className="bg-i9-ink text-white">
+      <div className="mx-auto max-w-6xl px-4 py-16 text-center sm:px-6">
+        <p className="label-eyebrow text-i9-blue-soft">Próximo passo</p>
+        <h2 className="mx-auto mt-3 max-w-xl font-display text-3xl font-bold tracking-tight sm:text-4xl">
+          Seu negócio pode ser o próximo
+        </h2>
+        <p className="mx-auto mt-3 max-w-lg text-base text-slate-300">
+          Site, sistema, automação ou convite: conta o que trava o seu dia que
+          a gente responde 24h.
+        </p>
+        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <a
+            href={waLink("Oi! Vim pelo site da i9BASE e quero um orçamento.")}
+            target="_blank"
+            rel="noopener"
+            onClick={() => track("whatsapp_click", { from: "final_cta" })}
+            className="rounded-lg bg-i9-blue px-8 py-3.5 font-semibold text-white hover:bg-i9-blue-deep"
+          >
+            Quero um orçamento
+          </a>
+          <a
+            href="#cases"
+            onClick={() => track("cta_click", { from: "final_cta", to: "cases" })}
+            className="rounded-lg border border-white/25 px-8 py-3.5 font-semibold text-white hover:border-i9-blue-soft hover:text-i9-blue-soft"
+          >
+            Ver portfólio
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CountUp({ to, suffix }: { to: number; suffix: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setN(to);
+      return;
+    }
+    let raf = 0;
+    const t0 = performance.now();
+    const tick = (t: number) => {
+      const p = Math.min(1, (t - t0) / 700);
+      setN(Math.round(to * (1 - Math.pow(1 - p, 3))));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          raf = requestAnimationFrame(tick);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+    io.observe(el);
+    return () => {
+      cancelAnimationFrame(raf);
+      io.disconnect();
+    };
+  }, [to]);
+  return (
+    <span ref={ref} className="tabular-nums">
+      {n}
+      {suffix}
+    </span>
+  );
+}
+
+export function StripStats() {
+  return (
+    <section className="border-b border-slate-200 bg-white">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 px-4 py-6 sm:grid-cols-3 sm:px-6">
+        <div className="flex items-baseline gap-3">
+          <span className="font-display text-3xl font-bold text-i9-blue">
+            <CountUp to={20} suffix="" />
+          </span>
+          <span className="text-sm text-slate-600">cases em destaque</span>
+        </div>
+        <div className="flex items-baseline gap-3">
+          <span className="font-display text-3xl font-bold text-i9-blue">
+            +<CountUp to={40} suffix="" />
+          </span>
+          <span className="text-sm text-slate-600">projetos entregues</span>
+        </div>
+        <div className="flex items-baseline gap-3">
+          <span className="font-display text-3xl font-bold text-i9-blue">24/7</span>
+          <span className="text-sm text-slate-600">atendimento no WhatsApp</span>
+        </div>
+      </div>
     </section>
   );
 }

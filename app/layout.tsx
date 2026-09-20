@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import { JSON_LD } from "@/lib/jsonld";
 
 const display = Space_Grotesk({
   variable: "--font-display",
@@ -40,6 +41,10 @@ export default function RootLayout({
       <body
         className={`${display.variable} ${body.variable} flex min-h-full flex-col font-body`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+        />
         {children}
       </body>
     </html>
