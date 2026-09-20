@@ -131,16 +131,6 @@ export type CaseItem = {
 
 export const CASES: CaseItem[] = [
   {
-    slug: "convite-ana",
-    name: "15 anos Ana Carolina",
-    category: "Experiências",
-    niche: "Convite interativo",
-    desc: "Convite digital com save the date, confirmação e galeria em tempo real na festa.",
-    tags: ["Convite digital", "Galeria realtime", "QR Code"],
-    image: "/cases/convite-ana.jpg",
-    result: "Convite que virou assunto da festa",
-  },
-  {
     slug: "panela-da-roca",
     name: "Panela da Roça",
     category: "Sistemas",
@@ -149,15 +139,6 @@ export const CASES: CaseItem[] = [
     tags: ["QR Code", "Gestão", "Avaliações"],
     image: "/cases/panela-da-roca.png",
     result: "Avaliações virando desconto e retorno",
-  },
-  {
-    slug: "gymfitness",
-    name: "GymFitness Campos",
-    category: "Sistemas",
-    niche: "Academia",
-    desc: "Check-in digital e gestão pensados para a rotina da academia.",
-    tags: ["Check-in", "Gestão", "App"],
-    image: "/cases/gymfitness.png",
   },
   {
     slug: "alien-burger",

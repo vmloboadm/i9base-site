@@ -69,6 +69,20 @@ body {
   text-transform: uppercase;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-i9-paper);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-i9-concrete);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-i9-blue);
+}
+
 @keyframes marquee {
   from {
     transform: translateX(0);
@@ -85,26 +99,5 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee {
     animation: none;
-  }
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
-}
-
-.reveal-visible {
-  opacity: 1;
-  transform: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
   }
 }

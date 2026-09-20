@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import {
   CASES,
@@ -18,13 +18,30 @@ import {
 import { track } from "@/lib/analytics";
 import { HeroCanvas } from "@/components/hero-canvas";
 
+function Chevron() {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      aria-hidden
+      className="h-4 w-4"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M6 3.5 10.5 8 6 12.5" />
+    </svg>
+  );
+}
+
 function SectionHead({
-  index,
+  label,
   title,
   sub,
   dark,
 }: {
-  index: string;
+  label: string;
   title: string;
   sub: string;
   dark?: boolean;
@@ -32,10 +49,10 @@ function SectionHead({
   return (
     <div className="mb-8">
       <p className={`label-eyebrow ${dark ? "text-i9-blue-soft" : "text-i9-blue"}`}>
-        {index}
+        {label}
       </p>
       <h2
-        className={`mt-2 font-display text-3xl font-bold tracking-tight sm:text-4xl ${
+        className={`mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl ${
           dark ? "text-white" : "text-i9-ink"
         }`}
       >
@@ -44,49 +61,6 @@ function SectionHead({
       <p className={`mt-3 max-w-2xl text-base ${dark ? "text-slate-300" : "text-slate-600"}`}>
         {sub}
       </p>
-    </div>
-  );
-}
-
-export function Reveal({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setVisible(true);
-      return;
-    }
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.12 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      style={{ transitionDelay: `${delay}ms` }}
-      className={`reveal ${visible ? "reveal-visible" : ""} ${className}`}
-    >
-      {children}
     </div>
   );
 }
@@ -104,17 +78,17 @@ export function Hero() {
       />
       <HeroCanvas />
       <div className="relative mx-auto max-w-6xl px-4 pb-10 pt-14 sm:px-6 sm:pt-20">
-        <Reveal className="frame-corners mx-auto max-w-3xl overflow-hidden rounded-2xl border border-white/15 bg-i9-ink/60">
+        <div className="mx-auto max-w-2xl">
           <Image
-            src="/logo-crop.png"
+            src="/logo-dark.png"
             alt="i9BASE, sua base de tecnologia e inovação"
-            width={1600}
-            height={505}
+            width={1420}
+            height={371}
             priority
-            sizes="(max-width: 768px) 100vw, 768px"
+            sizes="(max-width: 768px) 100vw, 672px"
             className="h-auto w-full"
           />
-        </Reveal>
+        </div>
 
         <h1 className="mx-auto mt-8 max-w-3xl text-center font-display text-4xl font-bold leading-tight tracking-tight sm:text-6xl">
           Estruture. Automatize. Evolua.
@@ -170,7 +144,7 @@ export function Hero() {
 
 export function Strip() {
   const items = [
-    ["15", "cases em destaque"],
+    ["13", "cases em destaque"],
     ["4", "trilhas de solução"],
     ["24/7", "atendimento no WhatsApp"],
   ];
@@ -200,7 +174,7 @@ export function Solutions() {
     <section id="solucoes" className="bg-i9-paper">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
-          index="01 · Soluções"
+          label="Soluções"
           title="Escolha por onde começar"
           sub="Quatro trilhas, um destino: seu negócio rodando numa base só. Toque numa trilha para explorar."
         />
@@ -214,6 +188,7 @@ export function Solutions() {
                   setActive(t.id);
                   track("solution_track", { track: t.id });
                 }}
+                aria-pressed={active === t.id}
                 className={`rounded-lg px-4 py-2 text-sm font-semibold ${
                   active === t.id
                     ? "bg-i9-ink text-white"
@@ -256,7 +231,7 @@ export function Solutions() {
                     aria-hidden
                     className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 text-i9-slate transition group-hover:border-i9-blue group-hover:bg-i9-blue group-hover:text-white"
                   >
-                    →
+                    <Chevron />
                   </span>
                 </a>
               </li>
@@ -272,59 +247,129 @@ export function Solutions() {
   );
 }
 
+function InvitePhone() {
+  const [rsvp, setRsvp] = useState<"none" | "yes" | "no">("none");
+  return (
+    <div className="mx-auto w-full max-w-[300px] rounded-[2rem] border-8 border-i9-ink bg-i9-ink p-1 shadow-xl">
+      <div className="overflow-hidden rounded-[1.6rem] bg-[#17102b] text-center">
+        <div className="mx-auto mt-2 h-1.5 w-16 rounded-full bg-white/20" aria-hidden />
+        <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.25em] text-amber-300">
+          Convite especial
+        </p>
+        <p className="mt-2 px-4 font-display text-2xl font-bold leading-tight text-white">
+          Você foi convidado!
+        </p>
+        <p className="mt-2 px-4 text-xs text-slate-300">
+          Toque abaixo para confirmar sua presença na festa
+        </p>
+        <div className="mt-4 flex justify-center gap-2 px-4">
+          <button
+            onClick={() => {
+              setRsvp("yes");
+              track("rsvp_demo", { choice: "yes" });
+            }}
+            aria-pressed={rsvp === "yes"}
+            className={`flex-1 rounded-lg px-3 py-2 text-sm font-bold ${
+              rsvp === "yes" ? "bg-emerald-400 text-i9-ink" : "bg-white/10 text-white"
+            }`}
+          >
+            Vou
+          </button>
+          <button
+            onClick={() => {
+              setRsvp("no");
+              track("rsvp_demo", { choice: "no" });
+            }}
+            aria-pressed={rsvp === "no"}
+            className={`flex-1 rounded-lg px-3 py-2 text-sm font-bold ${
+              rsvp === "no" ? "bg-rose-400 text-i9-ink" : "bg-white/10 text-white"
+            }`}
+          >
+            Não vou
+          </button>
+        </div>
+        <p className="mt-3 h-5 px-4 text-xs font-medium text-emerald-300" role="status">
+          {rsvp === "yes" && "Presença confirmada. Demonstração."}
+          {rsvp === "no" && "Que pena. Demonstração registrada."}
+        </p>
+        <div className="mt-2 border-t border-white/10 bg-white/5 px-4 py-3">
+          <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-300">
+            Galeria ao vivo da festa
+          </p>
+          <div className="mt-2 grid grid-cols-3 gap-1.5">
+            {["#2563eb", "#7c3aed", "#db2777"].map((c) => (
+              <div
+                key={c}
+                style={{ background: c }}
+                className="flex aspect-square items-center justify-center rounded-md opacity-80"
+              >
+                <svg viewBox="0 0 16 16" className="h-5 w-5 fill-white/90" aria-hidden>
+                  <path d="M2 3h12v10H2z M2 11l3.5-3.5 2.5 2.5 2-2L14 12 M5.5 6.5a1 1 0 1 0 0-.01" stroke="white" strokeWidth="1.2" fill="none" />
+                </svg>
+              </div>
+            ))}
+          </div>
+          <p className="mt-2 text-[11px] text-slate-400">
+            Escaneie o QR na festa e suas fotos entram aqui na hora
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function Convites() {
   return (
     <section id="convites" className="border-y border-slate-200 bg-white">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
-          index="02 · Convites interativos"
+          label="Convites interativos"
           title="Convites que vendem por você"
-          sub="Convite digital com confirmação de presença, mapa e galeria de fotos em tempo real. Na festa, o convidado escaneia o QR e as fotos aparecem na hora para todo mundo acompanhar."
+          sub="Convite digital com confirmação de presença, mapa e galeria de fotos em tempo real. Teste aqui do seu celular como o convidado vive a experiência."
         />
-        <div className="grid gap-5 md:grid-cols-2">
-          {[
-            { src: "/cases/convite-ana.jpg", alt: "Convite digital de 15 anos da Ana Carolina" },
-            { src: "/cases/convite-vicente.jpg", alt: "Convite digital de 1 ano do Vicente" },
-          ].map((img, i) => (
-            <Reveal key={img.src} delay={i * 100}>
-              <figure className="overflow-hidden rounded-xl border border-slate-200">
-                <div className="relative aspect-[4/3]">
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover"
-                    loading="lazy"
-                  />
-                </div>
-              </figure>
-            </Reveal>
-          ))}
+        <div className="grid items-center gap-8 md:grid-cols-2">
+          <InvitePhone />
+          <div>
+            <ul className="space-y-4 text-sm leading-relaxed text-slate-600">
+              <li>
+                <strong className="font-display text-base font-bold text-i9-ink">
+                  Para o anfitrião
+                </strong>
+                <p className="mt-1">
+                  Confirmação organizada, sem planilha e sem correria no
+                  WhatsApp. Você sabe quem vem antes da festa começar.
+                </p>
+              </li>
+              <li>
+                <strong className="font-display text-base font-bold text-i9-ink">
+                  Para o convidado
+                </strong>
+                <p className="mt-1">
+                  Abre no celular, confirma com um toque, vê mapa e participa
+                  da galeria ao vivo durante o evento.
+                </p>
+              </li>
+              <li>
+                <strong className="font-display text-base font-bold text-i9-ink">
+                  No impresso também
+                </strong>
+                <p className="mt-1">
+                  Centro de mesa, cardápio e tag com QR que leva à galeria,
+                  com a parceira Peça Tech.
+                </p>
+              </li>
+            </ul>
+            <a
+              href={waLink("Oi! Quero um convite como esse para meu evento.")}
+              target="_blank"
+              rel="noopener"
+              onClick={() => track("whatsapp_click", { from: "convites" })}
+              className="mt-6 inline-block rounded-lg bg-i9-blue px-6 py-3 font-semibold text-white hover:bg-i9-blue-deep"
+            >
+              Quero um convite como esse
+            </a>
+          </div>
         </div>
-        <div className="mt-6 grid gap-3 rounded-xl border border-slate-200 bg-i9-paper p-5 text-sm text-slate-600 sm:grid-cols-3">
-          <p>
-            <strong className="text-i9-ink">Para o anfitrião:</strong> confirmação
-            organizada, sem planilha e sem correria no WhatsApp.
-          </p>
-          <p>
-            <strong className="text-i9-ink">Para o convidado:</strong> abre no
-            celular, confirma, vê mapa e participa da galeria ao vivo.
-          </p>
-          <p>
-            <strong className="text-i9-ink">No impresso também:</strong> centro
-            de mesa, cardápio e tag com QR, com a parceira Peça Tech.
-          </p>
-        </div>
-        <a
-          href={waLink("Oi! Quero um convite como esse para meu evento.")}
-          target="_blank"
-          rel="noopener"
-          onClick={() => track("whatsapp_click", { from: "convites" })}
-          className="mt-6 inline-block rounded-lg bg-i9-blue px-6 py-3 font-semibold text-white hover:bg-i9-blue-deep"
-        >
-          Quero um convite como esse
-        </a>
       </div>
     </section>
   );
@@ -332,88 +377,9 @@ export function Convites() {
 
 const FILTERS = ["Todos", "Sites", "Sistemas", "Branding", "Experiências"] as const;
 
-function CaseModal({ item, onClose }: { item: CaseItem; onClose: () => void }) {
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [onClose]);
-
-  return (
-    <div
-      role="dialog"
-      aria-modal
-      aria-label={item.name}
-      onClick={onClose}
-      className="fixed inset-0 z-50 flex items-end justify-center bg-i9-ink/80 p-0 sm:items-center sm:p-6"
-    >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-t-2xl bg-white sm:rounded-2xl"
-      >
-        <div className="relative aspect-[4/3] bg-i9-paper">
-          <Image
-            src={item.image}
-            alt={`${item.name}: ${item.desc}`}
-            fill
-            sizes="(max-width: 640px) 100vw, 672px"
-            className="object-cover"
-          />
-          <button
-            onClick={onClose}
-            aria-label="Fechar"
-            className="absolute right-3 top-3 rounded-full bg-i9-ink/70 px-3 py-1.5 text-sm font-semibold text-white hover:bg-i9-ink"
-          >
-            Fechar
-          </button>
-        </div>
-        <div className="p-6">
-          <p className="text-xs font-semibold uppercase tracking-wider text-i9-blue">
-            {item.category} · {item.niche}
-          </p>
-          <h3 className="mt-1 font-display text-2xl font-bold text-i9-ink">
-            {item.name}
-          </h3>
-          <p className="mt-3 text-sm leading-relaxed text-slate-600">{item.desc}</p>
-          {item.result && (
-            <p className="mt-3 rounded-lg bg-i9-paper px-3 py-2 text-sm font-semibold text-i9-blue">
-              {item.result}
-            </p>
-          )}
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            {item.tags.map((t) => (
-              <span
-                key={t}
-                className="rounded-md bg-i9-paper px-2 py-1 text-xs font-medium text-i9-slate"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-          <a
-            href={waLink(`Oi! Vi o case ${item.name} no site e quero um projeto como esse.`)}
-            target="_blank"
-            rel="noopener"
-            onClick={() => track("whatsapp_click", { from: "case_modal", solution: item.slug })}
-            className="mt-5 block rounded-lg bg-i9-blue px-6 py-3 text-center font-semibold text-white hover:bg-i9-blue-deep"
-          >
-            Quero um projeto como esse
-          </a>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function Cases() {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>("Todos");
-  const [open, setOpen] = useState<CaseItem | null>(null);
+  const [expanded, setExpanded] = useState<string | null>(null);
   const list = useMemo(
     () => (filter === "Todos" ? CASES : CASES.filter((c) => c.category === filter)),
     [filter]
@@ -423,9 +389,9 @@ export function Cases() {
     <section id="cases" className="bg-i9-paper">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
-          index="03 · Cases"
+          label="Cases"
           title="Projetos que viraram resultado"
-          sub="Uma seleção do que já entregamos. Toque num case para ver maior."
+          sub="Uma seleção do que já entregamos. Toque num case para abrir os detalhes."
         />
         <div className="mb-6 flex flex-wrap gap-2">
           {FILTERS.map((f) => (
@@ -433,8 +399,10 @@ export function Cases() {
               key={f}
               onClick={() => {
                 setFilter(f);
+                setExpanded(null);
                 track("case_filter", { filter: f });
               }}
+              aria-pressed={filter === f}
               className={`rounded-lg px-4 py-2 text-sm font-semibold ${
                 filter === f
                   ? "bg-i9-ink text-white"
@@ -459,42 +427,90 @@ export function Cases() {
           </div>
         ) : (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {list.map((c, i) => (
-              <Reveal key={c.slug} delay={(i % 3) * 80}>
-                <button
-                  onClick={() => {
-                    setOpen(c);
-                    track("case_view", { case: c.slug });
-                  }}
-                  className="block w-full overflow-hidden rounded-xl border border-slate-200 bg-white text-left transition hover:-translate-y-1 hover:border-i9-blue hover:shadow-lg"
+            {list.map((c) => {
+              const isOpen = expanded === c.slug;
+              return (
+                <article
+                  key={c.slug}
+                  className={`overflow-hidden rounded-xl border bg-white transition ${
+                    isOpen ? "border-i9-blue shadow-lg" : "border-slate-200 hover:border-i9-blue"
+                  }`}
                 >
-                  <div className="relative aspect-[4/3]">
-                    <Image
-                      src={c.image}
-                      alt={`${c.name}: ${c.desc}`}
-                      fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="p-5">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-i9-blue">
-                      {c.category} · {c.niche}
-                    </p>
-                    <h3 className="mt-1 font-display text-lg font-bold text-i9-ink">
-                      {c.name}
-                    </h3>
-                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">
-                      {c.desc}
-                    </p>
-                  </div>
-                </button>
-              </Reveal>
-            ))}
+                  <button
+                    onClick={() => {
+                      setExpanded(isOpen ? null : c.slug);
+                      if (!isOpen) track("case_view", { case: c.slug });
+                    }}
+                    aria-expanded={isOpen}
+                    className="block w-full text-left"
+                  >
+                    <div className="relative aspect-[4/3]">
+                      <Image
+                        src={c.image}
+                        alt={`${c.name}: ${c.desc}`}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="flex items-center gap-3 p-5">
+                      <div className="flex-1">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-i9-blue">
+                          {c.category} · {c.niche}
+                        </p>
+                        <h3 className="mt-1 font-display text-lg font-bold text-i9-ink">
+                          {c.name}
+                        </h3>
+                      </div>
+                      <span
+                        aria-hidden
+                        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition ${
+                          isOpen
+                            ? "rotate-90 border-i9-blue bg-i9-blue text-white"
+                            : "border-slate-200 text-i9-slate"
+                        }`}
+                      >
+                        <Chevron />
+                      </span>
+                    </div>
+                  </button>
+                  {isOpen && (
+                    <div className="border-t border-slate-100 px-5 py-4">
+                      <p className="text-sm leading-relaxed text-slate-600">{c.desc}</p>
+                      {c.result && (
+                        <p className="mt-3 rounded-lg bg-i9-paper px-3 py-2 text-sm font-semibold text-i9-blue">
+                          {c.result}
+                        </p>
+                      )}
+                      <div className="mt-3 flex flex-wrap gap-1.5">
+                        {c.tags.map((t) => (
+                          <span
+                            key={t}
+                            className="rounded-md bg-i9-paper px-2 py-1 text-xs font-medium text-i9-slate"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                      <a
+                        href={waLink(`Oi! Vi o case ${c.name} no site e quero um projeto como esse.`)}
+                        target="_blank"
+                        rel="noopener"
+                        onClick={() =>
+                          track("whatsapp_click", { from: "case_open", solution: c.slug })
+                        }
+                        className="mt-4 block rounded-lg bg-i9-blue px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-i9-blue-deep"
+                      >
+                        Quero um projeto como esse
+                      </a>
+                    </div>
+                  )}
+                </article>
+              );
+            })}
           </div>
         )}
-        {open && <CaseModal item={open} onClose={() => setOpen(null)} />}
       </div>
     </section>
   );
@@ -505,21 +521,20 @@ export function Method() {
     <section id="metodo" className="border-y border-slate-200 bg-white">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
-          index="04 · Método"
+          label="Método"
           title="O método que organiza o crescimento"
-          sub="Antes de vender qualquer peça, entendemos o negócio. O método tem 8 passos, do diagnóstico à fidelização."
+          sub="Antes de vender qualquer peça, entendemos o negócio. Oito passos, do diagnóstico à fidelização."
         />
-        <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {METHOD.map((m, i) => (
-            <Reveal key={m.n} delay={(i % 4) * 70}>
-              <li className="h-full rounded-xl border border-slate-200 bg-i9-paper p-5">
-                <p className="font-display text-sm font-bold text-i9-blue">{m.n}</p>
-                <h3 className="mt-1 font-display text-base font-bold text-i9-ink">
-                  {m.name}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{m.desc}</p>
-              </li>
-            </Reveal>
+        <ol className="divide-y divide-slate-200 border-y border-slate-200">
+          {METHOD.map((m) => (
+            <li
+              key={m.n}
+              className="grid gap-1 py-5 sm:grid-cols-[80px_220px_1fr] sm:items-baseline sm:gap-6"
+            >
+              <span className="font-display text-2xl font-bold text-i9-blue">{m.n}</span>
+              <h3 className="font-display text-base font-bold text-i9-ink">{m.name}</h3>
+              <p className="text-sm leading-relaxed text-slate-600">{m.desc}</p>
+            </li>
           ))}
         </ol>
       </div>
@@ -561,7 +576,7 @@ export function Contact() {
     <section id="contato" className="border-t border-slate-200 bg-white">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
-          index="05 · Contato"
+          label="Contato"
           title="Seu negócio pode ser o próximo"
           sub="Conta o que trava o seu dia no WhatsApp. A gente responde 24h e vê o que dá pra automatizar."
         />
