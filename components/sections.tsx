@@ -23,8 +23,7 @@ import {
 import { track } from "@/lib/analytics";
 import { HeroCanvas } from "@/components/hero-canvas";
 import { ChatDemo } from "@/components/chat-demo";
-function Chevron() {
-  return (
+function Chevron() {  return (
     <svg
       viewBox="0 0 16 16"
       aria-hidden
@@ -37,6 +36,19 @@ function Chevron() {
     >
       <path d="M6 3.5 10.5 8 6 12.5" />
     </svg>
+  );
+}
+
+export function Wave({ fill, flip }: { fill: string; flip?: boolean }) {
+  return (
+    <div aria-hidden className="overflow-hidden leading-none" style={flip ? { transform: 'scaleY(-1)' } : undefined}>
+      <svg viewBox="0 0 1440 70" preserveAspectRatio="none" className="block h-[42px] w-full sm:h-[64px]">
+        <path
+          d="M0,42 C240,72 480,8 720,28 C960,48 1200,12 1440,38 L1440,70 L0,70 Z"
+          fill={fill}
+        />
+      </svg>
+    </div>
   );
 }
 
@@ -393,6 +405,10 @@ export function InvitePhone() {
 
 export function Convites() {
   return (
+    <>
+    <div className="bg-i9-ink">
+      <Wave fill="#1e40af" />
+    </div>
     <section
       id="convites"
       className="text-white"
@@ -478,6 +494,10 @@ export function Convites() {
         </div>
       </div>
     </section>
+    <div className="bg-i9-paper">
+      <Wave flip fill="#1d4ed8" />
+    </div>
+    </>
   );
 }
 

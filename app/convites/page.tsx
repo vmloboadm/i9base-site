@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { BackToTop, Footer, FloatWhats, Header } from "@/components/chrome";
-import { InvitePhone } from "@/components/sections";
+import { InvitePhone, Wave } from "@/components/sections";
 import { CONVITE_FEATURES, DEPOIMENTOS, INVITES, PACOTES, waLink } from "@/lib/data";
 import { CONVITE_FOTOS, CONVITE_VIDEOS } from "@/lib/convites-media";
 import { track } from "@/lib/analytics";
@@ -39,16 +39,19 @@ function VideoHero() {
   }
   const v = CONVITE_VIDEOS[0];
   return (
-    <div className="frame-corners relative overflow-hidden rounded-2xl border border-white/15">
+    <div className="frame-corners relative mx-auto max-w-sm overflow-hidden rounded-2xl border border-white/15">
       <video
         src={v.src}
+        poster={v.poster}
         muted
         autoPlay
         loop
         playsInline
-        className="aspect-video w-full object-cover"
+        preload="metadata"
+        aria-label={v.alt}
+        className="aspect-[9/16] w-full object-cover"
       />
-      <div aria-hidden className="absolute inset-0 bg-i9-ink/40" />
+      <div aria-hidden className="absolute inset-0 bg-i9-ink/10" />
     </div>
   );
 }
@@ -62,7 +65,7 @@ function Gallery() {
         Da festa, na hora
       </h2>
       <p className="mt-2 max-w-2xl text-sm text-slate-600">
-        Trechos reais de convites e festas. Toque para abrir.
+        Fotos reais de festas de clientes. Arraste para o lado para ver todas.
       </p>
       {hasVideo ? (
         <div className="mt-6 columns-2 gap-4 md:columns-3">
@@ -73,11 +76,13 @@ function Gallery() {
             >
               <video
                 src={v.src}
+                poster={v.poster}
                 muted
                 autoPlay
                 loop
                 playsInline
                 preload="metadata"
+                aria-label={v.alt}
                 className="h-auto w-full"
               />
               <figcaption className="px-3 py-2 text-xs font-medium text-slate-500">
@@ -86,25 +91,32 @@ function Gallery() {
             </figure>
           ))}
         </div>
-      ) : (
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          {[1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className="frame-corners flex aspect-[3/4] items-center justify-center rounded-xl bg-[#121820] px-6 text-center"
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
-                Vídeo {i} da festa aqui
-              </p>
-            </div>
-          ))}
-        </div>
-      )}
+      ) : null}
       {CONVITE_FOTOS.length > 0 && (
         <>
-          <div className="mt-8 flex items-center justify-between">
+          <div className="mt-8 columns-2 gap-4 md:columns-3">
+            {CONVITE_FOTOS.map((f) => (
+              <figure
+                key={f.src}
+                className="mb-4 overflow-hidden rounded-xl border border-slate-200 break-inside-avoid"
+              >
+                <Image
+                  src={f.src}
+                  alt={f.alt}
+                  width={720}
+                  height={720}
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                  className="h-auto w-full"
+                  loading="lazy"
+                />
+              </figure>
+            ))}
+          </div>
+          <div className="mt-6 flex items-center justify-between">
             <p className="text-sm font-semibold text-i9-slate">Fotos reais</p>
-            <p className="font-display text-sm font-bold text-i9-blue">01 / 12</p>
+            <p className="font-display text-sm font-bold text-i9-blue">
+              01 / {String(CONVITE_FOTOS.length).padStart(2, "0")}
+            </p>
           </div>
           <div className="mt-3 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2">
             {CONVITE_FOTOS.map((f) => (
@@ -144,34 +156,40 @@ export default function ConvitesPage() {
             }}
           />
           <div className="relative mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
-            <p className="label-eyebrow text-i9-blue-soft">Convites interativos</p>
-            <h1 className="mt-3 max-w-2xl font-display text-4xl font-bold tracking-tight sm:text-5xl">
-              Convites que ninguém esquece
-            </h1>
-            <div className="mt-8">
-              <VideoHero />
-            </div>
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <a
-                href={waLink("Oi! Quero um convite como esse para meu evento.")}
-                target="_blank"
-                rel="noopener"
-                className="rounded-lg bg-i9-blue px-6 py-3 text-center font-semibold text-white hover:bg-i9-blue-deep"
-              >
-                Quero um convite como esse
-              </a>
-              {INVITES.map((inv) => (
+          <div className="grid items-center gap-10 md:grid-cols-2">
+            <div>
+              <p className="label-eyebrow text-i9-blue-soft">Convites interativos</p>
+              <h1 className="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">
+                Convites que ninguém esquece
+              </h1>
+              <p className="mt-4 max-w-xl text-base text-slate-300">
+                Abertura animada, confirmação em 1 toque e galeria ao vivo.
+                Aperte o play ao lado: é um convite de verdade, rodando.
+              </p>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <a
-                  key={inv.url}
-                  href={inv.url}
+                  href={waLink("Oi! Quero um convite como esse para meu evento.")}
                   target="_blank"
                   rel="noopener"
-                  className="rounded-lg border border-white/25 px-6 py-3 text-center font-semibold text-white hover:border-i9-blue-soft hover:text-i9-blue-soft"
+                  className="rounded-lg bg-i9-blue px-6 py-3 text-center font-semibold text-white hover:bg-i9-blue-deep"
                 >
-                  Ver exemplo: {inv.name}
+                  Quero um convite como esse
                 </a>
-              ))}
+                {INVITES.map((inv) => (
+                  <a
+                    key={inv.url}
+                    href={inv.url}
+                    target="_blank"
+                    rel="noopener"
+                    className="rounded-lg border border-white/25 px-6 py-3 text-center font-semibold text-white hover:border-i9-blue-soft hover:text-i9-blue-soft"
+                  >
+                    Ver exemplo: {inv.name}
+                  </a>
+                ))}
+              </div>
             </div>
+            <VideoHero />
+          </div>
           </div>
         </section>
 
@@ -404,6 +422,9 @@ export default function ConvitesPage() {
           </section>
         )}
 
+        <div className="bg-i9-paper">
+          <Wave fill="#2563eb" />
+        </div>
         <section className="bg-i9-blue text-white">
           <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
             <div className="frame-corners rounded-2xl border border-white/60 p-8 text-center sm:p-12">
