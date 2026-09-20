@@ -7,10 +7,40 @@ export function waLink(message: string) {
   return `${WHATSAPP_URL}?text=${encodeURIComponent(message)}`;
 }
 
+export type Track = {
+  id: string;
+  name: string;
+  desc: string;
+};
+
+export const TRACKS: Track[] = [
+  {
+    id: "presenca",
+    name: "Presença digital",
+    desc: "Sua marca visível e profissional em todo lugar que o cliente procura.",
+  },
+  {
+    id: "atendimento",
+    name: "Atendimento e vendas",
+    desc: "Nenhum contato esfria: do primeiro oi ao pós-venda, tudo registrado.",
+  },
+  {
+    id: "experiencias",
+    name: "Experiências",
+    desc: "Momentos que o cliente vive e compartilha, do convite até a festa.",
+  },
+  {
+    id: "operacao",
+    name: "Operação",
+    desc: "Sistemas e automações que fazem o negócio rodar sem apagar incêndio.",
+  },
+];
+
 export type Solution = {
   name: string;
   desc: string;
   msg: string;
+  track: string;
 };
 
 export const SOLUTIONS: Solution[] = [
@@ -18,61 +48,73 @@ export const SOLUTIONS: Solution[] = [
     name: "Sites e Landing Pages",
     desc: "Site institucional, página de campanha ou hub que carrega rápido e converte visita em contato.",
     msg: "Oi! Quero um site para o meu negócio.",
-  },
-  {
-    name: "Sistemas Personalizados",
-    desc: "Aplicação web, painel ou dashboard feito sob medida para a sua operação.",
-    msg: "Oi! Preciso de um sistema para a minha operação.",
-  },
-  {
-    name: "Automação de Processos",
-    desc: "Integrações e fluxos que tiram o trabalho manual do seu dia a dia.",
-    msg: "Oi! Quero automatizar processos no meu negócio.",
-  },
-  {
-    name: "Atendimento com IA",
-    desc: "Agente que atende, qualifica o cliente e registra tudo no CRM, 24h por dia.",
-    msg: "Oi! Quero um atendimento com IA no meu negócio.",
-  },
-  {
-    name: "WhatsApp Automatizado",
-    desc: "Seu WhatsApp como canal de venda, com funil, follow-up e histórico organizado.",
-    msg: "Oi! Quero automatizar meu WhatsApp.",
-  },
-  {
-    name: "CRM e Funil de Vendas",
-    desc: "Pipeline, follow-up automático e histórico de cada cliente num só lugar.",
-    msg: "Oi! Quero um CRM para organizar minhas vendas.",
-  },
-  {
-    name: "QR Code e NFC",
-    desc: "Placa, cardápio, etiqueta ou cartão que leva o cliente direto ao seu digital.",
-    msg: "Oi! Quero QR Code e NFC para o meu negócio.",
-  },
-  {
-    name: "Convites Interativos",
-    desc: "Convite digital com confirmação, mapa e galeria de fotos em tempo real na festa.",
-    msg: "Oi! Quero um convite como esse para meu evento.",
-  },
-  {
-    name: "Experiências Digitais",
-    desc: "Hubs de evento, galerias ao vivo e interações que conectam o físico ao digital.",
-    msg: "Oi! Quero uma experiência digital para meu evento.",
+    track: "presenca",
   },
   {
     name: "Identidade Visual",
     desc: "Logo e identidade que posicionam sua marca, do cartão ao Instagram.",
     msg: "Oi! Preciso de identidade visual para minha marca.",
+    track: "presenca",
+  },
+  {
+    name: "QR Code e NFC",
+    desc: "Placa, cardápio, etiqueta ou cartão que leva o cliente direto ao seu digital.",
+    msg: "Oi! Quero QR Code e NFC para o meu negócio.",
+    track: "presenca",
+  },
+  {
+    name: "Atendimento com IA",
+    desc: "Agente que atende, qualifica o cliente e registra tudo no CRM, 24h por dia.",
+    msg: "Oi! Quero um atendimento com IA no meu negócio.",
+    track: "atendimento",
+  },
+  {
+    name: "WhatsApp Automatizado",
+    desc: "Seu WhatsApp como canal de venda, com funil, follow-up e histórico organizado.",
+    msg: "Oi! Quero automatizar meu WhatsApp.",
+    track: "atendimento",
+  },
+  {
+    name: "CRM e Funil de Vendas",
+    desc: "Pipeline, follow-up automático e histórico de cada cliente num só lugar.",
+    msg: "Oi! Quero um CRM para organizar minhas vendas.",
+    track: "atendimento",
+  },
+  {
+    name: "Convites Interativos",
+    desc: "Convite digital com confirmação, mapa e galeria de fotos em tempo real na festa.",
+    msg: "Oi! Quero um convite como esse para meu evento.",
+    track: "experiencias",
+  },
+  {
+    name: "Experiências Digitais",
+    desc: "Hubs de evento, galerias ao vivo e interações que conectam o físico ao digital.",
+    msg: "Oi! Quero uma experiência digital para meu evento.",
+    track: "experiencias",
   },
   {
     name: "Curadoria Digital",
     desc: "Você precisa, a gente resolve e entrega pronto: pesquisa, compra e implantação.",
     msg: "Oi! Preciso resolver uma questão digital.",
+    track: "experiencias",
+  },
+  {
+    name: "Sistemas Personalizados",
+    desc: "Aplicação web, painel ou dashboard feito sob medida para a sua operação.",
+    msg: "Oi! Preciso de um sistema para a minha operação.",
+    track: "operacao",
+  },
+  {
+    name: "Automação de Processos",
+    desc: "Integrações e fluxos que tiram o trabalho manual do seu dia a dia.",
+    msg: "Oi! Quero automatizar processos no meu negócio.",
+    track: "operacao",
   },
   {
     name: "Gestão e Consultoria",
     desc: "Diagnóstico e organização digital: presença, processos e operação.",
     msg: "Oi! Quero um diagnóstico do meu negócio.",
+    track: "operacao",
   },
 ];
 
@@ -84,6 +126,7 @@ export type CaseItem = {
   desc: string;
   tags: string[];
   image: string;
+  result?: string;
 };
 
 export const CASES: CaseItem[] = [
@@ -95,6 +138,7 @@ export const CASES: CaseItem[] = [
     desc: "Convite digital com save the date, confirmação e galeria em tempo real na festa.",
     tags: ["Convite digital", "Galeria realtime", "QR Code"],
     image: "/cases/convite-ana.jpg",
+    result: "Convite que virou assunto da festa",
   },
   {
     slug: "panela-da-roca",
@@ -104,6 +148,7 @@ export const CASES: CaseItem[] = [
     desc: "Avaliação via QR, gestão e atendimento conectando salão e digital.",
     tags: ["QR Code", "Gestão", "Avaliações"],
     image: "/cases/panela-da-roca.png",
+    result: "Avaliações virando desconto e retorno",
   },
   {
     slug: "gymfitness",

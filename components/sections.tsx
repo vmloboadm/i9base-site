@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import {
   CASES,
@@ -10,8 +10,10 @@ import {
   NICHES,
   SOLUTIONS,
   TECHS,
+  TRACKS,
   WHATSAPP_URL,
   waLink,
+  type CaseItem,
 } from "@/lib/data";
 import { track } from "@/lib/analytics";
 import { HeroCanvas } from "@/components/hero-canvas";
@@ -46,6 +48,49 @@ function SectionHead({
   );
 }
 
+export function Reveal({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setVisible(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.12 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      style={{ transitionDelay: `${delay}ms` }}
+      className={`reveal ${visible ? "reveal-visible" : ""} ${className}`}
+    >
+      {children}
+    </div>
+  );
+}
+
 export function Hero() {
   return (
     <section id="topo" className="relative overflow-hidden bg-i9-ink text-white">
@@ -59,28 +104,26 @@ export function Hero() {
       />
       <HeroCanvas />
       <div className="relative mx-auto max-w-6xl px-4 pb-10 pt-14 sm:px-6 sm:pt-20">
-        <div className="frame-corners overflow-hidden rounded-2xl border border-white/15 bg-i9-ink/70 backdrop-blur-sm">
-          <div className="relative aspect-[16/10] w-full sm:aspect-[21/9]">
-            <Image
-              src="/logo.png"
-              alt="i9BASE, sua base de tecnologia e inovação"
-              fill
-              priority
-              sizes="(max-width: 1024px) 100vw, 1152px"
-              className="object-cover"
-              style={{ objectPosition: "37% 52%" }}
-            />
-          </div>
-        </div>
+        <Reveal className="frame-corners mx-auto max-w-3xl overflow-hidden rounded-2xl border border-white/15 bg-i9-ink/60">
+          <Image
+            src="/logo-crop.png"
+            alt="i9BASE, sua base de tecnologia e inovação"
+            width={1600}
+            height={505}
+            priority
+            sizes="(max-width: 768px) 100vw, 768px"
+            className="h-auto w-full"
+          />
+        </Reveal>
 
-        <h1 className="mt-8 max-w-3xl font-display text-4xl font-bold leading-tight tracking-tight sm:text-6xl">
+        <h1 className="mx-auto mt-8 max-w-3xl text-center font-display text-4xl font-bold leading-tight tracking-tight sm:text-6xl">
           Estruture. Automatize. Evolua.
         </h1>
-        <p className="mt-5 max-w-2xl text-base text-slate-200 sm:text-lg">
+        <p className="mx-auto mt-5 max-w-2xl text-center text-base text-slate-200 sm:text-lg">
           Sites, sistemas, automação e atendimento com IA para negócios
           locais. Do QR ao pedido, sua operação conectada em uma única base.
         </p>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <a
             href={waLink("Oi! Vim pelo site da i9BASE e quero estruturar meu negócio.")}
             target="_blank"
@@ -98,7 +141,7 @@ export function Hero() {
             Ver convites interativos
           </a>
         </div>
-        <div className="mt-8 flex flex-wrap items-center gap-2 text-xs">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs">
           <span className="text-slate-300">Construído com</span>
           {TECHS.map((t) => (
             <span
@@ -128,7 +171,7 @@ export function Hero() {
 export function Strip() {
   const items = [
     ["15", "cases em destaque"],
-    ["12", "soluções para o seu negócio"],
+    ["4", "trilhas de solução"],
     ["24/7", "atendimento no WhatsApp"],
   ];
   return (
@@ -146,33 +189,79 @@ export function Strip() {
 }
 
 export function Solutions() {
+  const [active, setActive] = useState(TRACKS[0].id);
+  const trackInfo = TRACKS.find((t) => t.id === active) ?? TRACKS[0];
+  const items = useMemo(
+    () => SOLUTIONS.filter((s) => s.track === active),
+    [active]
+  );
+
   return (
     <section id="solucoes" className="bg-i9-paper">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
           index="01 · Soluções"
-          title="Tudo que o seu negócio precisa, num só lugar"
-          sub="Cada solução resolve uma parte da operação. Juntas, viram a base que o seu negócio roda em cima. Toque numa solução e chame direto sobre ela."
+          title="Escolha por onde começar"
+          sub="Quatro trilhas, um destino: seu negócio rodando numa base só. Toque numa trilha para explorar."
         />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {SOLUTIONS.map((s) => (
-            <a
-              key={s.name}
-              href={waLink(`Oi! Vi no site e quero saber sobre: ${s.name}.`)}
-              target="_blank"
-              rel="noopener"
-              onClick={() => track("whatsapp_click", { from: "solution_card", solution: s.name })}
-              className="group flex flex-col rounded-xl border border-slate-200 bg-white p-5 transition hover:border-i9-blue"
-            >
-              <h3 className="font-display text-base font-bold text-i9-ink group-hover:text-i9-blue">
-                {s.name}
-              </h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{s.desc}</p>
-              <p className="mt-4 text-sm font-semibold text-i9-blue">
-                Quero essa solução
-              </p>
-            </a>
-          ))}
+        <div className="mb-6 flex flex-wrap gap-2">
+          {TRACKS.map((t) => {
+            const count = SOLUTIONS.filter((s) => s.track === t.id).length;
+            return (
+              <button
+                key={t.id}
+                onClick={() => {
+                  setActive(t.id);
+                  track("solution_track", { track: t.id });
+                }}
+                className={`rounded-lg px-4 py-2 text-sm font-semibold ${
+                  active === t.id
+                    ? "bg-i9-ink text-white"
+                    : "border border-slate-200 bg-white text-i9-slate hover:border-i9-blue hover:text-i9-blue"
+                }`}
+              >
+                {t.name}
+                <span className="ml-2 text-xs opacity-60">{count}</span>
+              </button>
+            );
+          })}
+        </div>
+        <div
+          key={active}
+          className="overflow-hidden rounded-xl border border-slate-200 bg-white"
+        >
+          <div className="border-b border-slate-200 bg-i9-ink px-5 py-4 sm:px-6">
+            <p className="font-display text-lg font-bold text-white">{trackInfo.name}</p>
+            <p className="mt-1 text-sm text-slate-300">{trackInfo.desc}</p>
+          </div>
+          <ul className="divide-y divide-slate-100">
+            {items.map((s) => (
+              <li key={s.name}>
+                <a
+                  href={waLink(`Oi! Vi no site e quero saber sobre: ${s.name}.`)}
+                  target="_blank"
+                  rel="noopener"
+                  onClick={() =>
+                    track("whatsapp_click", { from: "solution_row", solution: s.name })
+                  }
+                  className="group flex items-center gap-4 px-5 py-4 transition hover:bg-i9-paper sm:px-6"
+                >
+                  <div className="flex-1">
+                    <p className="font-display text-base font-bold text-i9-ink group-hover:text-i9-blue">
+                      {s.name}
+                    </p>
+                    <p className="mt-1 text-sm leading-relaxed text-slate-600">{s.desc}</p>
+                  </div>
+                  <span
+                    aria-hidden
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 text-i9-slate transition group-hover:border-i9-blue group-hover:bg-i9-blue group-hover:text-white"
+                  >
+                    →
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
         <p className="mt-6 text-sm text-slate-500">
           Orçamento sempre personalizado após entender o seu caso, e parceria é
@@ -196,22 +285,21 @@ export function Convites() {
           {[
             { src: "/cases/convite-ana.jpg", alt: "Convite digital de 15 anos da Ana Carolina" },
             { src: "/cases/convite-vicente.jpg", alt: "Convite digital de 1 ano do Vicente" },
-          ].map((img) => (
-            <figure
-              key={img.src}
-              className="overflow-hidden rounded-xl border border-slate-200"
-            >
-              <div className="relative aspect-[16/10]">
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover"
-                  loading="lazy"
-                />
-              </div>
-            </figure>
+          ].map((img, i) => (
+            <Reveal key={img.src} delay={i * 100}>
+              <figure className="overflow-hidden rounded-xl border border-slate-200">
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              </figure>
+            </Reveal>
           ))}
         </div>
         <div className="mt-6 grid gap-3 rounded-xl border border-slate-200 bg-i9-paper p-5 text-sm text-slate-600 sm:grid-cols-3">
@@ -244,8 +332,88 @@ export function Convites() {
 
 const FILTERS = ["Todos", "Sites", "Sistemas", "Branding", "Experiências"] as const;
 
+function CaseModal({ item, onClose }: { item: CaseItem; onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      role="dialog"
+      aria-modal
+      aria-label={item.name}
+      onClick={onClose}
+      className="fixed inset-0 z-50 flex items-end justify-center bg-i9-ink/80 p-0 sm:items-center sm:p-6"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-t-2xl bg-white sm:rounded-2xl"
+      >
+        <div className="relative aspect-[4/3] bg-i9-paper">
+          <Image
+            src={item.image}
+            alt={`${item.name}: ${item.desc}`}
+            fill
+            sizes="(max-width: 640px) 100vw, 672px"
+            className="object-cover"
+          />
+          <button
+            onClick={onClose}
+            aria-label="Fechar"
+            className="absolute right-3 top-3 rounded-full bg-i9-ink/70 px-3 py-1.5 text-sm font-semibold text-white hover:bg-i9-ink"
+          >
+            Fechar
+          </button>
+        </div>
+        <div className="p-6">
+          <p className="text-xs font-semibold uppercase tracking-wider text-i9-blue">
+            {item.category} · {item.niche}
+          </p>
+          <h3 className="mt-1 font-display text-2xl font-bold text-i9-ink">
+            {item.name}
+          </h3>
+          <p className="mt-3 text-sm leading-relaxed text-slate-600">{item.desc}</p>
+          {item.result && (
+            <p className="mt-3 rounded-lg bg-i9-paper px-3 py-2 text-sm font-semibold text-i9-blue">
+              {item.result}
+            </p>
+          )}
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {item.tags.map((t) => (
+              <span
+                key={t}
+                className="rounded-md bg-i9-paper px-2 py-1 text-xs font-medium text-i9-slate"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+          <a
+            href={waLink(`Oi! Vi o case ${item.name} no site e quero um projeto como esse.`)}
+            target="_blank"
+            rel="noopener"
+            onClick={() => track("whatsapp_click", { from: "case_modal", solution: item.slug })}
+            className="mt-5 block rounded-lg bg-i9-blue px-6 py-3 text-center font-semibold text-white hover:bg-i9-blue-deep"
+          >
+            Quero um projeto como esse
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function Cases() {
   const [filter, setFilter] = useState<(typeof FILTERS)[number]>("Todos");
+  const [open, setOpen] = useState<CaseItem | null>(null);
   const list = useMemo(
     () => (filter === "Todos" ? CASES : CASES.filter((c) => c.category === filter)),
     [filter]
@@ -257,7 +425,7 @@ export function Cases() {
         <SectionHead
           index="03 · Cases"
           title="Projetos que viraram resultado"
-          sub="Uma seleção do que já entregamos: sites, sistemas, marcas e experiências para negócios reais."
+          sub="Uma seleção do que já entregamos. Toque num case para ver maior."
         />
         <div className="mb-6 flex flex-wrap gap-2">
           {FILTERS.map((f) => (
@@ -291,45 +459,42 @@ export function Cases() {
           </div>
         ) : (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {list.map((c) => (
-              <article
-                key={c.slug}
-                onClick={() => track("case_view", { case: c.slug })}
-                className="overflow-hidden rounded-xl border border-slate-200 bg-white"
-              >
-                <div className="relative aspect-[4/3] bg-white">
-                  <Image
-                    src={c.image}
-                    alt={`${c.name}: ${c.desc}`}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="p-5">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-i9-blue">
-                    {c.category} · {c.niche}
-                  </p>
-                  <h3 className="mt-1 font-display text-lg font-bold text-i9-ink">
-                    {c.name}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{c.desc}</p>
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {c.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="rounded-md bg-i9-paper px-2 py-1 text-xs font-medium text-i9-slate"
-                      >
-                        {t}
-                      </span>
-                    ))}
+            {list.map((c, i) => (
+              <Reveal key={c.slug} delay={(i % 3) * 80}>
+                <button
+                  onClick={() => {
+                    setOpen(c);
+                    track("case_view", { case: c.slug });
+                  }}
+                  className="block w-full overflow-hidden rounded-xl border border-slate-200 bg-white text-left transition hover:-translate-y-1 hover:border-i9-blue hover:shadow-lg"
+                >
+                  <div className="relative aspect-[4/3]">
+                    <Image
+                      src={c.image}
+                      alt={`${c.name}: ${c.desc}`}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover"
+                      loading="lazy"
+                    />
                   </div>
-                </div>
-              </article>
+                  <div className="p-5">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-i9-blue">
+                      {c.category} · {c.niche}
+                    </p>
+                    <h3 className="mt-1 font-display text-lg font-bold text-i9-ink">
+                      {c.name}
+                    </h3>
+                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">
+                      {c.desc}
+                    </p>
+                  </div>
+                </button>
+              </Reveal>
             ))}
           </div>
         )}
+        {open && <CaseModal item={open} onClose={() => setOpen(null)} />}
       </div>
     </section>
   );
@@ -345,17 +510,16 @@ export function Method() {
           sub="Antes de vender qualquer peça, entendemos o negócio. O método tem 8 passos, do diagnóstico à fidelização."
         />
         <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {METHOD.map((m) => (
-            <li
-              key={m.n}
-              className="rounded-xl border border-slate-200 bg-i9-paper p-5"
-            >
-              <p className="font-display text-sm font-bold text-i9-blue">{m.n}</p>
-              <h3 className="mt-1 font-display text-base font-bold text-i9-ink">
-                {m.name}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">{m.desc}</p>
-            </li>
+          {METHOD.map((m, i) => (
+            <Reveal key={m.n} delay={(i % 4) * 70}>
+              <li className="h-full rounded-xl border border-slate-200 bg-i9-paper p-5">
+                <p className="font-display text-sm font-bold text-i9-blue">{m.n}</p>
+                <h3 className="mt-1 font-display text-base font-bold text-i9-ink">
+                  {m.name}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{m.desc}</p>
+              </li>
+            </Reveal>
           ))}
         </ol>
       </div>
