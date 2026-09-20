@@ -118,6 +118,8 @@ export const SOLUTIONS: Solution[] = [
   },
 ];
 
+export type CaseImage = { src: string; alt: string };
+
 export type CaseItem = {
   slug: string;
   name: string;
@@ -125,9 +127,11 @@ export type CaseItem = {
   niche: string;
   desc: string;
   tags: string[];
-  image: string;
+  images: CaseImage[];
   result?: string;
 };
+
+const img = (src: string, alt: string): CaseImage => ({ src, alt });
 
 export const CASES: CaseItem[] = [
   {
@@ -137,8 +141,49 @@ export const CASES: CaseItem[] = [
     niche: "Restaurante",
     desc: "Avaliação via QR, gestão e atendimento conectando salão e digital.",
     tags: ["QR Code", "Gestão", "Avaliações"],
-    image: "/cases/panela-da-roca.png",
+    images: [img("/cases/panela-da-roca.png", "Peça de avaliação via QR da Panela da Roça")],
     result: "Avaliações virando desconto e retorno",
+  },
+  {
+    slug: "afranio-tattoo",
+    name: "Afranio Tattoo",
+    category: "Sistemas",
+    niche: "Estúdio de tatuagem",
+    desc: "Site com portfólio e orçamento inteligente para tatuador em Campos.",
+    tags: ["Site", "Portfólio", "Orçamento inteligente"],
+    images: [
+      img("/cases/afranio-hero.png", "Site do estúdio Afranio Tattoo"),
+      img("/cases/afranio-port.png", "Portfólio de tatuagens do estúdio"),
+      img("/cases/afranio-cta.png", "Chamada para orçamento do estúdio"),
+      img("/cases/afranio-logo.png", "Logo do estúdio Afranio Tattoo"),
+    ],
+  },
+  {
+    slug: "s7ven",
+    name: "S7ven Perfumaria",
+    category: "Branding",
+    niche: "Perfumaria",
+    desc: "Identidade e campanha para perfumaria: fragrância como posicionamento.",
+    tags: ["Branding", "Campanha", "Identidade visual"],
+    images: [
+      img("/cases/s7ven-banner.png", "Campanha da perfumaria S7ven"),
+      img("/cases/s7ven-cartao.png", "Cartão de visita S7ven"),
+      img("/cases/s7ven-wind.png", "Windbanner S7ven"),
+    ],
+  },
+  {
+    slug: "personalizados",
+    name: "Papelaria e Personalizados",
+    category: "Branding",
+    niche: "Produção física",
+    desc: "Canecas, travesseiros, adesivos e velas com identidade, via parceira Peça Tech.",
+    tags: ["Brindes", "Papelaria", "Parceria Peça Tech"],
+    images: [
+      img("/cases/pers-caneca.jpg", "Caneca personalizada"),
+      img("/cases/pers-travesseiro.jpg", "Travesseiro personalizado"),
+      img("/cases/pers-adesivo.png", "Adesivo personalizado"),
+      img("/cases/pers-vela.jpg", "Vela aromática personalizada"),
+    ],
   },
   {
     slug: "alien-burger",
@@ -147,7 +192,12 @@ export const CASES: CaseItem[] = [
     niche: "Hamburgueria",
     desc: "Site de pedidos com identidade ousada e social media com personalidade própria.",
     tags: ["Site de pedidos", "Identidade visual", "Social media"],
-    image: "/cases/alien-burger.png",
+    images: [
+      img("/cases/alien-burger.png", "Site de pedidos Alien Burger"),
+      img("/cases/alien-chef.png", "Arte Alien Chef"),
+      img("/cases/alien-mordida.png", "Arte Alien Mordida"),
+      img("/cases/alien-design.png", "Design criativo Alien Burger"),
+    ],
   },
   {
     slug: "connectink",
@@ -156,7 +206,7 @@ export const CASES: CaseItem[] = [
     niche: "Estúdios de tatuagem",
     desc: "Plataforma de agendamento, portfólio e orçamento inteligente para tatuadores.",
     tags: ["Plataforma web", "Branding", "UX"],
-    image: "/cases/connectink.jpg",
+    images: [img("/cases/connectink.jpg", "Plataforma ConnectINK para tatuadores")],
   },
   {
     slug: "quintal-tia-vi",
@@ -165,7 +215,10 @@ export const CASES: CaseItem[] = [
     niche: "Espaço infantil",
     desc: "Site e identidade completa para espaço de contraturno escolar sem telas.",
     tags: ["Site", "Branding", "Social media"],
-    image: "/cases/quintal-tia-vi.png",
+    images: [
+      img("/cases/quintal-tia-vi.png", "Site do Quintal da Tia Vi"),
+      img("/cases/quintal-2.png", "Identidade Quintal da Tia Vi"),
+    ],
   },
   {
     slug: "design-vita",
@@ -174,7 +227,7 @@ export const CASES: CaseItem[] = [
     niche: "Clínica odontológica",
     desc: "Identidade visual e presença digital para clínica de alto padrão.",
     tags: ["Logo", "Identidade visual", "Social media"],
-    image: "/cases/design-vita.png",
+    images: [img("/cases/design-vita.png", "Identidade Design Vita")],
   },
   {
     slug: "inspire-run",
@@ -183,7 +236,7 @@ export const CASES: CaseItem[] = [
     niche: "Evento de corrida",
     desc: "Branding completo para evento: energia e pertencimento desde o primeiro olhar.",
     tags: ["Branding", "Identidade visual", "Materiais"],
-    image: "/cases/inspire-run.png",
+    images: [img("/cases/inspire-run.png", "Branding Inspire Run")],
   },
   {
     slug: "mahaflow",
@@ -192,7 +245,12 @@ export const CASES: CaseItem[] = [
     niche: "Gestão",
     desc: "Sistema de gestão e automação de fluxos, do digital ao material impresso.",
     tags: ["Sistema de gestão", "Automação", "Identidade visual"],
-    image: "/cases/mahaflow.png",
+    images: [
+      img("/cases/mahaflow.png", "Sistema MahaFlow"),
+      img("/cases/mahaflow-wind.png", "Windbanner MahaFlow"),
+      img("/cases/mahaflow-cartao.png", "Cartão de visita MahaFlow"),
+      img("/cases/mahaflow-chaveiro.png", "Chaveiro MahaFlow"),
+    ],
   },
   {
     slug: "liliana",
@@ -201,7 +259,12 @@ export const CASES: CaseItem[] = [
     niche: "Eventos",
     desc: "Identidade e presença digital elegante para cerimonialista referência na região.",
     tags: ["Branding", "Site", "Social media"],
-    image: "/cases/liliana.png",
+    images: [
+      img("/cases/liliana.png", "Site Liliana Cerimonialista"),
+      img("/cases/liliana-agenda.png", "Agenda Liliana Cerimonialista"),
+      img("/cases/liliana-cartaz.png", "Cartaz Liliana Cerimonialista"),
+      img("/cases/liliana-cartao.png", "Cartão de visita Liliana"),
+    ],
   },
   {
     slug: "roots-vibe",
@@ -210,7 +273,11 @@ export const CASES: CaseItem[] = [
     niche: "Lifestyle",
     desc: "Branding completo e site para marca com propósito e estética própria.",
     tags: ["Branding completo", "Site", "Identidade visual"],
-    image: "/cases/roots-vibe.png",
+    images: [
+      img("/cases/roots-vibe.png", "Landing page Roots Vibe"),
+      img("/cases/roots-carrossel.png", "Carrossel Roots Vibe"),
+      img("/cases/roots-logo.png", "Logo Roots Vibe"),
+    ],
   },
   {
     slug: "gigidog",
@@ -219,7 +286,12 @@ export const CASES: CaseItem[] = [
     niche: "Pet shop",
     desc: "Identidade, uniformes e materiais promocionais para pet shop.",
     tags: ["Logo", "Identidade visual", "Materiais"],
-    image: "/cases/gigidog.png",
+    images: [
+      img("/cases/gigidog.png", "Combo GigiDog"),
+      img("/cases/gigidog-uniforme.png", "Uniforme GigiDog"),
+      img("/cases/gigidog-wind.png", "Windbanner GigiDog"),
+      img("/cases/gigidog-cardapio.png", "Cardápio GigiDog"),
+    ],
   },
   {
     slug: "rota-facil",
@@ -228,7 +300,10 @@ export const CASES: CaseItem[] = [
     niche: "Transporte escolar",
     desc: "Gestão de rotas com check-in por QR Code e painel administrativo completo.",
     tags: ["Sistema web", "App", "QR Code"],
-    image: "/cases/rota-facil.png",
+    images: [
+      img("/cases/rota-facil.png", "Apresentação Rota Fácil"),
+      img("/cases/rota-checkin.png", "Check-in por QR Code Rota Fácil"),
+    ],
   },
   {
     slug: "rancho-da-ilha",
@@ -237,7 +312,10 @@ export const CASES: CaseItem[] = [
     niche: "Restaurante",
     desc: "Branding e experiência digital para restaurante premium.",
     tags: ["Branding", "Site", "Identidade visual"],
-    image: "/cases/rancho-da-ilha.png",
+    images: [
+      img("/cases/rancho-da-ilha.png", "Rancho da Ilha"),
+      img("/cases/rancho-kitexclusivo.png", "Kit exclusivo Rancho da Ilha"),
+    ],
   },
   {
     slug: "orogenese",
@@ -246,7 +324,12 @@ export const CASES: CaseItem[] = [
     niche: "Vestuário",
     desc: "Identidade com padrão exclusivo para marca de vestuário outdoor.",
     tags: ["Logo", "Identidade visual", "Vestuário"],
-    image: "/cases/orogenese.jpg",
+    images: [
+      img("/cases/orogenese.jpg", "Logo OroGenese"),
+      img("/cases/oro-camiseta.jpg", "Camiseta OroGenese"),
+      img("/cases/oro-moletom.jpg", "Moletom OroGenese"),
+      img("/cases/oro-padrao.jpg", "Padrão topográfico OroGenese"),
+    ],
   },
 ];
 

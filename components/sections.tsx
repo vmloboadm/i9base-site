@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import {
   CASES,
@@ -13,10 +13,11 @@ import {
   TRACKS,
   WHATSAPP_URL,
   waLink,
-  type CaseItem,
+  type CaseImage,
 } from "@/lib/data";
 import { track } from "@/lib/analytics";
 import { HeroCanvas } from "@/components/hero-canvas";
+import { ChatDemo } from "@/components/chat-demo";
 
 function Chevron() {
   return (
@@ -78,53 +79,58 @@ export function Hero() {
       />
       <HeroCanvas />
       <div className="relative mx-auto max-w-6xl px-4 pb-10 pt-14 sm:px-6 sm:pt-20">
-        <div className="mx-auto max-w-2xl">
+        <div className="mx-auto max-w-xl">
           <Image
             src="/logo-dark.png"
             alt="i9BASE, sua base de tecnologia e inovação"
             width={1420}
             height={371}
             priority
-            sizes="(max-width: 768px) 100vw, 672px"
+            sizes="(max-width: 768px) 100vw, 576px"
             className="h-auto w-full"
           />
         </div>
 
-        <h1 className="mx-auto mt-8 max-w-3xl text-center font-display text-4xl font-bold leading-tight tracking-tight sm:text-6xl">
-          Estruture. Automatize. Evolua.
-        </h1>
-        <p className="mx-auto mt-5 max-w-2xl text-center text-base text-slate-200 sm:text-lg">
-          Sites, sistemas, automação e atendimento com IA para negócios
-          locais. Do QR ao pedido, sua operação conectada em uma única base.
-        </p>
-        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <a
-            href={waLink("Oi! Vim pelo site da i9BASE e quero estruturar meu negócio.")}
-            target="_blank"
-            rel="noopener"
-            onClick={() => track("whatsapp_click", { from: "hero" })}
-            className="rounded-lg bg-i9-blue px-6 py-3 text-center font-semibold text-white hover:bg-i9-blue-deep"
-          >
-            Chamar no WhatsApp
-          </a>
-          <a
-            href="#convites"
-            onClick={() => track("cta_click", { from: "hero", to: "convites" })}
-            className="rounded-lg border border-white/25 px-6 py-3 text-center font-semibold text-white hover:border-i9-blue-soft hover:text-i9-blue-soft"
-          >
-            Ver convites interativos
-          </a>
-        </div>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs">
-          <span className="text-slate-300">Construído com</span>
-          {TECHS.map((t) => (
-            <span
-              key={t}
-              className="rounded-md border border-white/15 bg-white/5 px-2.5 py-1 font-medium text-slate-100"
-            >
-              {t}
-            </span>
-          ))}
+        <div className="mt-10 grid items-center gap-10 lg:grid-cols-2">
+          <div>
+            <h1 className="font-display text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
+              Estruture. Automatize. Evolua.
+            </h1>
+            <p className="mt-5 max-w-xl text-base text-slate-200 sm:text-lg">
+              Sites, sistemas, automação e atendimento com IA para negócios
+              locais. Do QR ao pedido, sua operação conectada em uma única base.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a
+                href={waLink("Oi! Vim pelo site da i9BASE e quero estruturar meu negócio.")}
+                target="_blank"
+                rel="noopener"
+                onClick={() => track("whatsapp_click", { from: "hero" })}
+                className="rounded-lg bg-i9-blue px-6 py-3 text-center font-semibold text-white hover:bg-i9-blue-deep"
+              >
+                Chamar no WhatsApp
+              </a>
+              <a
+                href="#cases"
+                onClick={() => track("cta_click", { from: "hero", to: "cases" })}
+                className="rounded-lg border border-white/25 px-6 py-3 text-center font-semibold text-white hover:border-i9-blue-soft hover:text-i9-blue-soft"
+              >
+                Ver cases
+              </a>
+            </div>
+            <div className="mt-8 flex flex-wrap items-center gap-2 text-xs">
+              <span className="text-slate-300">Construído com</span>
+              {TECHS.map((t) => (
+                <span
+                  key={t}
+                  className="rounded-md border border-white/15 bg-white/5 px-2.5 py-1 font-medium text-slate-100"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+          <ChatDemo />
         </div>
       </div>
       <div className="relative border-t border-white/10 bg-white/5 py-3 backdrop-blur-sm">
@@ -144,7 +150,7 @@ export function Hero() {
 
 export function Strip() {
   const items = [
-    ["13", "cases em destaque"],
+    [`${CASES.length}`, "cases em destaque"],
     ["4", "trilhas de solução"],
     ["24/7", "atendimento no WhatsApp"],
   ];
@@ -171,9 +177,10 @@ export function Solutions() {
   );
 
   return (
-    <section id="solucoes" className="bg-i9-paper">
+    <section id="solucoes" className="bg-i9-ink text-white">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
+          dark
           label="Soluções"
           title="Escolha por onde começar"
           sub="Quatro trilhas, um destino: seu negócio rodando numa base só. Toque numa trilha para explorar."
@@ -191,8 +198,8 @@ export function Solutions() {
                 aria-pressed={active === t.id}
                 className={`rounded-lg px-4 py-2 text-sm font-semibold ${
                   active === t.id
-                    ? "bg-i9-ink text-white"
-                    : "border border-slate-200 bg-white text-i9-slate hover:border-i9-blue hover:text-i9-blue"
+                    ? "bg-i9-blue text-white"
+                    : "border border-white/15 bg-white/5 text-slate-200 hover:border-i9-blue-soft hover:text-white"
                 }`}
               >
                 {t.name}
@@ -203,11 +210,11 @@ export function Solutions() {
         </div>
         <div
           key={active}
-          className="overflow-hidden rounded-xl border border-slate-200 bg-white"
+          className="overflow-hidden rounded-xl border border-white/10 bg-white text-i9-ink"
         >
-          <div className="border-b border-slate-200 bg-i9-ink px-5 py-4 sm:px-6">
-            <p className="font-display text-lg font-bold text-white">{trackInfo.name}</p>
-            <p className="mt-1 text-sm text-slate-300">{trackInfo.desc}</p>
+          <div className="border-b border-slate-200 bg-i9-paper px-5 py-4 sm:px-6">
+            <p className="font-display text-lg font-bold text-i9-ink">{trackInfo.name}</p>
+            <p className="mt-1 text-sm text-slate-600">{trackInfo.desc}</p>
           </div>
           <ul className="divide-y divide-slate-100">
             {items.map((s) => (
@@ -238,7 +245,7 @@ export function Solutions() {
             ))}
           </ul>
         </div>
-        <p className="mt-6 text-sm text-slate-500">
+        <p className="mt-6 text-sm text-slate-400">
           Orçamento sempre personalizado após entender o seu caso, e parceria é
           sempre conversável.
         </p>
@@ -303,8 +310,8 @@ function InvitePhone() {
                 style={{ background: c }}
                 className="flex aspect-square items-center justify-center rounded-md opacity-80"
               >
-                <svg viewBox="0 0 16 16" className="h-5 w-5 fill-white/90" aria-hidden>
-                  <path d="M2 3h12v10H2z M2 11l3.5-3.5 2.5 2.5 2-2L14 12 M5.5 6.5a1 1 0 1 0 0-.01" stroke="white" strokeWidth="1.2" fill="none" />
+                <svg viewBox="0 0 16 16" className="h-5 w-5" aria-hidden fill="none" stroke="white" strokeWidth="1.2">
+                  <path d="M2 3h12v10H2z M2 11l3.5-3.5 2.5 2.5 2-2L14 12 M5.5 6.5a1 1 0 1 0 0-.01" />
                 </svg>
               </div>
             ))}
@@ -320,19 +327,26 @@ function InvitePhone() {
 
 export function Convites() {
   return (
-    <section id="convites" className="border-y border-slate-200 bg-white">
+    <section
+      id="convites"
+      className="text-white"
+      style={{
+        background: "linear-gradient(160deg, #1e40af 0%, #2563eb 55%, #1d4ed8 100%)",
+      }}
+    >
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
+          dark
           label="Convites interativos"
           title="Convites que vendem por você"
-          sub="Convite digital com confirmação de presença, mapa e galeria de fotos em tempo real. Teste aqui do seu celular como o convidado vive a experiência."
+          sub="Convite digital com confirmação de presença, mapa e galeria de fotos em tempo real. Teste aqui como o convidado vive a experiência."
         />
         <div className="grid items-center gap-8 md:grid-cols-2">
           <InvitePhone />
           <div>
-            <ul className="space-y-4 text-sm leading-relaxed text-slate-600">
+            <ul className="space-y-4 text-sm leading-relaxed text-blue-50">
               <li>
-                <strong className="font-display text-base font-bold text-i9-ink">
+                <strong className="font-display text-base font-bold text-white">
                   Para o anfitrião
                 </strong>
                 <p className="mt-1">
@@ -341,7 +355,7 @@ export function Convites() {
                 </p>
               </li>
               <li>
-                <strong className="font-display text-base font-bold text-i9-ink">
+                <strong className="font-display text-base font-bold text-white">
                   Para o convidado
                 </strong>
                 <p className="mt-1">
@@ -350,7 +364,7 @@ export function Convites() {
                 </p>
               </li>
               <li>
-                <strong className="font-display text-base font-bold text-i9-ink">
+                <strong className="font-display text-base font-bold text-white">
                   No impresso também
                 </strong>
                 <p className="mt-1">
@@ -364,7 +378,7 @@ export function Convites() {
               target="_blank"
               rel="noopener"
               onClick={() => track("whatsapp_click", { from: "convites" })}
-              className="mt-6 inline-block rounded-lg bg-i9-blue px-6 py-3 font-semibold text-white hover:bg-i9-blue-deep"
+              className="mt-6 inline-block rounded-lg bg-white px-6 py-3 font-semibold text-i9-blue hover:bg-i9-paper"
             >
               Quero um convite como esse
             </a>
@@ -372,6 +386,94 @@ export function Convites() {
         </div>
       </div>
     </section>
+  );
+}
+
+function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [index, setIndex] = useState(0);
+
+  const go = (i: number) => {
+    const n = (i + images.length) % images.length;
+    setIndex(n);
+    trackRef.current?.scrollTo({
+      left: n * (trackRef.current.clientWidth || 0),
+      behavior: "smooth",
+    });
+  };
+
+  if (images.length === 1) {
+    const im = images[0];
+    return (
+      <div className="relative aspect-[4/3]">
+        <Image
+          src={im.src}
+          alt={im.alt || name}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover"
+          loading="lazy"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className="group/car relative aspect-[4/3] overflow-hidden bg-i9-paper">
+      <div
+        ref={trackRef}
+        onScroll={(e) => {
+          const el = e.currentTarget;
+          const n = Math.round(el.scrollLeft / (el.clientWidth || 1));
+          if (n !== index) setIndex(n);
+        }}
+        className="flex h-full snap-x snap-mandatory overflow-x-auto"
+        style={{ scrollbarWidth: "none" }}
+      >
+        {images.map((im) => (
+          <div key={im.src} className="relative h-full w-full shrink-0 snap-center">
+            <Image
+              src={im.src}
+              alt={im.alt || name}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover"
+              loading="lazy"
+              draggable={false}
+            />
+          </div>
+        ))}
+      </div>
+      <button
+        onClick={() => go(index - 1)}
+        aria-label="Foto anterior"
+        className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-i9-ink/70 px-2.5 py-1.5 text-sm font-bold text-white opacity-0 transition group-hover/car:opacity-100 focus:opacity-100"
+      >
+        ‹
+      </button>
+      <button
+        onClick={() => go(index + 1)}
+        aria-label="Próxima foto"
+        className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-i9-ink/70 px-2.5 py-1.5 text-sm font-bold text-white opacity-0 transition group-hover/car:opacity-100 focus:opacity-100"
+      >
+        ›
+      </button>
+      <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1.5">
+        {images.map((im, i) => (
+          <button
+            key={im.src}
+            onClick={() => go(i)}
+            aria-label={`Ver foto ${i + 1} de ${images.length}`}
+            className={`h-1.5 rounded-full transition ${
+              i === index ? "w-5 bg-white" : "w-1.5 bg-white/60"
+            }`}
+          />
+        ))}
+      </div>
+      <span className="absolute right-2 top-2 rounded-md bg-i9-ink/70 px-2 py-0.5 text-[11px] font-semibold text-white">
+        {index + 1}/{images.length}
+      </span>
+    </div>
   );
 }
 
@@ -391,7 +493,7 @@ export function Cases() {
         <SectionHead
           label="Cases"
           title="Projetos que viraram resultado"
-          sub="Uma seleção do que já entregamos. Toque num case para abrir os detalhes."
+          sub="Uma seleção do que já entregamos. Cases com várias fotos têm carrossel, toque num case para abrir os detalhes."
         />
         <div className="mb-6 flex flex-wrap gap-2">
           {FILTERS.map((f) => (
@@ -436,44 +538,33 @@ export function Cases() {
                     isOpen ? "border-i9-blue shadow-lg" : "border-slate-200 hover:border-i9-blue"
                   }`}
                 >
+                  <CaseCarousel images={c.images} name={c.name} />
                   <button
                     onClick={() => {
                       setExpanded(isOpen ? null : c.slug);
                       if (!isOpen) track("case_view", { case: c.slug });
                     }}
                     aria-expanded={isOpen}
-                    className="block w-full text-left"
+                    className="flex w-full items-center gap-3 p-5 text-left"
                   >
-                    <div className="relative aspect-[4/3]">
-                      <Image
-                        src={c.image}
-                        alt={`${c.name}: ${c.desc}`}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover"
-                        loading="lazy"
-                      />
+                    <div className="flex-1">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-i9-blue">
+                        {c.category} · {c.niche}
+                      </p>
+                      <h3 className="mt-1 font-display text-lg font-bold text-i9-ink">
+                        {c.name}
+                      </h3>
                     </div>
-                    <div className="flex items-center gap-3 p-5">
-                      <div className="flex-1">
-                        <p className="text-xs font-semibold uppercase tracking-wider text-i9-blue">
-                          {c.category} · {c.niche}
-                        </p>
-                        <h3 className="mt-1 font-display text-lg font-bold text-i9-ink">
-                          {c.name}
-                        </h3>
-                      </div>
-                      <span
-                        aria-hidden
-                        className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition ${
-                          isOpen
-                            ? "rotate-90 border-i9-blue bg-i9-blue text-white"
-                            : "border-slate-200 text-i9-slate"
-                        }`}
-                      >
-                        <Chevron />
-                      </span>
-                    </div>
+                    <span
+                      aria-hidden
+                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition ${
+                        isOpen
+                          ? "rotate-90 border-i9-blue bg-i9-blue text-white"
+                          : "border-slate-200 text-i9-slate"
+                      }`}
+                    >
+                      <Chevron />
+                    </span>
                   </button>
                   {isOpen && (
                     <div className="border-t border-slate-100 px-5 py-4">
@@ -573,76 +664,83 @@ export function Partners() {
 export function Contact() {
   const [msg, setMsg] = useState("");
   return (
-    <section id="contato" className="border-t border-slate-200 bg-white">
+    <section
+      id="contato"
+      className="text-white"
+      style={{ background: "linear-gradient(180deg, #f5f6fb 0%, #dbe4f5 30%, #0b0f14 78%)" }}
+    >
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <SectionHead
-          label="Contato"
-          title="Seu negócio pode ser o próximo"
-          sub="Conta o que trava o seu dia no WhatsApp. A gente responde 24h e vê o que dá pra automatizar."
-        />
-        <div className="grid gap-4 lg:grid-cols-2">
-          <div className="rounded-xl border border-slate-200 bg-i9-paper p-6">
-            <label
-              htmlFor="cta-msg"
-              className="text-sm font-semibold text-i9-ink"
-            >
-              O que você precisa?
-            </label>
-            <textarea
-              id="cta-msg"
-              rows={4}
-              value={msg}
-              onChange={(e) => setMsg(e.target.value)}
-              placeholder="Ex: preciso de um site para minha lanchonete e quero atender pelo WhatsApp"
-              className="mt-2 w-full rounded-lg border border-slate-200 bg-white p-3 text-sm text-i9-ink placeholder:text-slate-400"
-            />
-            <a
-              href={waLink(
-                msg.trim()
-                  ? `Oi! Vim pelo site da i9BASE. ${msg.trim()}`
-                  : "Oi! Vim pelo site da i9BASE e quero conversar sobre meu negócio."
-              )}
-              target="_blank"
-              rel="noopener"
-              onClick={() => track("whatsapp_click", { from: "contact_form" })}
-              className="mt-4 block rounded-lg bg-[#25d366] px-6 py-3 text-center font-semibold text-white hover:brightness-95"
-            >
-              Enviar pelo WhatsApp
-            </a>
-            <p className="mt-3 text-xs text-slate-500">
-              Cai direto na nossa conversa, com atendimento automático 24h.
-            </p>
-          </div>
-          <div className="flex flex-col gap-4">
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener"
-              onClick={() => track("whatsapp_click", { from: "contact_card" })}
-              className="rounded-xl border border-slate-200 bg-i9-paper p-6 hover:border-i9-blue"
-            >
-              <p className="font-display text-base font-bold text-i9-ink">WhatsApp</p>
-              <p className="mt-1 text-sm text-slate-600">
-                Atendimento automático 24h, todos os dias. Orçamento base na hora.
+        <div className="rounded-2xl bg-i9-ink p-6 sm:p-10">
+          <SectionHead
+            dark
+            label="Contato"
+            title="Seu negócio pode ser o próximo"
+            sub="Conta o que trava o seu dia no WhatsApp. A gente responde 24h e vê o que dá pra automatizar."
+          />
+          <div className="grid gap-4 lg:grid-cols-2">
+            <div className="rounded-xl border border-white/10 bg-white/5 p-6">
+              <label
+                htmlFor="cta-msg"
+                className="text-sm font-semibold text-white"
+              >
+                O que você precisa?
+              </label>
+              <textarea
+                id="cta-msg"
+                rows={4}
+                value={msg}
+                onChange={(e) => setMsg(e.target.value)}
+                placeholder="Ex: preciso de um site para minha lanchonete e quero atender pelo WhatsApp"
+                className="mt-2 w-full rounded-lg border border-white/15 bg-i9-ink px-3 py-2.5 text-sm text-white placeholder:text-slate-500"
+              />
+              <a
+                href={waLink(
+                  msg.trim()
+                    ? `Oi! Vim pelo site da i9BASE. ${msg.trim()}`
+                    : "Oi! Vim pelo site da i9BASE e quero conversar sobre meu negócio."
+                )}
+                target="_blank"
+                rel="noopener"
+                onClick={() => track("whatsapp_click", { from: "contact_form" })}
+                className="mt-4 block rounded-lg bg-[#25d366] px-6 py-3 text-center font-semibold text-white hover:brightness-95"
+              >
+                Enviar pelo WhatsApp
+              </a>
+              <p className="mt-3 text-xs text-slate-400">
+                Cai direto na nossa conversa, com atendimento automático 24h.
               </p>
-              <p className="mt-2 text-sm font-semibold text-i9-blue">Chamar agora</p>
-            </a>
-            <a
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener"
-              onClick={() => track("cta_click", { from: "contact_card", to: "instagram" })}
-              className="rounded-xl border border-slate-200 bg-i9-paper p-6 hover:border-i9-blue"
-            >
-              <p className="font-display text-base font-bold text-i9-ink">Instagram @i9base</p>
-              <p className="mt-1 text-sm text-slate-600">
-                Bastidores, cases e novidades da base.
-              </p>
-              <p className="mt-2 text-sm font-semibold text-i9-blue">Seguir</p>
-            </a>
-            <div className="rounded-xl border border-slate-200 bg-i9-paper p-6">
-              <p className="font-display text-base font-bold text-i9-ink">E-mail</p>
-              <p className="mt-1 text-sm text-slate-600">{CONTACT_EMAIL}</p>
+            </div>
+            <div className="flex flex-col gap-4">
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener"
+                onClick={() => track("whatsapp_click", { from: "contact_card" })}
+                className="rounded-xl border border-white/10 bg-white/5 p-6 hover:border-i9-blue-soft"
+              >
+                <p className="font-display text-base font-bold text-white">WhatsApp</p>
+                <p className="mt-1 text-sm text-slate-300">
+                  Atendimento automático 24h, todos os dias. Orçamento base na hora.
+                </p>
+                <p className="mt-2 text-sm font-semibold text-i9-blue-soft">Chamar agora</p>
+              </a>
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener"
+                onClick={() => track("cta_click", { from: "contact_card", to: "instagram" })}
+                className="rounded-xl border border-white/10 bg-white/5 p-6 hover:border-i9-blue-soft"
+              >
+                <p className="font-display text-base font-bold text-white">Instagram @i9base</p>
+                <p className="mt-1 text-sm text-slate-300">
+                  Bastidores, cases e novidades da base.
+                </p>
+                <p className="mt-2 text-sm font-semibold text-i9-blue-soft">Seguir</p>
+              </a>
+              <div className="rounded-xl border border-white/10 bg-white/5 p-6">
+                <p className="font-display text-base font-bold text-white">E-mail</p>
+                <p className="mt-1 text-sm text-slate-300">{CONTACT_EMAIL}</p>
+              </div>
             </div>
           </div>
         </div>
