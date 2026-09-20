@@ -223,6 +223,14 @@ export function Hero() {
             </div>
           </div>
           <div className="relative">
+            <div
+              aria-hidden
+              className="animate-spin-slower pointer-events-none absolute -right-10 -top-10 hidden h-44 w-44 rounded-full border-2 border-dashed border-i9-blue/40 lg:block"
+            />
+            <div
+              aria-hidden
+              className="animate-spin-slower pointer-events-none absolute -bottom-8 -left-8 hidden h-28 w-28 rounded-full border border-i9-blue-soft/30 lg:block"
+            />
             <ChatDemo />
             <div
               aria-hidden

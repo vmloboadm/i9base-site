@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
-// Rede neural sobre grid em perspectiva. Reage ao mouse (parallax leve),
-// pausa fora da tela e desliga em movimento reduzido.
+// Rede neural com pacotes de dados viajando e hubs pulsantes.
+// Reage ao mouse (parallax), pausa fora da tela, desliga em reduced-motion.
 export function HeroCanvas() {
   const ref = useRef<HTMLCanvasElement>(null);
 
@@ -22,8 +22,10 @@ export function HeroCanvas() {
     const mouse = { x: 0.5, y: 0.5 };
     const par = { x: 0, y: 0 };
 
-    type P = { x: number; y: number; vx: number; vy: number; pulse: number };
+    type P = { x: number; y: number; vx: number; vy: number; pulse: number; hub: boolean };
+    type Packet = { a: number; b: number; p: number; speed: number };
     let pts: P[] = [];
+    let packets: Packet[] = [];
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
@@ -40,12 +42,18 @@ export function HeroCanvas() {
         vx: (Math.random() - 0.5) * 0.3,
         vy: (Math.random() - 0.5) * 0.3,
         pulse: (i * 0.7) % (Math.PI * 2),
+        hub: i % 23 === 0,
+      }));
+      packets = Array.from({ length: 16 }, () => ({
+        a: Math.floor(Math.random() * n),
+        b: Math.floor(Math.random() * n),
+        p: Math.random(),
+        speed: 0.004 + Math.random() * 0.008,
       }));
     };
 
     const grid = () => {
-      // Grade em perspectiva na base
-      ctx.strokeStyle = "rgba(37, 99, 235, 0.10)";
+      ctx.strokeStyle = "rgba(37, 99, 235, 0.12)";
       ctx.lineWidth = 1;
       const horizon = h * 0.62;
       for (let i = 0; i <= 12; i++) {
@@ -81,26 +89,55 @@ export function HeroCanvas() {
         if (p.y < 0 || p.y > h) p.vy *= -1;
       }
       ctx.lineWidth = 1;
+      const edges: [number, number][] = [];
       for (let i = 0; i < pts.length; i++) {
         for (let j = i + 1; j < pts.length; j++) {
           const a = pts[i];
           const b = pts[j];
           const d = Math.hypot(a.x - b.x, a.y - b.y);
           if (d < 150) {
-            ctx.strokeStyle = `rgba(37, 99, 235, ${((1 - d / 150) * 0.35).toFixed(3)})`;
+            ctx.strokeStyle = `rgba(37, 99, 235, ${((1 - d / 150) * 0.5).toFixed(3)})`;
             ctx.beginPath();
             ctx.moveTo(a.x + ox, a.y + oy);
             ctx.lineTo(b.x + ox, b.y + oy);
             ctx.stroke();
+            if (edges.length < 240) edges.push([i, j]);
           }
         }
       }
       for (const p of pts) {
-        const glow = 0.45 + 0.35 * Math.sin(t * 2 + p.pulse);
-        ctx.fillStyle = `rgba(96, 165, 250, ${glow.toFixed(3)})`;
+        const glow = 0.5 + 0.4 * Math.sin(t * 2 + p.pulse);
+        if (p.hub) {
+          const r = 3 + 2 * Math.sin(t * 2 + p.pulse);
+          ctx.strokeStyle = `rgba(96, 165, 250, ${(0.5 * glow).toFixed(3)})`;
+          ctx.beginPath();
+          ctx.arc(p.x + ox, p.y + oy, Math.max(4, r + 4), 0, Math.PI * 2);
+          ctx.stroke();
+        }
+        ctx.fillStyle = `rgba(147, 197, 253, ${glow.toFixed(3)})`;
         ctx.beginPath();
-        ctx.arc(p.x + ox, p.y + oy, 1.6, 0, Math.PI * 2);
+        ctx.arc(p.x + ox, p.y + oy, p.hub ? 2.4 : 1.6, 0, Math.PI * 2);
         ctx.fill();
+      }
+      if (edges.length > 0) {
+        for (const pk of packets) {
+          const e = edges[(pk.a + pk.b) % edges.length];
+          const a = pts[e[0]];
+          const b = pts[e[1]];
+          pk.p += pk.speed;
+          if (pk.p > 1) {
+            pk.p = 0;
+            pk.a = Math.floor(Math.random() * pts.length);
+            pk.b = Math.floor(Math.random() * pts.length);
+            continue;
+          }
+          const x = a.x + (b.x - a.x) * pk.p + ox;
+          const y = a.y + (b.y - a.y) * pk.p + oy;
+          ctx.fillStyle = "rgba(125, 211, 252, 0.95)";
+          ctx.beginPath();
+          ctx.arc(x, y, 2, 0, Math.PI * 2);
+          ctx.fill();
+        }
       }
       raf = requestAnimationFrame(step);
     };
