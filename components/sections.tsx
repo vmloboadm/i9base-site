@@ -226,7 +226,7 @@ export function Hero() {
             <ChatDemo />
             <div
               aria-hidden
-              className="animate-float-a absolute -left-3 top-10 hidden rounded-xl border border-white/15 bg-i9-ink/85 px-3 py-2 backdrop-blur-md sm:block"
+              className="animate-float-a absolute -left-6 top-2 hidden rounded-xl border border-white/15 bg-i9-ink/85 px-3 py-2 backdrop-blur-md sm:block"
             >
               <p className="text-[11px] font-bold text-white">QR na mesa</p>
               <p className="text-[10px] text-slate-400">pedido sem espera</p>
@@ -240,7 +240,7 @@ export function Hero() {
             </div>
             <div
               aria-hidden
-              className="animate-float-a absolute -bottom-4 left-8 hidden rounded-xl border border-white/15 bg-i9-ink/85 px-3 py-2 backdrop-blur-md sm:block"
+              className="animate-float-a absolute bottom-24 -left-4 hidden rounded-xl border border-white/15 bg-i9-ink/85 px-3 py-2 backdrop-blur-md sm:block"
             >
               <p className="text-[11px] font-bold text-white">Lead no funil</p>
               <p className="text-[10px] text-slate-400">follow-up sozinho</p>
