@@ -1,26 +1,70 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-i9-blue: #2563eb;
+  --color-i9-blue-deep: #1e40af;
+  --color-i9-blue-soft: #60a5fa;
+  --color-i9-ink: #0b0f14;
+  --color-i9-ink2: #121820;
+  --color-i9-paper: #f5f6fb;
+  --color-i9-concrete: #d6d6d6;
+  --color-i9-slate: #3a4a5c;
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-i9-paper);
+  color: var(--color-i9-slate);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-i9-blue);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-i9-blue);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Moldura técnica: cantos em colchete, assinatura do sistema i9BASE */
+.frame-corners {
+  position: relative;
+}
+.frame-corners::before,
+.frame-corners::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 2px solid rgba(96, 165, 250, 0.7);
+  pointer-events: none;
+}
+.frame-corners::before {
+  top: -2px;
+  left: -2px;
+  border-right: 0;
+  border-bottom: 0;
+}
+.frame-corners::after {
+  bottom: -2px;
+  right: -2px;
+  border-left: 0;
+  border-top: 0;
+}
+
+.label-eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
