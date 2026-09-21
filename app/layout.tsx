@@ -42,6 +42,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className="h-full">
+      <head>
+        <noscript>
+          <style>{`.reveal-scroll{opacity:1 !important;transform:none !important;}`}</style>
+        </noscript>
+      </head>
       <body
         className={`${display.variable} ${body.variable} flex min-h-full flex-col font-body`}
       >

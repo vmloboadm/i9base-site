@@ -302,3 +302,11 @@ body {
     animation: none;
   }
 }
+
+/* Sem JavaScript, o reveal nunca dispara: mostra tudo. */
+@media (scripting: none) {
+  .reveal-scroll {
+    opacity: 1;
+    transform: none;
+  }
+}
