@@ -7,6 +7,7 @@ import {
   CASES,
   CONTACT_EMAIL,
   DIFERENCIAL,
+  ESCADA,
   INSTAGRAM_URL,
   INVITES,
   METHOD,
@@ -1062,6 +1063,58 @@ export function Method() {
           ))}
         </ol>
         </Reveal>
+      </div>
+    </section>
+  );
+}
+
+export function Escada() {
+  return (
+    <section id="como-trabalhamos" className="bg-i9-ink">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <SectionHead
+          label="Como trabalhamos"
+          title="Cinco portas de entrada, um caminho só"
+          sub="Você entra pelo que dói hoje e cresce dentro da mesma base. Sem trocar de fornecedor a cada fase."
+        />
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {ESCADA.map((e, i) => (
+            <div
+              key={e.name}
+              className="rounded-xl border border-white/15 bg-white/5 p-6"
+            >
+              <p className="font-display text-sm font-bold text-i9-blue-soft">
+                {String(i + 1).padStart(2, "0")}
+              </p>
+              <h3 className="font-display mt-1 text-lg font-bold text-white">
+                {e.name}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-300">
+                {e.desc}
+              </p>
+            </div>
+          ))}
+          <a
+            href="/diagnostico"
+            onClick={() => track("diagnostico_start", { origem: "escada" })}
+            className="flex flex-col justify-between rounded-xl bg-i9-blue p-6 transition hover:bg-i9-blue-deep"
+          >
+            <div>
+              <p className="font-display text-sm font-bold text-white/70">
+                2 min
+              </p>
+              <h3 className="font-display mt-1 text-lg font-bold text-white">
+                Não sabe por onde entrar?
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-white/85">
+                Responda 4 perguntas e receba o plano certo para o seu momento.
+              </p>
+            </div>
+            <span className="font-display mt-4 inline-block font-bold text-white">
+              Fazer diagnóstico gratuito
+            </span>
+          </a>
+        </div>
       </div>
     </section>
   );

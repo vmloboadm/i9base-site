@@ -459,6 +459,34 @@ export const METHOD = [
   },
 ];
 
+export type Entrada = {
+  name: string;
+  desc: string;
+};
+
+export const ESCADA: Entrada[] = [
+  {
+    name: "i9BASE Presença",
+    desc: "Página ou site próprio com Google e WhatsApp conectados. Para o cliente te achar e te chamar.",
+  },
+  {
+    name: "i9BASE Atendimento",
+    desc: "WhatsApp organizado com automação e acompanhamento. Nenhum contato esfria.",
+  },
+  {
+    name: "i9BASE OS",
+    desc: "Sistema próprio para a operação: clientes, agenda, vendas e rotina no mesmo lugar.",
+  },
+  {
+    name: "i9BASE Experience",
+    desc: "QR, NFC e páginas para eventos e campanhas. Do convite digital à galeria da festa.",
+  },
+  {
+    name: "i9BASE Custom",
+    desc: "Projetos sob medida: portais, integrações, IA e operações completas.",
+  },
+];
+
 export const TECHS = ["Vercel", "Next.js", "Supabase", "n8n", "OpenAI", "Node.js"];
 
 export const OFERTAS = [
