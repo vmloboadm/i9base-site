@@ -15,6 +15,7 @@ import {
   SLOGAN,
   SOLUTIONS,
   STATS,
+  TECHS,
   TRACKS,
   VALORES_BASE,
   WHATSAPP_URL,
@@ -178,8 +179,8 @@ export function Hero() {
               A base de tecnologia para o seu negócio
             </h1>
             <p className="mt-5 max-w-xl text-base text-slate-200 sm:text-lg">
-              Sites, sistemas, automação e inteligência artificial para negócios
-              locais. Você entra pelo que dói hoje e cresce dentro da mesma base.
+              Sites, sistemas, automação e inteligência artificial para
+              negócios locais.
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <a
@@ -200,9 +201,8 @@ export function Hero() {
               </a>
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-300">
-              <span><strong className="font-display text-white">20</strong> cases publicados</span>
-              <span><strong className="font-display text-white">5</strong> portas de entrada</span>
-              <span><strong className="font-display text-white">2 min</strong> de diagnóstico</span>
+              <span><strong className="font-display text-white">20</strong> cases</span>
+              <span><strong className="font-display text-white">5</strong> entradas</span>
             </div>
           </div>
           <div className="relative">
@@ -210,47 +210,37 @@ export function Hero() {
               aria-hidden
               className="animate-spin-slower pointer-events-none absolute -right-10 -top-10 hidden h-44 w-44 rounded-full border-2 border-dashed border-i9-blue/40 lg:block"
             />
-            <div className="rounded-2xl border border-white/15 bg-i9-ink/70 p-5 backdrop-blur-md">
+            <div className="rounded-2xl border border-white/15 bg-i9-ink/70 p-6 text-center backdrop-blur-md">
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-i9-blue-soft">
-                Sua base, por camadas
+                Diagnóstico gratuito
               </p>
-              <ul className="mt-4 space-y-3">
-                {ESCADA.map((e, i) => (
-                  <li
-                    key={e.name}
-                    className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3"
-                  >
-                    <span className="font-display text-sm font-bold text-i9-blue-soft">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <p className="font-display text-sm font-bold text-white">{e.name}</p>
-                      <p className="text-xs text-slate-400">{e.desc}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+              <p className="font-display mt-2 text-2xl font-bold text-white">
+                4 perguntas, plano na hora
+              </p>
+              <p className="mx-auto mt-2 max-w-xs text-sm text-slate-300">
+                Descubra o que a tecnologia pode destravar no seu negócio.
+              </p>
               <a
-                href="#como-trabalhamos"
-                onClick={() => track("cta_click", { from: "hero", to: "escada" })}
-                className="mt-4 inline-block text-sm font-semibold text-white underline decoration-i9-blue-soft underline-offset-4 hover:text-i9-blue-soft"
+                href="/diagnostico"
+                onClick={() => track("diagnostico_start", { origem: "hero_card" })}
+                className="font-display mt-5 inline-block rounded-lg bg-i9-blue px-8 py-3 font-bold text-white transition hover:bg-i9-blue-deep"
               >
-                Ver como funciona
+                Começar agora
               </a>
             </div>
             <div
               aria-hidden
               className="animate-float-a absolute -left-6 top-2 hidden rounded-xl border border-white/15 bg-i9-ink/85 px-3 py-2 backdrop-blur-md sm:block"
             >
-              <p className="text-[11px] font-bold text-white">Diagnóstico gratuito</p>
-              <p className="text-[10px] text-slate-400">4 perguntas, plano na hora</p>
+              <p className="text-[11px] font-bold text-white">IA atendendo</p>
+              <p className="text-[10px] text-emerald-300">24h, sem pausa</p>
             </div>
             <div
               aria-hidden
-              className="animate-float-b absolute -right-2 top-1/3 hidden rounded-xl border border-white/15 bg-i9-ink/85 px-3 py-2 backdrop-blur-md sm:block"
+              className="animate-float-b absolute -right-2 bottom-6 hidden rounded-xl border border-white/15 bg-i9-ink/85 px-3 py-2 backdrop-blur-md sm:block"
             >
-              <p className="text-[11px] font-bold text-white">IA atendendo</p>
-              <p className="text-[10px] text-emerald-300">24h, sem pausa</p>
+              <p className="text-[11px] font-bold text-white">QR + NFC</p>
+              <p className="text-[10px] text-slate-400">do físico ao digital</p>
             </div>
           </div>
         </div>
@@ -1117,6 +1107,23 @@ export function Escada() {
   );
 }
 
+export function TechStrip() {
+  return (
+    <section aria-label="Tecnologia" className="border-b border-slate-200/70 bg-white">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-7 gap-y-2 px-4 py-4 sm:px-6">
+        <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400">
+          Nossa base de tecnologia
+        </span>
+        {TECHS.map((t) => (
+          <span key={t} className="text-sm font-medium text-slate-500">
+            {t}
+          </span>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export function Partners() {
   return (
     <section className="bg-i9-paper">
@@ -1430,11 +1437,11 @@ export function FinalCta() {
             Quero um orçamento
           </a>
           <a
-            href="#cases"
-            onClick={() => track("cta_click", { from: "final_cta", to: "cases" })}
+            href="/diagnostico"
+            onClick={() => track("diagnostico_start", { origem: "final_cta" })}
             className="rounded-lg border border-white/25 px-8 py-3.5 font-semibold text-white hover:border-i9-blue-soft hover:text-i9-blue-soft"
           >
-            Ver portfólio
+            Fazer diagnóstico gratuito
           </a>
         </div>
       </div>

@@ -487,7 +487,7 @@ export const ESCADA: Entrada[] = [
   },
 ];
 
-export const TECHS = ["Vercel", "Next.js", "Supabase", "n8n", "OpenAI", "Node.js"];
+export const TECHS = ["Next.js", "Vercel", "Supabase", "OpenAI", "Claude", "n8n", "Node.js", "WhatsApp", "QR Code", "NFC"];
 
 export const OFERTAS = [
   "Sites Profissionais",
@@ -517,6 +517,7 @@ export const NAV = [
   { href: "#cases", label: "Cases" },
   { href: "#artes", label: "Artes" },
   { href: "#metodo", label: "Método" },
+  { href: "/diagnostico", label: "Diagnóstico" },
   { href: "#contato", label: "Contato" },
 ];
 

@@ -14,6 +14,7 @@ import {
   Partners,
   Solutions,
   StripStats,
+  TechStrip,
   Faq,
   FinalCta,
 } from "@/components/sections";
@@ -24,6 +25,7 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
+        <TechStrip />
         <OfferStrip />
         <StripStats />
         <Solutions />
