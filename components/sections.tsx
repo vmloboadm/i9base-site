@@ -1110,13 +1110,25 @@ export function Escada() {
 export function TechStrip() {
   return (
     <section aria-label="Tecnologia" className="border-b border-slate-200/70 bg-white">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-7 gap-y-2 px-4 py-4 sm:px-6">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-7 gap-y-3 px-4 py-5 sm:px-6">
         <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400">
           Nossa base de tecnologia
         </span>
         {TECHS.map((t) => (
-          <span key={t} className="text-sm font-medium text-slate-500">
-            {t}
+          <span
+            key={t.name}
+            title={t.name}
+            className="flex items-center gap-1.5 text-slate-400 transition hover:text-slate-700"
+          >
+            <Image
+              src={t.logo}
+              alt={t.name}
+              width={20}
+              height={20}
+              loading="lazy"
+              className="h-[18px] w-auto"
+            />
+            <span className="text-sm font-medium">{t.name}</span>
           </span>
         ))}
       </div>

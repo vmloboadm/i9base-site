@@ -487,7 +487,19 @@ export const ESCADA: Entrada[] = [
   },
 ];
 
-export const TECHS = ["Next.js", "Vercel", "Supabase", "OpenAI", "Claude", "n8n", "Node.js", "WhatsApp", "QR Code", "NFC"];
+export type Tech = { name: string; logo: string };
+
+export const TECHS: Tech[] = [
+  { name: "Next.js", logo: "/tech/nextdotjs.svg" },
+  { name: "Vercel", logo: "/tech/vercel.svg" },
+  { name: "Supabase", logo: "/tech/supabase.svg" },
+  { name: "OpenAI", logo: "/tech/openai.svg" },
+  { name: "Claude", logo: "/tech/claude.svg" },
+  { name: "n8n", logo: "/tech/n8n.svg" },
+  { name: "Node.js", logo: "/tech/nodedotjs.svg" },
+  { name: "WhatsApp", logo: "/tech/whatsapp.svg" },
+  { name: "NFC", logo: "/tech/nfc.svg" },
+];
 
 export const OFERTAS = [
   "Sites Profissionais",
