@@ -15,7 +15,6 @@ import {
   SLOGAN,
   SOLUTIONS,
   STATS,
-  TECHS,
   TRACKS,
   VALORES_BASE,
   WHATSAPP_URL,
@@ -24,7 +23,6 @@ import {
 } from "@/lib/data";
 import { track } from "@/lib/analytics";
 import { HeroCanvas } from "@/components/hero-canvas";
-import { ChatDemo } from "@/components/chat-demo";
 function Chevron() {  return (
     <svg
       viewBox="0 0 16 16"
@@ -135,7 +133,18 @@ export function Hero() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, #0b0f14 0%, #0a1a33 48%, #123063 76%, #f5f6fb 100%)",
+            "radial-gradient(900px 480px at 85% -5%, rgba(37,99,235,0.35), transparent 60%), radial-gradient(700px 420px at 8% 20%, rgba(124,58,237,0.22), transparent 60%), linear-gradient(180deg, #0b0f14 0%, #0a1a33 48%, #123063 76%, #f5f6fb 100%)",
+        }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-[0.13]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
+          backgroundSize: "56px 56px",
+          maskImage: "radial-gradient(800px 500px at 50% 0%, black 30%, transparent 75%)",
+          WebkitMaskImage: "radial-gradient(800px 500px at 50% 0%, black 30%, transparent 75%)",
         }}
       />
       <HeroCanvas />
@@ -166,62 +175,34 @@ export function Hero() {
               </p>
             </div>
             <h1 className="font-display text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
-              Estruture. Automatize. Evolua.
+              A base de tecnologia para o seu negócio
             </h1>
             <p className="mt-5 max-w-xl text-base text-slate-200 sm:text-lg">
-              Sites, sistemas, automação e atendimento com IA para negócios
-              locais. Do QR ao pedido, sua operação conectada em uma única base.
+              Sites, sistemas, automação e inteligência artificial para negócios
+              locais. Você entra pelo que dói hoje e cresce dentro da mesma base.
             </p>
-            <div className="mt-6 rounded-xl border border-white/15 bg-white/5 p-4 backdrop-blur-sm">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-i9-blue-soft">
-                WhatsApp + CRM, juntos
-              </p>
-              <div className="mt-3 flex flex-nowrap items-center gap-1.5 overflow-x-auto text-[11px] font-semibold">
-                <span className="shrink-0 rounded-md bg-i9-blue px-2.5 py-1.5 text-white">
-                  Conversa entra
-                </span>
-                <span aria-hidden className="shrink-0 text-slate-400">→</span>
-                <span className="shrink-0 rounded-md bg-white/10 px-2.5 py-1.5 text-slate-100">
-                  Vira lead no funil
-                </span>
-                <span aria-hidden className="shrink-0 text-slate-400">→</span>
-                <span className="shrink-0 rounded-md bg-white/10 px-2.5 py-1.5 text-slate-100">
-                  Follow-up sozinho
-                </span>
-                <span aria-hidden className="shrink-0 text-slate-400">→</span>
-                <span className="shrink-0 rounded-md bg-emerald-400 px-2.5 py-1.5 text-i9-ink">
-                  Você fecha
-                </span>
-              </div>
-            </div>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <a
+                href="/diagnostico"
+                onClick={() => track("diagnostico_start", { origem: "hero" })}
+                className="rounded-lg bg-i9-blue px-6 py-3 text-center font-semibold text-white hover:bg-i9-blue-deep"
+              >
+                Fazer diagnóstico gratuito
+              </a>
               <a
                 href={waLink("Oi! Vim pelo site da i9BASE e quero estruturar meu negócio.")}
                 target="_blank"
                 rel="noopener"
                 onClick={() => track("whatsapp_click", { from: "hero" })}
-                className="rounded-lg bg-i9-blue px-6 py-3 text-center font-semibold text-white hover:bg-i9-blue-deep"
+                className="rounded-lg border border-white/25 px-6 py-3 text-center font-semibold text-white hover:border-i9-blue-soft hover:text-i9-blue-soft"
               >
                 Chamar no WhatsApp
               </a>
-              <a
-                href="#cases"
-                onClick={() => track("cta_click", { from: "hero", to: "cases" })}
-                className="rounded-lg border border-white/25 px-6 py-3 text-center font-semibold text-white hover:border-i9-blue-soft hover:text-i9-blue-soft"
-              >
-                Ver cases
-              </a>
             </div>
-            <div className="mt-8 flex flex-wrap items-center gap-2 text-xs">
-              <span className="text-slate-300">Construído com</span>
-              {TECHS.map((t) => (
-                <span
-                  key={t}
-                  className="rounded-md border border-white/15 bg-white/5 px-2.5 py-1 font-medium text-slate-100"
-                >
-                  {t}
-                </span>
-              ))}
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-300">
+              <span><strong className="font-display text-white">20</strong> cases publicados</span>
+              <span><strong className="font-display text-white">5</strong> portas de entrada</span>
+              <span><strong className="font-display text-white">2 min</strong> de diagnóstico</span>
             </div>
           </div>
           <div className="relative">
@@ -229,17 +210,40 @@ export function Hero() {
               aria-hidden
               className="animate-spin-slower pointer-events-none absolute -right-10 -top-10 hidden h-44 w-44 rounded-full border-2 border-dashed border-i9-blue/40 lg:block"
             />
-            <div
-              aria-hidden
-              className="animate-spin-slower pointer-events-none absolute -bottom-8 -left-8 hidden h-28 w-28 rounded-full border border-i9-blue-soft/30 lg:block"
-            />
-            <ChatDemo />
+            <div className="rounded-2xl border border-white/15 bg-i9-ink/70 p-5 backdrop-blur-md">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-i9-blue-soft">
+                Sua base, por camadas
+              </p>
+              <ul className="mt-4 space-y-3">
+                {ESCADA.map((e, i) => (
+                  <li
+                    key={e.name}
+                    className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3"
+                  >
+                    <span className="font-display text-sm font-bold text-i9-blue-soft">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <p className="font-display text-sm font-bold text-white">{e.name}</p>
+                      <p className="text-xs text-slate-400">{e.desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="#como-trabalhamos"
+                onClick={() => track("cta_click", { from: "hero", to: "escada" })}
+                className="mt-4 inline-block text-sm font-semibold text-white underline decoration-i9-blue-soft underline-offset-4 hover:text-i9-blue-soft"
+              >
+                Ver como funciona
+              </a>
+            </div>
             <div
               aria-hidden
               className="animate-float-a absolute -left-6 top-2 hidden rounded-xl border border-white/15 bg-i9-ink/85 px-3 py-2 backdrop-blur-md sm:block"
             >
-              <p className="text-[11px] font-bold text-white">QR na mesa</p>
-              <p className="text-[10px] text-slate-400">pedido sem espera</p>
+              <p className="text-[11px] font-bold text-white">Diagnóstico gratuito</p>
+              <p className="text-[10px] text-slate-400">4 perguntas, plano na hora</p>
             </div>
             <div
               aria-hidden
@@ -247,13 +251,6 @@ export function Hero() {
             >
               <p className="text-[11px] font-bold text-white">IA atendendo</p>
               <p className="text-[10px] text-emerald-300">24h, sem pausa</p>
-            </div>
-            <div
-              aria-hidden
-              className="animate-float-a absolute bottom-24 -left-4 hidden rounded-xl border border-white/15 bg-i9-ink/85 px-3 py-2 backdrop-blur-md sm:block"
-            >
-              <p className="text-[11px] font-bold text-white">Lead no funil</p>
-              <p className="text-[10px] text-slate-400">follow-up sozinho</p>
             </div>
           </div>
         </div>
