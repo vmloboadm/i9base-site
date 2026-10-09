@@ -5,7 +5,7 @@ export function track(event: string, data?: Record<string, string>) {
       data: data ?? {},
       url:
         typeof window !== "undefined"
-          ? window.location.pathname
+          ? window.location.pathname + window.location.search
           : "",
       ts: new Date().toISOString(),
     });
