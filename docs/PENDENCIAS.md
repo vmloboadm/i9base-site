@@ -16,3 +16,15 @@
 - PT-BR em toda UI, sem travessão.
 - SBC Digital fora do portfólio até ok explícito (vertical de apostas).
 - Surprise Kids fora até existirem imagens.
+
+## Decisões com o Vinicius (07/11/2026)
+- Sem preço em página nenhuma (B2B e site): "orçamento pelo WhatsApp" em tudo. TODO: /pessoal (currículo, Quadro Netflix) decidir se usa "a partir de R$ X" (converte melhor em pessoa física).
+- Cases com status honesto: RotaFácil e Rancho da Ilha = proposta/protótipo (não "em operação").
+- Métricas autorizadas para publicar: GymFitness ~65 alunos ativos; Jumper For Man 1.360 variações no ERP + 3 marketplaces. Guardar em arquivo de dados com fonte e data de atualização (updatedAt).
+- JSON-LD: sem aggregateRating e sem avaliações enquanto não existirem depoimentos reais.
+- E-mail contato: manter Gmail por ora (TODO caixa no domínio no futuro).
+- Visual "tudo claro" (base clara, azul só em CTAs), MAS capas e blocos de destaque podem manter o escuro do portfólio se o checkpoint de prints priorizar a identidade única. Checkpoint de prints antes de cada merge visual é obrigatório.
+- LGPD (PR5): captura de lead antes do WhatsApp exige aviso de consentimento junto ao botão + página curta de privacidade; a chamada do Supabase não pode bloquear o redirect (sendBeacon/keepalive/fetch background).
+- Imagens (PR1): limitar origem em 1600–2000 px máx, converter para webp/avif e mover originais para fora de `public/` (backup). `sizes`+`deviceSizes` sozinhos não resolvem.
+- Sitemap expandido entra no PR1 (não no PR4).
+- SBC Digital já decidido fora do portfólio; surtiu efeito (v26 no ar).
