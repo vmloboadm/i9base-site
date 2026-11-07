@@ -11,7 +11,6 @@ import {
   INSTAGRAM_URL,
   INVITES,
   METHOD,
-  OFERTAS,
   SLOGAN,
   SOLUTIONS,
   STATS,
@@ -24,7 +23,9 @@ import {
 } from "@/lib/data";
 import { track } from "@/lib/analytics";
 import { HeroCanvas } from "@/components/hero-canvas";
-function Chevron() {  return (
+
+function Chevron() {
+  return (
     <svg
       viewBox="0 0 16 16"
       aria-hidden
@@ -68,10 +69,6 @@ function Reveal({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setVisible(true);
-      return;
-    }
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -201,8 +198,8 @@ export function Hero() {
               </a>
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-300">
-              <span><strong className="font-display text-white">20</strong> cases</span>
-              <span><strong className="font-display text-white">5</strong> entradas</span>
+              <span><strong className="font-display text-white">{CASES.length}</strong> cases</span>
+              <span><strong className="font-display text-white">{ESCADA.length}</strong> entradas</span>
             </div>
           </div>
           <div className="relative">
@@ -251,11 +248,6 @@ export function Hero() {
 
 export function Solutions() {
   const [active, setActive] = useState(TRACKS[0].id);
-  const trackInfo = TRACKS.find((t) => t.id === active) ?? TRACKS[0];
-  const items = useMemo(
-    () => SOLUTIONS.filter((s) => s.track === active),
-    [active]
-  );
 
   return (
     <section id="solucoes" className="bg-i9-ink text-white">
@@ -273,7 +265,7 @@ export function Solutions() {
           <li aria-hidden>→</li>
           <li className="rounded-md border border-white/15 bg-white/5 px-2.5 py-1.5">3 · Chame no WhatsApp</li>
         </ol>
-        <div className="mb-6 flex flex-wrap gap-2">
+        <div className="mb-6 flex flex-wrap gap-2" role="tablist" aria-label="Trilhas de soluções">
           {TRACKS.map((t) => {
             const count = SOLUTIONS.filter((s) => s.track === t.id).length;
             return (
@@ -283,7 +275,10 @@ export function Solutions() {
                   setActive(t.id);
                   track("solution_track", { track: t.id });
                 }}
-                aria-pressed={active === t.id}
+                role="tab"
+                id={`tab-${t.id}`}
+                aria-selected={active === t.id}
+                aria-controls={`panel-${t.id}`}
                 className={`rounded-lg px-4 py-2 text-sm font-semibold ${
                   active === t.id
                     ? "bg-i9-blue text-white"
@@ -296,53 +291,71 @@ export function Solutions() {
             );
           })}
         </div>
-        <div key={active} className="animate-panel grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((s) => {
-            const featured = s.name === 'Convites Interativos';
-            return (
+        {TRACKS.map((t) => {
+          const itens = SOLUTIONS.filter((s) => s.track === t.id);
+          return (
+            <div
+              key={t.id}
+              role="tabpanel"
+              id={`panel-${t.id}`}
+              aria-labelledby={`tab-${t.id}`}
+              hidden={active !== t.id}
+            >
               <div
-                key={s.name}
-                className={`group relative flex flex-col overflow-hidden rounded-xl border bg-white p-5 transition duration-300 hover:-translate-y-1 ${featured ? 'border-i9-blue shadow-[0_0_40px_rgba(37,99,235,0.25)] sm:col-span-2 lg:col-span-2' : 'border-slate-200 hover:border-transparent hover:shadow-[0_0_40px_rgba(37,99,235,0.3)] hover:ring-1 hover:ring-i9-blue'}`}
+                key={active === t.id ? t.id : `hidden-${t.id}`}
+                className={`grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ${
+                  active === t.id ? "animate-panel" : ""
+                }`}
               >
-                {featured && (
-                  <span className="absolute right-4 top-4 rounded-md bg-i9-blue px-2 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
-                    Destaque
-                  </span>
-                )}
-                <h3 className="font-display text-base font-bold text-i9-ink group-hover:text-i9-blue">
-                  {s.name}
-                </h3>
-                <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">
-                  {TRACKS.find((t) => t.id === s.track)?.name}
-                </p>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{s.desc}</p>
-                <p className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-md bg-i9-paper px-2.5 py-1 text-xs font-bold text-i9-blue">
-                  {s.badge}
-                </p>
-                <div className="mt-4 flex gap-2">
-                  <a
-                    href={waLink('Oi! Vi no site e quero saber sobre: ' + s.name + '.')}
-                    target="_blank"
-                    rel="noopener"
-                    onClick={() => track('whatsapp_click', { from: 'solution_card', solution: s.name })}
-                    className="flex-1 rounded-lg bg-i9-ink px-4 py-2.5 text-center text-sm font-semibold text-white transition group-hover:bg-i9-blue"
-                  >
-                    Quero essa solução
-                  </a>
-                  {featured && (
-                    <a
-                      href="/convites"
-                      onClick={() => track('cta_click', { from: 'solution_card', to: 'convites_page' })}
-                      className="rounded-lg border border-i9-blue px-4 py-2.5 text-center text-sm font-semibold text-i9-blue hover:bg-i9-blue hover:text-white"
+                {itens.map((s) => {
+                  const featured = s.name === 'Convites Interativos';
+                  return (
+                    <div
+                      key={s.name}
+                      className={`group relative flex flex-col overflow-hidden rounded-xl border bg-white p-5 transition duration-300 hover:-translate-y-1 ${featured ? 'border-i9-blue shadow-[0_0_40px_rgba(37,99,235,0.25)] sm:col-span-2 lg:col-span-2' : 'border-slate-200 hover:border-transparent hover:shadow-[0_0_40px_rgba(37,99,235,0.3)] hover:ring-1 hover:ring-i9-blue'}`}
                     >
-                      Ver página completa →
-                    </a>
-                  )}
-                </div>
+                      {featured && (
+                        <span className="absolute right-4 top-4 rounded-md bg-i9-blue px-2 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+                          Destaque
+                        </span>
+                      )}
+                      <h3 className="font-display text-base font-bold text-i9-ink group-hover:text-i9-blue">
+                        {s.name}
+                      </h3>
+                      <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">
+                        {TRACKS.find((tk) => tk.id === s.track)?.name}
+                      </p>
+                      <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{s.desc}</p>
+                      <p className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-md bg-i9-paper px-2.5 py-1 text-xs font-bold text-i9-blue">
+                        {s.badge}
+                      </p>
+                      <div className="mt-4 flex gap-2">
+                        <a
+                          href={waLink('Oi! Vi no site e quero saber sobre: ' + s.name + '.')}
+                          target="_blank"
+                          rel="noopener"
+                          onClick={() => track('whatsapp_click', { from: 'solution_card', solution: s.name })}
+                          className="flex-1 rounded-lg bg-i9-ink px-4 py-2.5 text-center text-sm font-semibold text-white transition group-hover:bg-i9-blue"
+                        >
+                          Quero essa solução
+                        </a>
+                        {featured && (
+                          <a
+                            href="/convites"
+                            onClick={() => track('cta_click', { from: 'solution_card', to: 'convites_page' })}
+                            className="rounded-lg border border-i9-blue px-4 py-2.5 text-center text-sm font-semibold text-i9-blue hover:bg-i9-blue hover:text-white"
+                          >
+                            Ver página completa →
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
         <p className="mt-6 text-sm text-slate-400">
           Orçamento sempre personalizado após entender o seu caso, e parceria é
           sempre conversável.
@@ -671,19 +684,6 @@ export function Convites() {
   );
 }
 
-function CasePlaceholder({ name }: { name: string }) {
-  return (
-    <div className="frame-corners relative flex aspect-[4/3] items-center justify-center bg-[#121820]">
-      <p className="px-6 text-center font-display text-sm font-bold uppercase tracking-[0.18em] text-slate-400">
-        [INSERIR IMAGEM REAL DO CASE]
-        <span className="mt-2 block text-xs font-medium normal-case tracking-normal text-slate-500">
-          {name}
-        </span>
-      </p>
-    </div>
-  );
-}
-
 function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
@@ -699,9 +699,6 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
 
   if (images.length === 1) {
     const im = images[0];
-    if (im.placeholder) {
-      return <CasePlaceholder name={name} />;
-    }
     return (
       <div className="relative aspect-[4/3]">
         <Image
@@ -728,12 +725,7 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
         className="flex h-full snap-x snap-mandatory overflow-x-auto"
         style={{ scrollbarWidth: "none" }}
       >
-        {images.map((im) =>
-          im.placeholder ? (
-            <div key="placeholder" className="h-full w-full shrink-0 snap-center">
-              <CasePlaceholder name={name} />
-            </div>
-          ) : (
+        {images.map((im) => (
           <div key={im.src} className="relative h-full w-full shrink-0 snap-center">
             <Image
               src={im.src}
@@ -745,8 +737,7 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
               draggable={false}
             />
           </div>
-          )
-        )}
+        ))}
       </div>
       <button
         onClick={() => go(index - 1)}
@@ -1463,16 +1454,17 @@ export function FinalCta() {
 
 function CountUp({ to, suffix }: { to: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const [n, setN] = useState(0);
+  // O número final vem no HTML (SEO e primeira pintura). Com movimento
+  // permitido, reinicia de 0 e anima quando o elemento entra na tela.
+  const [n, setN] = useState(to);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setN(to);
       return;
     }
     let raf = 0;
-    const t0 = performance.now();
+    let t0 = 0;
     const tick = (t: number) => {
       const p = Math.min(1, (t - t0) / 700);
       setN(Math.round(to * (1 - Math.pow(1 - p, 3))));
@@ -1481,6 +1473,8 @@ function CountUp({ to, suffix }: { to: number; suffix: string }) {
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          setN(0);
+          t0 = performance.now();
           raf = requestAnimationFrame(tick);
           io.disconnect();
         }
@@ -1507,15 +1501,15 @@ export function StripStats() {
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 px-4 py-6 sm:grid-cols-3 sm:px-6">
         <div className="flex items-baseline gap-3">
           <span className="font-display text-3xl font-bold text-i9-blue">
-            <CountUp to={20} suffix="" />
+            <CountUp to={CASES.length} suffix="" />
           </span>
           <span className="text-sm text-slate-600">cases em destaque</span>
         </div>
         <div className="flex items-baseline gap-3">
           <span className="font-display text-3xl font-bold text-i9-blue">
-            +<CountUp to={40} suffix="" />
+            +<CountUp to={ARTES.length} suffix="" />
           </span>
-          <span className="text-sm text-slate-600">projetos entregues</span>
+          <span className="text-sm text-slate-600">artes entregues para clientes</span>
         </div>
         <div className="flex items-baseline gap-3">
           <span className="font-display text-3xl font-bold text-i9-blue">24/7</span>

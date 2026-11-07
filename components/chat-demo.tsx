@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 type Msg = { from: "client" | "agent"; text: string };
 
@@ -18,6 +18,23 @@ const SCRIPT: Msg[] = [
     text: "registrei aqui. uma pessoa do time continua com você agora mesmo.",
   },
 ];
+
+const reducedStore = {
+  match() {
+    return window.matchMedia("(prefers-reduced-motion: reduce)");
+  },
+  subscribe(cb: () => void) {
+    const mm = this.match();
+    mm.addEventListener("change", cb);
+    return () => mm.removeEventListener("change", cb);
+  },
+  snapshot() {
+    return this.match().matches;
+  },
+  serverSnapshot() {
+    return false;
+  },
+};
 
 function Typing() {
   return (
@@ -38,15 +55,15 @@ function Typing() {
 export function ChatDemo() {
   const [count, setCount] = useState(1);
   const [typing, setTyping] = useState(false);
-  const reduced = useRef(false);
+  const reduced = useSyncExternalStore(
+    (cb) => reducedStore.subscribe(cb),
+    () => reducedStore.snapshot(),
+    () => reducedStore.serverSnapshot()
+  );
   const boxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    reduced.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced.current) {
-      setCount(SCRIPT.length);
-      return;
-    }
+    if (reduced) return;
     let timers: ReturnType<typeof setTimeout>[] = [];
     let alive = true;
     const io = new IntersectionObserver(
@@ -96,14 +113,14 @@ export function ChatDemo() {
       timers.forEach(clearTimeout);
       io.disconnect();
     };
-  }, []);
+  }, [reduced]);
 
   useEffect(() => {
     const box = boxRef.current;
     if (box) box.scrollTop = box.scrollHeight;
   }, [count, typing]);
 
-  const visible = reduced.current ? SCRIPT : SCRIPT.slice(0, count);
+  const visible = reduced ? SCRIPT : SCRIPT.slice(0, count);
 
   return (
     <figure className="mx-auto w-full max-w-sm">

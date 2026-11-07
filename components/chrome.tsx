@@ -175,36 +175,6 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-slate-200">
-        <div className="mx-auto max-w-6xl px-4 py-4 sm:px-6">
-          <p className="label-eyebrow text-slate-400">Tecnologias que usamos</p>
-          <ul className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
-            {[
-              { name: "Vercel", slug: "vercel" },
-              { name: "Next.js", slug: "nextdotjs" },
-              { name: "Supabase", slug: "supabase" },
-              { name: "n8n", slug: "n8n" },
-              { name: "OpenAI", slug: "openai" },
-              { name: "Node.js", slug: "nodedotjs" },
-              { name: "Tailwind", slug: "tailwindcss" },
-              { name: "WhatsApp", slug: "whatsapp" },
-            ].map((t) => (
-              <li key={t.slug} className="flex items-center gap-1.5">
-                <img
-                  src={`https://cdn.simpleicons.org/${t.slug}/3A4A5C`}
-                  alt=""
-                  aria-hidden
-                  width={16}
-                  height={16}
-                  loading="lazy"
-                  className="h-4 w-4"
-                />
-                <span className="text-xs font-medium text-slate-500">{t.name}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-      <div className="border-t border-slate-200">
         <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <span>© 2026 i9BASE. Todos os direitos reservados.</span>
           <span>Campos dos Goytacazes e região</span>

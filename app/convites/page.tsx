@@ -2,15 +2,32 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { BackToTop, Footer, FloatWhats, Header } from "@/components/chrome";
 import { InvitePhone, Wave } from "@/components/sections";
-import { CONVITE_FEATURES, DEPOIMENTOS, INVITES, PACOTES, waLink } from "@/lib/data";
+import { CONVITE_FEATURES, DEPOIMENTOS, INVITES, waLink } from "@/lib/data";
 import { CONVITE_FOTOS, CONVITE_VIDEOS } from "@/lib/convites-media";
 import { track } from "@/lib/analytics";
+import { VideoTile } from "@/components/video-tile";
+import { TrackedLink } from "@/components/tracked-link";
 
 export const metadata: Metadata = {
   title: "Convites interativos · i9BASE",
   description:
     "Convite digital para aniversário, 15 anos e casamento: confirmação, mapa e galeria em tempo real.",
   alternates: { canonical: "https://i9base.com.br/convites" },
+  openGraph: {
+    title: "Convites interativos que impressionam · i9BASE",
+    description:
+      "Abertura animada, confirmação em 1 toque e galeria ao vivo na sua festa.",
+    url: "https://i9base.com.br/convites",
+    siteName: "i9BASE",
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Convites interativos que impressionam · i9BASE",
+    description:
+      "Abertura animada, confirmação em 1 toque e galeria ao vivo na sua festa.",
+  },
 };
 
 function CheckIcon() {
@@ -39,19 +56,13 @@ function VideoHero() {
   }
   const v = CONVITE_VIDEOS[0];
   return (
-    <div className="frame-corners relative mx-auto max-w-sm overflow-hidden rounded-2xl border border-white/15">
-      <video
+    <div className="relative mx-auto max-w-sm">
+      <VideoTile
         src={v.src}
         poster={v.poster}
-        muted
-        autoPlay
-        loop
-        playsInline
-        preload="metadata"
-        aria-label={v.alt}
+        alt={v.alt}
         className="aspect-[9/16] w-full object-cover"
       />
-      <div aria-hidden className="absolute inset-0 bg-i9-ink/10" />
     </div>
   );
 }
@@ -65,77 +76,41 @@ function Gallery() {
         Da festa, na hora
       </h2>
       <p className="mt-2 max-w-2xl text-sm text-slate-600">
-        Fotos reais de festas de clientes. Arraste para o lado para ver todas.
+        Fotos reais de festas de clientes. Toque no vídeo para assistir.
       </p>
       {hasVideo ? (
         <div className="mt-6 columns-2 gap-4 md:columns-3">
           {videos.map((v) => (
-            <figure
+            <VideoTile
               key={v.src}
-              className="frame-corners mb-4 overflow-hidden rounded-xl border border-slate-200 break-inside-avoid"
-            >
-              <video
-                src={v.src}
-                poster={v.poster}
-                muted
-                autoPlay
-                loop
-                playsInline
-                preload="metadata"
-                aria-label={v.alt}
-                className="h-auto w-full"
-              />
-              <figcaption className="px-3 py-2 text-xs font-medium text-slate-500">
-                {v.alt}
-              </figcaption>
-            </figure>
+              src={v.src}
+              poster={v.poster}
+              alt={v.alt}
+              caption={v.alt}
+              className="h-auto w-full"
+            />
           ))}
         </div>
       ) : null}
       {CONVITE_FOTOS.length > 0 && (
-        <>
-          <div className="mt-8 columns-2 gap-4 md:columns-3">
-            {CONVITE_FOTOS.map((f) => (
-              <figure
-                key={f.src}
-                className="mb-4 overflow-hidden rounded-xl border border-slate-200 break-inside-avoid"
-              >
-                <Image
-                  src={f.src}
-                  alt={f.alt}
-                  width={720}
-                  height={720}
-                  sizes="(max-width: 768px) 50vw, 33vw"
-                  className="h-auto w-full"
-                  loading="lazy"
-                />
-              </figure>
-            ))}
-          </div>
-          <div className="mt-6 flex items-center justify-between">
-            <p className="text-sm font-semibold text-i9-slate">Fotos reais</p>
-            <p className="font-display text-sm font-bold text-i9-blue">
-              01 / {String(CONVITE_FOTOS.length).padStart(2, "0")}
-            </p>
-          </div>
-          <div className="mt-3 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2">
-            {CONVITE_FOTOS.map((f) => (
-              <div
-                key={f.src}
-                className="relative h-44 w-36 shrink-0 snap-center overflow-hidden rounded-xl border border-slate-200"
-              >
-                <Image
-                  src={f.src}
-                  alt={f.alt}
-                  fill
-                  sizes="144px"
-                  className="object-cover"
-                  loading="lazy"
-                />
-              </div>
-            ))}
-          </div>
-        </>
+        <div className="mt-8 columns-2 gap-4 md:columns-3">
+          {CONVITE_FOTOS.map((f) => (
+            <figure
+              key={f.src}
+              className="mb-4 overflow-hidden rounded-xl border border-slate-200 break-inside-avoid"
+            >
+              <Image
+                src={f.src}
+                alt={f.alt}
+                width={720}
+                height={720}
+                sizes="(max-width: 768px) 50vw, 33vw"
+                className="h-auto w-full"
+                loading="lazy"
+              />
+            </figure>
+          ))}
+        </div>
       )}
     </div>
   );
@@ -374,12 +349,12 @@ export default function ConvitesPage() {
                       </li>
                     ))}
                   </ul>
-                  <a
+                  <TrackedLink
                     href={waLink(
-                      `Oi! Quero o pacote ${p.name} de convite para minha festa. ?pacote=${p.id}`
+                      `Oi! Quero o pacote ${p.name} de convite para minha festa.`
                     )}
-                    target="_blank"
-                    rel="noopener"
+                    event="convite_pacote"
+                    attrs={{ pacote: p.id }}
                     className={`mt-5 block rounded-lg px-4 py-2.5 text-center text-sm font-semibold ${
                       p.destaque
                         ? "bg-i9-blue text-white hover:bg-i9-blue-deep"
@@ -387,7 +362,7 @@ export default function ConvitesPage() {
                     }`}
                   >
                     Quero o {p.name}
-                  </a>
+                  </TrackedLink>
                 </div>
               ))}
             </div>

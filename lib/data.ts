@@ -152,13 +152,7 @@ export const SOLUTIONS: Solution[] = [
   },
 ];
 
-export type CaseImage = { src: string; alt: string; placeholder?: boolean };
-
-export const PANELA_PLACEHOLDER: CaseImage = {
-  src: "",
-  alt: "[INSERIR IMAGEM REAL DO CASE]",
-  placeholder: true,
-};
+export type CaseImage = { src: string; alt: string };
 
 export type CaseItem = {
   slug: string;
@@ -182,9 +176,9 @@ export const CASES: CaseItem[] = [
     desc: "Plataforma para organizar e cobrar dívidas informais sem constrangimento.",
     tags: ["Sistema web", "Cobrança", "Organização"],
     images: [
-      img("/cases/paga-1.png", "Plataforma Paga Fácil"),
-      img("/cases/paga-2.png", "Organização de dívidas Paga Fácil"),
-      img("/cases/paga-3.png", "Cobrança Paga Fácil"),
+      img("/cases/paga-1.webp", "Plataforma Paga Fácil"),
+      img("/cases/paga-2.webp", "Organização de dívidas Paga Fácil"),
+      img("/cases/paga-3.webp", "Cobrança Paga Fácil"),
     ],
   },
   {
@@ -195,10 +189,10 @@ export const CASES: CaseItem[] = [
     desc: "Presença digital para empresa de rastreamento veicular.",
     tags: ["Site", "Branding", "Social media"],
     images: [
-      img("/cases/veloz-1.png", "Veloz Rastreamento"),
-      img("/cases/veloz-2.jpg", "Rastreamento veicular"),
-      img("/cases/veloz-3.png", "Arte Veloz Rastreamento"),
-      img("/cases/veloz-4.png", "Post Veloz Rastreamento"),
+      img("/cases/veloz-1.webp", "Veloz Rastreamento"),
+      img("/cases/veloz-2.webp", "Rastreamento veicular"),
+      img("/cases/veloz-3.webp", "Arte Veloz Rastreamento"),
+      img("/cases/veloz-4.webp", "Post Veloz Rastreamento"),
     ],
   },
   {
@@ -209,8 +203,8 @@ export const CASES: CaseItem[] = [
     desc: "Identidade e peças para cobertura de ensaios fotográficos.",
     tags: ["Branding", "Social media"],
     images: [
-      img("/cases/ensaio-1.jpg", "Ensaio fotográfico"),
-      img("/cases/ensaio-2.png", "Post ensaio fotográfico"),
+      img("/cases/ensaio-1.webp", "Ensaio fotográfico"),
+      img("/cases/ensaio-2.webp", "Post ensaio fotográfico"),
     ],
   },
   {
@@ -220,7 +214,7 @@ export const CASES: CaseItem[] = [
     niche: "Transporte escolar",
     desc: "Identidade carinhosa e confiável para transporte escolar.",
     tags: ["Logo", "Identidade visual"],
-    images: [img("/cases/tiajosy-1.jpg", "Transporte Escolar Tia Josy")],
+    images: [img("/cases/tiajosy-1.webp", "Transporte Escolar Tia Josy")],
   },
   {
     slug: "gengibre",
@@ -229,7 +223,7 @@ export const CASES: CaseItem[] = [
     niche: "Alimentação",
     desc: "Cartão e identidade para marca de gengibre.",
     tags: ["Branding", "Cartão"],
-    images: [img("/cases/gengibre-1.png", "Cartão Gengibre")],
+    images: [img("/cases/gengibre-1.webp", "Cartão Gengibre")],
   },
   {
     slug: "s7ven",
@@ -239,9 +233,9 @@ export const CASES: CaseItem[] = [
     desc: "Identidade e campanha para perfumaria: fragrância como posicionamento.",
     tags: ["Branding", "Campanha", "Identidade visual"],
     images: [
-      img("/cases/s7ven-banner.png", "Campanha da perfumaria S7ven"),
-      img("/cases/s7ven-cartao.png", "Cartão de visita S7ven"),
-      img("/cases/s7ven-wind.png", "Windbanner S7ven"),
+      img("/cases/s7ven-banner.webp", "Campanha da perfumaria S7ven"),
+      img("/cases/s7ven-cartao.webp", "Cartão de visita S7ven"),
+      img("/cases/s7ven-wind.webp", "Windbanner S7ven"),
     ],
   },
   {
@@ -252,10 +246,10 @@ export const CASES: CaseItem[] = [
     desc: "Site de pedidos com identidade ousada e social media com personalidade própria.",
     tags: ["Site de pedidos", "Identidade visual", "Social media"],
     images: [
-      img("/cases/alien-burger.png", "Site de pedidos Alien Burger"),
-      img("/cases/alien-chef.png", "Arte Alien Chef"),
-      img("/cases/alien-mordida.png", "Arte Alien Mordida"),
-      img("/cases/alien-design.png", "Design criativo Alien Burger"),
+      img("/cases/alien-burger.webp", "Site de pedidos Alien Burger"),
+      img("/cases/alien-chef.webp", "Arte Alien Chef"),
+      img("/cases/alien-mordida.webp", "Arte Alien Mordida"),
+      img("/cases/alien-design.webp", "Design criativo Alien Burger"),
     ],
   },
   {
@@ -265,7 +259,7 @@ export const CASES: CaseItem[] = [
     niche: "Estúdios de tatuagem",
     desc: "Plataforma de agendamento, portfólio e orçamento inteligente para tatuadores.",
     tags: ["Plataforma web", "Branding", "UX"],
-    images: [img("/cases/connectink.jpg", "Plataforma ConnectINK para tatuadores")],
+    images: [img("/cases/connectink.webp", "Plataforma ConnectINK para tatuadores")],
   },
   {
     slug: "quintal-tia-vi",
@@ -275,8 +269,8 @@ export const CASES: CaseItem[] = [
     desc: "Site e identidade completa para espaço de contraturno escolar sem telas.",
     tags: ["Site", "Branding", "Social media"],
     images: [
-      img("/cases/quintal-tia-vi.png", "Site do Quintal da Tia Vi"),
-      img("/cases/quintal-2.png", "Identidade Quintal da Tia Vi"),
+      img("/cases/quintal-tia-vi.webp", "Site do Quintal da Tia Vi"),
+      img("/cases/quintal-2.webp", "Identidade Quintal da Tia Vi"),
     ],
   },
   {
@@ -286,7 +280,7 @@ export const CASES: CaseItem[] = [
     niche: "Clínica odontológica",
     desc: "Identidade visual e presença digital para clínica de alto padrão.",
     tags: ["Logo", "Identidade visual", "Social media"],
-    images: [img("/cases/design-vita.png", "Identidade Design Vita")],
+    images: [img("/cases/design-vita.webp", "Identidade Design Vita")],
   },
   {
     slug: "inspire-run",
@@ -295,7 +289,7 @@ export const CASES: CaseItem[] = [
     niche: "Evento de corrida",
     desc: "Branding completo para evento: energia e pertencimento desde o primeiro olhar.",
     tags: ["Branding", "Identidade visual", "Materiais"],
-    images: [img("/cases/inspire-run.png", "Branding Inspire Run")],
+    images: [img("/cases/inspire-run.webp", "Branding Inspire Run")],
   },
   {
     slug: "mahaflow",
@@ -305,10 +299,10 @@ export const CASES: CaseItem[] = [
     desc: "Sistema de gestão e automação de fluxos, do digital ao material impresso.",
     tags: ["Sistema de gestão", "Automação", "Identidade visual"],
     images: [
-      img("/cases/mahaflow.png", "Sistema MahaFlow"),
-      img("/cases/mahaflow-wind.png", "Windbanner MahaFlow"),
-      img("/cases/mahaflow-cartao.png", "Cartão de visita MahaFlow"),
-      img("/cases/mahaflow-chaveiro.png", "Chaveiro MahaFlow"),
+      img("/cases/mahaflow.webp", "Sistema MahaFlow"),
+      img("/cases/mahaflow-wind.webp", "Windbanner MahaFlow"),
+      img("/cases/mahaflow-cartao.webp", "Cartão de visita MahaFlow"),
+      img("/cases/mahaflow-chaveiro.webp", "Chaveiro MahaFlow"),
     ],
   },
   {
@@ -319,10 +313,10 @@ export const CASES: CaseItem[] = [
     desc: "Identidade e presença digital elegante para cerimonialista referência na região.",
     tags: ["Branding", "Site", "Social media"],
     images: [
-      img("/cases/liliana.png", "Site Liliana Cerimonialista"),
-      img("/cases/liliana-agenda.png", "Agenda Liliana Cerimonialista"),
-      img("/cases/liliana-cartaz.png", "Cartaz Liliana Cerimonialista"),
-      img("/cases/liliana-cartao.png", "Cartão de visita Liliana"),
+      img("/cases/liliana.webp", "Site Liliana Cerimonialista"),
+      img("/cases/liliana-agenda.webp", "Agenda Liliana Cerimonialista"),
+      img("/cases/liliana-cartaz.webp", "Cartaz Liliana Cerimonialista"),
+      img("/cases/liliana-cartao.webp", "Cartão de visita Liliana"),
     ],
   },
   {
@@ -333,9 +327,9 @@ export const CASES: CaseItem[] = [
     desc: "Branding completo e site para marca com propósito e estética própria.",
     tags: ["Branding completo", "Site", "Identidade visual"],
     images: [
-      img("/cases/roots-vibe.png", "Landing page Roots Vibe"),
-      img("/cases/roots-carrossel.png", "Carrossel Roots Vibe"),
-      img("/cases/roots-logo.png", "Logo Roots Vibe"),
+      img("/cases/roots-vibe.webp", "Landing page Roots Vibe"),
+      img("/cases/roots-carrossel.webp", "Carrossel Roots Vibe"),
+      img("/cases/roots-logo.webp", "Logo Roots Vibe"),
     ],
   },
   {
@@ -346,10 +340,10 @@ export const CASES: CaseItem[] = [
     desc: "Identidade, uniformes e materiais para o hot dog mais completo e quentinho da cidade.",
     tags: ["Logo", "Identidade visual", "Materiais"],
     images: [
-      img("/cases/gigidog.png", "Combo GigiDog"),
-      img("/cases/gigidog-uniforme.png", "Uniforme GigiDog"),
-      img("/cases/gigidog-wind.png", "Windbanner GigiDog"),
-      img("/cases/gigidog-cardapio.png", "Cardápio GigiDog"),
+      img("/cases/gigidog.webp", "Combo GigiDog"),
+      img("/cases/gigidog-uniforme.webp", "Uniforme GigiDog"),
+      img("/cases/gigidog-wind.webp", "Windbanner GigiDog"),
+      img("/cases/gigidog-cardapio.webp", "Cardápio GigiDog"),
     ],
   },
   {
@@ -360,8 +354,8 @@ export const CASES: CaseItem[] = [
     desc: "Gestão de rotas com check-in por QR Code e painel administrativo completo.",
     tags: ["Sistema web", "App", "QR Code"],
     images: [
-      img("/cases/rota-facil.png", "Apresentação Rota Fácil"),
-      img("/cases/rota-checkin.png", "Check-in por QR Code Rota Fácil"),
+      img("/cases/rota-facil.webp", "Apresentação Rota Fácil"),
+      img("/cases/rota-checkin.webp", "Check-in por QR Code Rota Fácil"),
     ],
   },
   {
@@ -372,8 +366,8 @@ export const CASES: CaseItem[] = [
     desc: "Branding e experiência digital para restaurante premium.",
     tags: ["Branding", "Site", "Identidade visual"],
     images: [
-      img("/cases/rancho-da-ilha.png", "Rancho da Ilha"),
-      img("/cases/rancho-kitexclusivo.png", "Kit exclusivo Rancho da Ilha"),
+      img("/cases/rancho-da-ilha.webp", "Rancho da Ilha"),
+      img("/cases/rancho-kitexclusivo.webp", "Kit exclusivo Rancho da Ilha"),
     ],
   },
   {
@@ -384,10 +378,10 @@ export const CASES: CaseItem[] = [
     desc: "Identidade com padrão exclusivo para marca de vestuário outdoor.",
     tags: ["Logo", "Identidade visual", "Vestuário"],
     images: [
-      img("/cases/orogenese.jpg", "Logo OroGenese"),
-      img("/cases/oro-camiseta.jpg", "Camiseta OroGenese"),
-      img("/cases/oro-moletom.jpg", "Moletom OroGenese"),
-      img("/cases/oro-padrao.jpg", "Padrão topográfico OroGenese"),
+      img("/cases/orogenese.webp", "Logo OroGenese"),
+      img("/cases/oro-camiseta.webp", "Camiseta OroGenese"),
+      img("/cases/oro-moletom.webp", "Moletom OroGenese"),
+      img("/cases/oro-padrao.webp", "Padrão topográfico OroGenese"),
     ],
   },
   {
@@ -398,10 +392,10 @@ export const CASES: CaseItem[] = [
     desc: "Canecas, travesseiros, adesivos e velas com identidade, via parceira Peça Tech.",
     tags: ["Brindes", "Papelaria", "Parceria Peça Tech"],
     images: [
-      img("/cases/pers-caneca.jpg", "Caneca personalizada"),
-      img("/cases/pers-travesseiro.jpg", "Travesseiro personalizado"),
-      img("/cases/pers-adesivo.png", "Adesivo personalizado"),
-      img("/cases/pers-vela.jpg", "Vela aromática personalizada"),
+      img("/cases/pers-caneca.webp", "Caneca personalizada"),
+      img("/cases/pers-travesseiro.webp", "Travesseiro personalizado"),
+      img("/cases/pers-adesivo.webp", "Adesivo personalizado"),
+      img("/cases/pers-vela.webp", "Vela aromática personalizada"),
     ],
   },
   {
@@ -411,7 +405,9 @@ export const CASES: CaseItem[] = [
     niche: "Restaurante",
     desc: "Avaliação via QR, gestão e atendimento conectando salão e digital.",
     tags: ["QR Code", "Gestão", "Avaliações"],
-    images: [PANELA_PLACEHOLDER],
+    images: [
+      img("/cases/panela-da-roca.webp", "QR de avaliação na mesa do Panela da Roça"),
+    ],
     result: "Avaliações virando desconto e retorno",
   },
 ];
@@ -549,20 +545,20 @@ export const INVITES = [
 export type Arte = { src: string; alt: string };
 
 export const ARTES: Arte[] = [
-  { src: "/artes/alien-chef-com-rodap.png", alt: "Arte Alien Chef" },
-  { src: "/artes/alien-mordida.png", alt: "Arte Alien Mordida" },
-  { src: "/artes/alien-nova-estrategia.png", alt: "Nova estratégia Alien Burger" },
-  { src: "/cases/gigidog-uniforme.png", alt: "Uniforme GigiDog" },
-  { src: "/cases/gigidog-wind.png", alt: "Windbanner GigiDog" },
-  { src: "/cases/oro-camiseta.jpg", alt: "Camiseta OroGenese" },
-  { src: "/cases/oro-moletom.jpg", alt: "Moletom OroGenese" },
-  { src: "/cases/oro-padrao.jpg", alt: "Padrão topográfico OroGenese" },
-  { src: "/cases/s7ven-wind.png", alt: "Windbanner S7ven" },
-  { src: "/cases/mahaflow-wind.png", alt: "Windbanner MahaFlow" },
-  { src: "/artes/mockup-avental-churrasquinho-bom-sabor.jpg", alt: "Avental Churrasquinho Bom Sabor" },
-  { src: "/artes/post-18-experiencia-cliente.jpg", alt: "Post experiência do cliente" },
-  { src: "/artes/arte-instagram-com-logo.png", alt: "Arte para Instagram" },
-  { src: "/artes/arte-instagram-self-service.png", alt: "Arte self service" },
+  { src: "/artes/alien-chef-com-rodap.webp", alt: "Arte Alien Chef" },
+  { src: "/artes/alien-mordida.webp", alt: "Arte Alien Mordida" },
+  { src: "/artes/alien-nova-estrategia.webp", alt: "Nova estratégia Alien Burger" },
+  { src: "/cases/gigidog-uniforme.webp", alt: "Uniforme GigiDog" },
+  { src: "/cases/gigidog-wind.webp", alt: "Windbanner GigiDog" },
+  { src: "/cases/oro-camiseta.webp", alt: "Camiseta OroGenese" },
+  { src: "/cases/oro-moletom.webp", alt: "Moletom OroGenese" },
+  { src: "/cases/oro-padrao.webp", alt: "Padrão topográfico OroGenese" },
+  { src: "/cases/s7ven-wind.webp", alt: "Windbanner S7ven" },
+  { src: "/cases/mahaflow-wind.webp", alt: "Windbanner MahaFlow" },
+  { src: "/artes/mockup-avental-churrasquinho-bom-sabor.webp", alt: "Avental Churrasquinho Bom Sabor" },
+  { src: "/artes/post-18-experiencia-cliente.webp", alt: "Post experiência do cliente" },
+  { src: "/artes/arte-instagram-com-logo.webp", alt: "Arte para Instagram" },
+  { src: "/artes/arte-instagram-self-service.webp", alt: "Arte self service" },
 ];
 
 export const DIFERENCIAL: { ruim: string; bom: string }[] = [
