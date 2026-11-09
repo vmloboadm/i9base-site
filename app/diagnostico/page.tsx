@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 export default function DiagnosticoPage() {
   return (
     <>
-      <Header />
+      <Header tone="light" />
       <main className="mx-auto w-full max-w-3xl px-5 pb-24 pt-28 sm:pt-32">
         <Suspense fallback={<div className="h-64" />}>
           <Quiz />

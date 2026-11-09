@@ -98,15 +98,21 @@ function SectionHead({
   title,
   sub,
   dark,
+  labelTone,
 }: {
   label: string;
   title: string;
   sub: string;
   dark?: boolean;
+  labelTone?: "default" | "deep";
 }) {
   return (
     <div className="mb-8">
-      <p className={`label-eyebrow ${dark ? "text-i9-blue-soft" : "text-i9-blue"}`}>
+      <p
+        className={`label-eyebrow ${
+          dark ? "text-i9-blue-soft" : labelTone === "deep" ? "text-i9-blue-deep" : "text-i9-blue"
+        }`}
+      >
         {label}
       </p>
       <h2
@@ -322,7 +328,7 @@ export function Solutions() {
                       <h3 className="font-display text-base font-bold text-i9-ink group-hover:text-i9-blue">
                         {s.name}
                       </h3>
-                      <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">
+                      <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">
                         {TRACKS.find((tk) => tk.id === s.track)?.name}
                       </p>
                       <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{s.desc}</p>
@@ -465,6 +471,7 @@ export function CrmSection() {
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
           label="CRM para empresas"
+          labelTone="deep"
           title="Atendimento que vira gestão"
           sub="O WhatsApp atende e o CRM organiza. Sua equipe abre o dia sabendo quem chamar, o que oferecer e o que fechou."
         />
@@ -500,7 +507,7 @@ export function CrmSection() {
             <div className="grid grid-cols-3 gap-2 p-3">
               {cols.map((col) => (
                 <div key={col.name} className="rounded-lg bg-i9-paper p-2">
-                  <p className="px-1 text-[11px] font-bold uppercase tracking-wide text-slate-500">
+                  <p className="px-1 text-[11px] font-bold uppercase tracking-wide text-slate-600">
                     {col.name}
                   </p>
                   <div className="mt-2 space-y-2">
@@ -541,7 +548,11 @@ export function InviteEnvelope() {
           track("envelope_demo", { open: open ? "close" : "open" });
         }}
         aria-expanded={open}
-        aria-label={open ? "Fechar a carta" : "Abrir a carta com o selo"}
+        aria-label={
+          open
+            ? "Fechar a carta de convite especial: você foi convidado!"
+            : "Abrir a carta de convite especial: você foi convidado!"
+        }
         className="relative block aspect-[4/3] w-full [perspective:800px]"
       >
         <span
@@ -742,14 +753,14 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
       <button
         onClick={() => go(index - 1)}
         aria-label="Foto anterior"
-        className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-i9-ink/70 px-2.5 py-1.5 text-sm font-bold text-white opacity-0 transition group-hover/car:opacity-100 focus:opacity-100"
+        className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-i9-ink/70 px-3 py-2 text-base font-bold text-white opacity-0 transition group-hover/car:opacity-100 focus:opacity-100"
       >
         ‹
       </button>
       <button
         onClick={() => go(index + 1)}
         aria-label="Próxima foto"
-        className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-i9-ink/70 px-2.5 py-1.5 text-sm font-bold text-white opacity-0 transition group-hover/car:opacity-100 focus:opacity-100"
+        className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-i9-ink/70 px-3 py-2 text-base font-bold text-white opacity-0 transition group-hover/car:opacity-100 focus:opacity-100"
       >
         ›
       </button>
@@ -759,10 +770,15 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
             key={im.src}
             onClick={() => go(i)}
             aria-label={`Ver foto ${i + 1} de ${images.length}`}
-            className={`h-1.5 rounded-full transition ${
-              i === index ? "w-5 bg-white" : "w-1.5 bg-white/60"
-            }`}
-          />
+            className="flex h-6 w-6 items-center justify-center"
+          >
+            <span
+              aria-hidden
+              className={`h-1.5 rounded-full transition ${
+                i === index ? "inline-block w-5 bg-white" : "inline-block w-1.5 bg-white/60"
+              }`}
+            />
+          </button>
         ))}
       </div>
       <span className="absolute right-2 top-2 rounded-md bg-i9-ink/70 px-2 py-0.5 text-[11px] font-semibold text-white">
@@ -972,7 +988,7 @@ export function Diferencial() {
         />
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-slate-200 bg-white p-6">
-            <p className="font-display text-base font-bold text-slate-400">
+            <p className="font-display text-base font-bold text-slate-500">
               A maioria das agências
             </p>
             <ul className="mt-4 space-y-3">
@@ -1051,6 +1067,7 @@ export function Escada() {
     <section id="como-trabalhamos" className="bg-i9-ink">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
+          dark
           label="Como trabalhamos"
           title="Cinco portas de entrada, um caminho só"
           sub="Você entra pelo que dói hoje e cresce dentro da mesma base. Sem trocar de fornecedor a cada fase."
@@ -1078,13 +1095,13 @@ export function Escada() {
             className="flex flex-col justify-between rounded-xl bg-i9-blue p-6 transition hover:bg-i9-blue-deep"
           >
             <div>
-              <p className="font-display text-sm font-bold text-white/70">
+              <p className="font-display text-sm font-bold text-slate-200">
                 2 min
               </p>
               <h3 className="font-display mt-1 text-lg font-bold text-white">
                 Não sabe por onde entrar?
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-white/85">
+              <p className="mt-2 text-sm leading-relaxed text-white">
                 Responda 4 perguntas e receba o plano certo para o seu momento.
               </p>
             </div>
@@ -1102,14 +1119,14 @@ export function TechStrip() {
   return (
     <section aria-label="Tecnologia" className="border-b border-slate-200/70 bg-white">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-7 gap-y-3 px-4 py-5 sm:px-6">
-        <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400">
+        <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500">
           Nossa base de tecnologia
         </span>
         {TECHS.map((t) => (
           <span
             key={t.name}
             title={t.name}
-            className="flex items-center gap-1.5 text-slate-400 transition hover:text-slate-700"
+            className="flex items-center gap-1.5 text-slate-500 transition hover:text-slate-900"
           >
             <Image
               src={t.logo}
@@ -1131,7 +1148,7 @@ export function Partners() {
   return (
     <section className="bg-i9-paper">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <p className="label-eyebrow text-slate-400">Parceria de indicação cruzada</p>
+        <p className="label-eyebrow text-slate-600">Parceria de indicação cruzada</p>
         <div className="mt-4 flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-5 sm:flex-row sm:items-center sm:gap-6">
           <Image
             src="/parceiros/pecatech.png"
@@ -1160,7 +1177,7 @@ export function Partners() {
             Pedir produção física
           </a>
         </div>
-        <p className="mt-3 text-xs text-slate-400">
+        <p className="mt-3 text-xs text-slate-600">
           Gráfica, tecnologia e soluções digitais. Parceira de balcão e de bairro.
         </p>
       </div>

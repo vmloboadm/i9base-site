@@ -4,7 +4,6 @@ import { BackToTop, Footer, FloatWhats, Header } from "@/components/chrome";
 import { InvitePhone, Wave } from "@/components/sections";
 import { CONVITE_FEATURES, DEPOIMENTOS, INVITES, waLink } from "@/lib/data";
 import { CONVITE_FOTOS, CONVITE_VIDEOS } from "@/lib/convites-media";
-import { track } from "@/lib/analytics";
 import { VideoTile } from "@/components/video-tile";
 import { TrackedLink } from "@/components/tracked-link";
 
