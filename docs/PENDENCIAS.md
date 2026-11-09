@@ -12,6 +12,7 @@
 - [ ] Vídeo de preview no hover do card Convites (aguardando mp4; ver `Solution.video`, hoje `undefined`).
 
 ## Decidido e aplicado
+- Conversão e LGPD (PR5): /diagnostico com aviso de consentimento + link da política; envio do lead não bloqueia mais o WhatsApp (fetch keepalive em background); página /privacidade publicada e linkada no rodapé; /privacidade no sitemap.
 - Conteúdo (PR3): provas de clientes publicadas no site com fonte e data (GymFitness 65 alunos ativos; Jumper For Man 1.360 variações em 3 marketplaces) e status honesto nos cases (Rota Fácil = Proposta, Rancho da Ilha = Protótipo).
 - Logos com transparência (PR2): `logo-dark.png` (azul para fundos escuros), `logo-slate.png` (slate empilhado para fundos claros), `logo-icon.png` (transparente). Originais em backup fora do repo.
 - Preços fora do site (orçamento personalizado no WhatsApp).

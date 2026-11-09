@@ -180,7 +180,15 @@ export function Footer() {
       <div className="border-t border-slate-200">
         <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4 text-xs text-slate-600 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <span>© 2026 i9BASE. Todos os direitos reservados.</span>
-          <span>Campos dos Goytacazes e região</span>
+          <span>
+            Campos dos Goytacazes e região ·{" "}
+            <a
+              href={withHome(pathname, "/privacidade")}
+              className="underline hover:text-i9-blue"
+            >
+              Política de privacidade
+            </a>
+          </span>
         </div>
       </div>
     </footer>
