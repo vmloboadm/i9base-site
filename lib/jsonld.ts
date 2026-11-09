@@ -7,6 +7,8 @@ export const JSON_LD = {
       name: "i9BASE",
       url: "https://i9base.com.br",
       slogan: "Sua base de tecnologia e inovação",
+      logo: "https://i9base.com.br/logo-icon.png",
+      image: "https://i9base.com.br/opengraph-image",
       sameAs: ["https://www.instagram.com/i9base"],
     },
     {
