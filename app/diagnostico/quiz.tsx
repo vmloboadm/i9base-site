@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { WHATSAPP_NUMBER, waLink } from "@/lib/data";
@@ -102,7 +103,6 @@ export function Quiz() {
   const [nome, setNome] = useState("");
   const [telefone, setTelefone] = useState("");
   const [enviado, setEnviado] = useState(false);
-  const [enviando, setEnviando] = useState(false);
   const [erro, setErro] = useState("");
 
   const terminou = etapa >= PERGUNTAS.length;
@@ -133,9 +133,8 @@ export function Quiz() {
       setErro("Confere o WhatsApp com DDD, só números já vale.");
       return;
     }
-    setEnviando(true);
     try {
-      await fetch("/api/diagnostico", {
+      void fetch("/api/diagnostico", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -147,12 +146,12 @@ export function Quiz() {
           utm_campaign,
           utm_content,
         }),
-      });
+        keepalive: true,
+      }).catch(() => {});
     } catch {
       /* a conversa segue no WhatsApp mesmo se o registro falhar */
     }
     track("diagnostico_done", { origem: origem || "direto" });
-    setEnviando(false);
     setEnviado(true);
   }
 
@@ -262,11 +261,18 @@ export function Quiz() {
             {erro && <p className="text-sm text-red-600">{erro}</p>}
             <button
               type="submit"
-              disabled={enviando}
-              className="rounded-xl bg-i9-blue px-5 py-4 font-display font-bold text-white transition hover:bg-i9-blue-deep disabled:opacity-60"
+              className="rounded-xl bg-i9-blue px-5 py-4 font-display font-bold text-white transition hover:bg-i9-blue-deep"
             >
-              {enviando ? "Enviando..." : "Ver meu plano"}
+              Ver meu plano
             </button>
+            <p className="text-xs leading-relaxed text-slate-500">
+              Usamos seu nome e WhatsApp só para responder este diagnóstico. Nada
+              de spam. Ver{" "}
+              <Link href="/privacidade" className="underline hover:text-i9-blue">
+                política de privacidade
+              </Link>
+              .
+            </p>
           </form>
         </div>
       )}
