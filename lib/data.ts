@@ -163,6 +163,7 @@ export type CaseItem = {
   tags: string[];
   images: CaseImage[];
   result?: string;
+  status?: "Proposta" | "Protótipo";
 };
 
 const img = (src: string, alt: string): CaseImage => ({ src, alt });
@@ -351,8 +352,9 @@ export const CASES: CaseItem[] = [
     name: "Rota Fácil",
     category: "Sistemas",
     niche: "Transporte escolar",
-    desc: "Gestão de rotas com check-in por QR Code e painel administrativo completo.",
+    desc: "Gestão de rotas com check-in por QR Code e painel administrativo.",
     tags: ["Sistema web", "App", "QR Code"],
+    status: "Proposta",
     images: [
       img("/cases/rota-facil.webp", "Apresentação Rota Fácil"),
       img("/cases/rota-checkin.webp", "Check-in por QR Code Rota Fácil"),
@@ -365,6 +367,7 @@ export const CASES: CaseItem[] = [
     niche: "Restaurante",
     desc: "Branding e experiência digital para restaurante premium.",
     tags: ["Branding", "Site", "Identidade visual"],
+    status: "Protótipo",
     images: [
       img("/cases/rancho-da-ilha.webp", "Rancho da Ilha"),
       img("/cases/rancho-kitexclusivo.webp", "Kit exclusivo Rancho da Ilha"),
@@ -411,6 +414,13 @@ export const CASES: CaseItem[] = [
     result: "Avaliações virando desconto e retorno",
   },
 ];
+
+export const PROVAS: { name: string; metric: string }[] = [
+  { name: "GymFitness", metric: "65 alunos ativos na plataforma" },
+  { name: "Jumper For Man", metric: "1.360 variações em 3 marketplaces" },
+];
+
+export const PROVAS_NOTA = "Dados informados pelos clientes · atualizado em nov/2026";
 
 export const METHOD = [
   {
