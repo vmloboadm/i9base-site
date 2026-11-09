@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { JSON_LD } from "@/lib/jsonld";
@@ -25,6 +25,12 @@ export const metadata: Metadata = {
     apple: [{ url: '/apple-icon.png' }],
   },
   alternates: { canonical: "https://i9base.com.br" },
+  twitter: {
+    card: "summary_large_image",
+    title: "i9BASE · Sua base de tecnologia e inovação",
+    description:
+      "Estruture. Automatize. Evolua. Sites, sistemas, automação e IA para o seu negócio.",
+  },
   openGraph: {
     title: "i9BASE · Sua base de tecnologia e inovação",
     description:
@@ -33,6 +39,10 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_BR",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0b0f14",
 };
 
 export default function RootLayout({
