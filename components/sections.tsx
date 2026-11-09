@@ -11,6 +11,8 @@ import {
   INSTAGRAM_URL,
   INVITES,
   METHOD,
+  PROVAS,
+  PROVAS_NOTA,
   SLOGAN,
   SOLUTIONS,
   STATS,
@@ -806,6 +808,18 @@ export function Cases() {
           title="Projetos que viraram resultado"
           sub="Uma seleção do que já entregamos. Cases com várias fotos têm carrossel, toque num case para abrir os detalhes."
         />
+        <div className="mb-6 grid gap-4 rounded-xl border border-slate-200 bg-white p-4 sm:grid-cols-2 sm:p-5">
+          {PROVAS.map((p) => (
+            <div key={p.name}>
+              <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                Cliente ativo
+              </p>
+              <p className="mt-1 font-display text-lg font-bold text-i9-ink">{p.name}</p>
+              <p className="text-sm text-slate-600">{p.metric}</p>
+            </div>
+          ))}
+          <p className="text-xs text-slate-500 sm:col-span-2">{PROVAS_NOTA}</p>
+        </div>
         <div className="mb-6 flex flex-wrap gap-2">
           {FILTERS.map((f) => (
             <button
@@ -862,6 +876,11 @@ export function Cases() {
                     <div className="flex-1">
                       <p className="text-xs font-semibold uppercase tracking-wider text-i9-blue">
                         {c.category} · {c.niche}
+                        {c.status && (
+                          <span className="ml-2 inline-block rounded border border-slate-300 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-600">
+                            {c.status}
+                          </span>
+                        )}
                       </p>
                       <h3 className="mt-1 font-display text-lg font-bold text-i9-ink">
                         {c.name}
