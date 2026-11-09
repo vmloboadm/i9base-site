@@ -9,12 +9,27 @@ export const metadata: Metadata = {
     "Responda 4 perguntas rápidas e descubra o que a tecnologia pode destravar no seu negócio: site, atendimento, automação ou sistema.",
   alternates: { canonical: "https://i9base.com.br/diagnostico" },
   robots: { index: true, follow: true },
+  openGraph: {
+    title: "Diagnóstico digital gratuito · i9BASE",
+    description:
+      "Em 2 minutos, descubra o que a tecnologia pode destravar no seu negócio.",
+    url: "https://i9base.com.br/diagnostico",
+    siteName: "i9BASE",
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Diagnóstico digital gratuito · i9BASE",
+    description:
+      "Em 2 minutos, descubra o que a tecnologia pode destravar no seu negócio.",
+  },
 };
 
 export default function DiagnosticoPage() {
   return (
     <>
-      <Header />
+      <Header tone="light" />
       <main className="mx-auto w-full max-w-3xl px-5 pb-24 pt-28 sm:pt-32">
         <Suspense fallback={<div className="h-64" />}>
           <Quiz />

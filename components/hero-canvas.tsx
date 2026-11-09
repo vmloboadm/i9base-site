@@ -142,6 +142,20 @@ export function HeroCanvas() {
       raf = requestAnimationFrame(step);
     };
 
+    // Com reduced-motion, o canvas fica em um quadro estático
+    // (grade + nós visíveis) em vez de uma área vazia.
+    const drawStatic = () => {
+      ctx.clearRect(0, 0, w, h);
+      grid();
+      ctx.lineWidth = 1;
+      for (const p of pts) {
+        ctx.fillStyle = p.hub ? "rgba(147, 197, 253, 0.9)" : "rgba(147, 197, 253, 0.7)";
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.hub ? 2.4 : 1.6, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    };
+
     const onMove = (e: PointerEvent) => {
       const rect = canvas.getBoundingClientRect();
       mouse.x = (e.clientX - rect.left) / Math.max(1, rect.width);
@@ -150,6 +164,7 @@ export function HeroCanvas() {
 
     resize();
     if (!reduced) raf = requestAnimationFrame(step);
+    else drawStatic();
 
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -165,7 +180,11 @@ export function HeroCanvas() {
       { threshold: 0 }
     );
     io.observe(canvas);
-    window.addEventListener("resize", resize);
+    const onResize = () => {
+      resize();
+      if (reduced) drawStatic();
+    };
+    window.addEventListener("resize", onResize);
     const parent = canvas.parentElement;
     parent?.addEventListener("pointermove", onMove);
 
@@ -173,7 +192,7 @@ export function HeroCanvas() {
       running = false;
       cancelAnimationFrame(raf);
       io.disconnect();
-      window.removeEventListener("resize", resize);
+      window.removeEventListener("resize", onResize);
       parent?.removeEventListener("pointermove", onMove);
     };
   }, []);

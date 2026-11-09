@@ -181,6 +181,7 @@ export function Quiz() {
           <div
             className="h-2 overflow-hidden rounded-full bg-i9-concrete/60"
             role="progressbar"
+            aria-label={`Etapa ${etapa} de ${PERGUNTAS.length}`}
             aria-valuenow={etapa}
             aria-valuemin={0}
             aria-valuemax={PERGUNTAS.length}

@@ -11,11 +11,12 @@ function withHome(pathname: string | null, href: string) {
 import { INSTAGRAM_URL, NAV, WHATSAPP_URL, waLink } from "@/lib/data";
 import { track } from "@/lib/analytics";
 
-export function Header() {
+export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const hrefFor = (href: string) => withHome(pathname, href);
+  const light = tone === "light";
 
   useEffect(() => {
     track('page_view', { page: pathname === '/' ? 'home' : pathname });
@@ -39,7 +40,9 @@ export function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
         scrolled
-          ? 'border-b border-[rgba(37,99,235,0.15)] bg-[#0b0f14]/75 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl'
+          ? light
+            ? 'border-b border-slate-200 bg-white/80 shadow-sm backdrop-blur-xl'
+            : 'border-b border-[rgba(37,99,235,0.15)] bg-[#0b0f14]/75 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl'
           : 'border-b border-transparent bg-transparent'
       }`}>
       <div
@@ -47,7 +50,7 @@ export function Header() {
       >
         <a href={hrefFor('#topo')} className="flex items-center gap-2.5">
           <Image src="/logo-dark.png" alt="i9BASE" width={1420} height={371} className="h-8 w-auto" />
-          <span className="hidden text-[11px] text-slate-400 lg:inline">
+          <span className={`hidden text-[11px] lg:inline ${light ? 'text-slate-500' : 'text-slate-400'}`}>
             Sua base de tecnologia e inovação
           </span>
         </a>
@@ -56,7 +59,7 @@ export function Header() {
             <a
               key={item.href}
               href={hrefFor(item.href)}
-              className="text-sm font-medium text-slate-300 hover:text-white"
+              className={`text-sm font-medium ${light ? 'text-i9-slate hover:text-i9-ink' : 'text-slate-300 hover:text-white'}`}
             >
               {item.label}
             </a>
@@ -72,7 +75,7 @@ export function Header() {
           </a>
         </nav>
         <button
-          className="rounded-lg border border-white/15 px-3 py-2 text-sm font-semibold text-white md:hidden"
+          className={`rounded-lg px-3 py-2 text-sm font-semibold md:hidden ${light ? 'border border-slate-200 bg-white/70 text-i9-ink' : 'border border-white/15 text-white'}`}
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? 'Fechar menu' : 'Abrir menu'}
           aria-expanded={open}
@@ -137,7 +140,7 @@ export function Footer() {
           </p>
         </div>
         <div>
-          <p className="label-eyebrow text-slate-400">Navegação</p>
+          <p className="label-eyebrow text-slate-600">Navegação</p>
           <ul className="mt-3 space-y-2 text-sm">
             {NAV.map((item) => (
               <li key={item.href}>
@@ -149,7 +152,7 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <p className="label-eyebrow text-slate-400">Fale com a gente</p>
+          <p className="label-eyebrow text-slate-600">Fale com a gente</p>
           <ul className="mt-3 space-y-2 text-sm">
             <li>
               <a
@@ -175,37 +178,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-slate-200">
-        <div className="mx-auto max-w-6xl px-4 py-4 sm:px-6">
-          <p className="label-eyebrow text-slate-400">Tecnologias que usamos</p>
-          <ul className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
-            {[
-              { name: "Vercel", slug: "vercel" },
-              { name: "Next.js", slug: "nextdotjs" },
-              { name: "Supabase", slug: "supabase" },
-              { name: "n8n", slug: "n8n" },
-              { name: "OpenAI", slug: "openai" },
-              { name: "Node.js", slug: "nodedotjs" },
-              { name: "Tailwind", slug: "tailwindcss" },
-              { name: "WhatsApp", slug: "whatsapp" },
-            ].map((t) => (
-              <li key={t.slug} className="flex items-center gap-1.5">
-                <img
-                  src={`https://cdn.simpleicons.org/${t.slug}/3A4A5C`}
-                  alt=""
-                  aria-hidden
-                  width={16}
-                  height={16}
-                  loading="lazy"
-                  className="h-4 w-4"
-                />
-                <span className="text-xs font-medium text-slate-500">{t.name}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-      <div className="border-t border-slate-200">
-        <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4 text-xs text-slate-600 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <span>© 2026 i9BASE. Todos os direitos reservados.</span>
           <span>Campos dos Goytacazes e região</span>
         </div>

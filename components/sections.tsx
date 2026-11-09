@@ -11,7 +11,6 @@ import {
   INSTAGRAM_URL,
   INVITES,
   METHOD,
-  OFERTAS,
   SLOGAN,
   SOLUTIONS,
   STATS,
@@ -24,7 +23,9 @@ import {
 } from "@/lib/data";
 import { track } from "@/lib/analytics";
 import { HeroCanvas } from "@/components/hero-canvas";
-function Chevron() {  return (
+
+function Chevron() {
+  return (
     <svg
       viewBox="0 0 16 16"
       aria-hidden
@@ -68,10 +69,6 @@ function Reveal({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setVisible(true);
-      return;
-    }
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -101,15 +98,21 @@ function SectionHead({
   title,
   sub,
   dark,
+  labelTone,
 }: {
   label: string;
   title: string;
   sub: string;
   dark?: boolean;
+  labelTone?: "default" | "deep";
 }) {
   return (
     <div className="mb-8">
-      <p className={`label-eyebrow ${dark ? "text-i9-blue-soft" : "text-i9-blue"}`}>
+      <p
+        className={`label-eyebrow ${
+          dark ? "text-i9-blue-soft" : labelTone === "deep" ? "text-i9-blue-deep" : "text-i9-blue"
+        }`}
+      >
         {label}
       </p>
       <h2
@@ -201,8 +204,8 @@ export function Hero() {
               </a>
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-300">
-              <span><strong className="font-display text-white">20</strong> cases</span>
-              <span><strong className="font-display text-white">5</strong> entradas</span>
+              <span><strong className="font-display text-white">{CASES.length}</strong> cases</span>
+              <span><strong className="font-display text-white">{ESCADA.length}</strong> entradas</span>
             </div>
           </div>
           <div className="relative">
@@ -251,11 +254,6 @@ export function Hero() {
 
 export function Solutions() {
   const [active, setActive] = useState(TRACKS[0].id);
-  const trackInfo = TRACKS.find((t) => t.id === active) ?? TRACKS[0];
-  const items = useMemo(
-    () => SOLUTIONS.filter((s) => s.track === active),
-    [active]
-  );
 
   return (
     <section id="solucoes" className="bg-i9-ink text-white">
@@ -273,7 +271,7 @@ export function Solutions() {
           <li aria-hidden>→</li>
           <li className="rounded-md border border-white/15 bg-white/5 px-2.5 py-1.5">3 · Chame no WhatsApp</li>
         </ol>
-        <div className="mb-6 flex flex-wrap gap-2">
+        <div className="mb-6 flex flex-wrap gap-2" role="tablist" aria-label="Trilhas de soluções">
           {TRACKS.map((t) => {
             const count = SOLUTIONS.filter((s) => s.track === t.id).length;
             return (
@@ -283,7 +281,10 @@ export function Solutions() {
                   setActive(t.id);
                   track("solution_track", { track: t.id });
                 }}
-                aria-pressed={active === t.id}
+                role="tab"
+                id={`tab-${t.id}`}
+                aria-selected={active === t.id}
+                aria-controls={`panel-${t.id}`}
                 className={`rounded-lg px-4 py-2 text-sm font-semibold ${
                   active === t.id
                     ? "bg-i9-blue text-white"
@@ -296,53 +297,71 @@ export function Solutions() {
             );
           })}
         </div>
-        <div key={active} className="animate-panel grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((s) => {
-            const featured = s.name === 'Convites Interativos';
-            return (
+        {TRACKS.map((t) => {
+          const itens = SOLUTIONS.filter((s) => s.track === t.id);
+          return (
+            <div
+              key={t.id}
+              role="tabpanel"
+              id={`panel-${t.id}`}
+              aria-labelledby={`tab-${t.id}`}
+              hidden={active !== t.id}
+            >
               <div
-                key={s.name}
-                className={`group relative flex flex-col overflow-hidden rounded-xl border bg-white p-5 transition duration-300 hover:-translate-y-1 ${featured ? 'border-i9-blue shadow-[0_0_40px_rgba(37,99,235,0.25)] sm:col-span-2 lg:col-span-2' : 'border-slate-200 hover:border-transparent hover:shadow-[0_0_40px_rgba(37,99,235,0.3)] hover:ring-1 hover:ring-i9-blue'}`}
+                key={active === t.id ? t.id : `hidden-${t.id}`}
+                className={`grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ${
+                  active === t.id ? "animate-panel" : ""
+                }`}
               >
-                {featured && (
-                  <span className="absolute right-4 top-4 rounded-md bg-i9-blue px-2 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
-                    Destaque
-                  </span>
-                )}
-                <h3 className="font-display text-base font-bold text-i9-ink group-hover:text-i9-blue">
-                  {s.name}
-                </h3>
-                <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">
-                  {TRACKS.find((t) => t.id === s.track)?.name}
-                </p>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{s.desc}</p>
-                <p className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-md bg-i9-paper px-2.5 py-1 text-xs font-bold text-i9-blue">
-                  {s.badge}
-                </p>
-                <div className="mt-4 flex gap-2">
-                  <a
-                    href={waLink('Oi! Vi no site e quero saber sobre: ' + s.name + '.')}
-                    target="_blank"
-                    rel="noopener"
-                    onClick={() => track('whatsapp_click', { from: 'solution_card', solution: s.name })}
-                    className="flex-1 rounded-lg bg-i9-ink px-4 py-2.5 text-center text-sm font-semibold text-white transition group-hover:bg-i9-blue"
-                  >
-                    Quero essa solução
-                  </a>
-                  {featured && (
-                    <a
-                      href="/convites"
-                      onClick={() => track('cta_click', { from: 'solution_card', to: 'convites_page' })}
-                      className="rounded-lg border border-i9-blue px-4 py-2.5 text-center text-sm font-semibold text-i9-blue hover:bg-i9-blue hover:text-white"
+                {itens.map((s) => {
+                  const featured = s.name === 'Convites Interativos';
+                  return (
+                    <div
+                      key={s.name}
+                      className={`group relative flex flex-col overflow-hidden rounded-xl border bg-white p-5 transition duration-300 hover:-translate-y-1 ${featured ? 'border-i9-blue shadow-[0_0_40px_rgba(37,99,235,0.25)] sm:col-span-2 lg:col-span-2' : 'border-slate-200 hover:border-transparent hover:shadow-[0_0_40px_rgba(37,99,235,0.3)] hover:ring-1 hover:ring-i9-blue'}`}
                     >
-                      Ver página completa →
-                    </a>
-                  )}
-                </div>
+                      {featured && (
+                        <span className="absolute right-4 top-4 rounded-md bg-i9-blue px-2 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+                          Destaque
+                        </span>
+                      )}
+                      <h3 className="font-display text-base font-bold text-i9-ink group-hover:text-i9-blue">
+                        {s.name}
+                      </h3>
+                      <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">
+                        {TRACKS.find((tk) => tk.id === s.track)?.name}
+                      </p>
+                      <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{s.desc}</p>
+                      <p className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-md bg-i9-paper px-2.5 py-1 text-xs font-bold text-i9-blue">
+                        {s.badge}
+                      </p>
+                      <div className="mt-4 flex gap-2">
+                        <a
+                          href={waLink('Oi! Vi no site e quero saber sobre: ' + s.name + '.')}
+                          target="_blank"
+                          rel="noopener"
+                          onClick={() => track('whatsapp_click', { from: 'solution_card', solution: s.name })}
+                          className="flex-1 rounded-lg bg-i9-ink px-4 py-2.5 text-center text-sm font-semibold text-white transition group-hover:bg-i9-blue"
+                        >
+                          Quero essa solução
+                        </a>
+                        {featured && (
+                          <a
+                            href="/convites"
+                            onClick={() => track('cta_click', { from: 'solution_card', to: 'convites_page' })}
+                            className="rounded-lg border border-i9-blue px-4 py-2.5 text-center text-sm font-semibold text-i9-blue hover:bg-i9-blue hover:text-white"
+                          >
+                            Ver página completa →
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-            );
-          })}
-        </div>
+            </div>
+          );
+        })}
         <p className="mt-6 text-sm text-slate-400">
           Orçamento sempre personalizado após entender o seu caso, e parceria é
           sempre conversável.
@@ -452,6 +471,7 @@ export function CrmSection() {
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
           label="CRM para empresas"
+          labelTone="deep"
           title="Atendimento que vira gestão"
           sub="O WhatsApp atende e o CRM organiza. Sua equipe abre o dia sabendo quem chamar, o que oferecer e o que fechou."
         />
@@ -487,7 +507,7 @@ export function CrmSection() {
             <div className="grid grid-cols-3 gap-2 p-3">
               {cols.map((col) => (
                 <div key={col.name} className="rounded-lg bg-i9-paper p-2">
-                  <p className="px-1 text-[11px] font-bold uppercase tracking-wide text-slate-500">
+                  <p className="px-1 text-[11px] font-bold uppercase tracking-wide text-slate-600">
                     {col.name}
                   </p>
                   <div className="mt-2 space-y-2">
@@ -528,7 +548,11 @@ export function InviteEnvelope() {
           track("envelope_demo", { open: open ? "close" : "open" });
         }}
         aria-expanded={open}
-        aria-label={open ? "Fechar a carta" : "Abrir a carta com o selo"}
+        aria-label={
+          open
+            ? "Fechar a carta de convite especial: você foi convidado!"
+            : "Abrir a carta de convite especial: você foi convidado!"
+        }
         className="relative block aspect-[4/3] w-full [perspective:800px]"
       >
         <span
@@ -671,19 +695,6 @@ export function Convites() {
   );
 }
 
-function CasePlaceholder({ name }: { name: string }) {
-  return (
-    <div className="frame-corners relative flex aspect-[4/3] items-center justify-center bg-[#121820]">
-      <p className="px-6 text-center font-display text-sm font-bold uppercase tracking-[0.18em] text-slate-400">
-        [INSERIR IMAGEM REAL DO CASE]
-        <span className="mt-2 block text-xs font-medium normal-case tracking-normal text-slate-500">
-          {name}
-        </span>
-      </p>
-    </div>
-  );
-}
-
 function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
@@ -699,9 +710,6 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
 
   if (images.length === 1) {
     const im = images[0];
-    if (im.placeholder) {
-      return <CasePlaceholder name={name} />;
-    }
     return (
       <div className="relative aspect-[4/3]">
         <Image
@@ -728,12 +736,7 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
         className="flex h-full snap-x snap-mandatory overflow-x-auto"
         style={{ scrollbarWidth: "none" }}
       >
-        {images.map((im) =>
-          im.placeholder ? (
-            <div key="placeholder" className="h-full w-full shrink-0 snap-center">
-              <CasePlaceholder name={name} />
-            </div>
-          ) : (
+        {images.map((im) => (
           <div key={im.src} className="relative h-full w-full shrink-0 snap-center">
             <Image
               src={im.src}
@@ -745,20 +748,19 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
               draggable={false}
             />
           </div>
-          )
-        )}
+        ))}
       </div>
       <button
         onClick={() => go(index - 1)}
         aria-label="Foto anterior"
-        className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-i9-ink/70 px-2.5 py-1.5 text-sm font-bold text-white opacity-0 transition group-hover/car:opacity-100 focus:opacity-100"
+        className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-i9-ink/70 px-3 py-2 text-base font-bold text-white opacity-0 transition group-hover/car:opacity-100 focus:opacity-100"
       >
         ‹
       </button>
       <button
         onClick={() => go(index + 1)}
         aria-label="Próxima foto"
-        className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-i9-ink/70 px-2.5 py-1.5 text-sm font-bold text-white opacity-0 transition group-hover/car:opacity-100 focus:opacity-100"
+        className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-i9-ink/70 px-3 py-2 text-base font-bold text-white opacity-0 transition group-hover/car:opacity-100 focus:opacity-100"
       >
         ›
       </button>
@@ -768,10 +770,15 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
             key={im.src}
             onClick={() => go(i)}
             aria-label={`Ver foto ${i + 1} de ${images.length}`}
-            className={`h-1.5 rounded-full transition ${
-              i === index ? "w-5 bg-white" : "w-1.5 bg-white/60"
-            }`}
-          />
+            className="flex h-6 w-6 items-center justify-center"
+          >
+            <span
+              aria-hidden
+              className={`h-1.5 rounded-full transition ${
+                i === index ? "inline-block w-5 bg-white" : "inline-block w-1.5 bg-white/60"
+              }`}
+            />
+          </button>
         ))}
       </div>
       <span className="absolute right-2 top-2 rounded-md bg-i9-ink/70 px-2 py-0.5 text-[11px] font-semibold text-white">
@@ -981,7 +988,7 @@ export function Diferencial() {
         />
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-slate-200 bg-white p-6">
-            <p className="font-display text-base font-bold text-slate-400">
+            <p className="font-display text-base font-bold text-slate-500">
               A maioria das agências
             </p>
             <ul className="mt-4 space-y-3">
@@ -1060,6 +1067,7 @@ export function Escada() {
     <section id="como-trabalhamos" className="bg-i9-ink">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
+          dark
           label="Como trabalhamos"
           title="Cinco portas de entrada, um caminho só"
           sub="Você entra pelo que dói hoje e cresce dentro da mesma base. Sem trocar de fornecedor a cada fase."
@@ -1087,13 +1095,13 @@ export function Escada() {
             className="flex flex-col justify-between rounded-xl bg-i9-blue p-6 transition hover:bg-i9-blue-deep"
           >
             <div>
-              <p className="font-display text-sm font-bold text-white/70">
+              <p className="font-display text-sm font-bold text-slate-200">
                 2 min
               </p>
               <h3 className="font-display mt-1 text-lg font-bold text-white">
                 Não sabe por onde entrar?
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-white/85">
+              <p className="mt-2 text-sm leading-relaxed text-white">
                 Responda 4 perguntas e receba o plano certo para o seu momento.
               </p>
             </div>
@@ -1111,14 +1119,14 @@ export function TechStrip() {
   return (
     <section aria-label="Tecnologia" className="border-b border-slate-200/70 bg-white">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-7 gap-y-3 px-4 py-5 sm:px-6">
-        <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400">
+        <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500">
           Nossa base de tecnologia
         </span>
         {TECHS.map((t) => (
           <span
             key={t.name}
             title={t.name}
-            className="flex items-center gap-1.5 text-slate-400 transition hover:text-slate-700"
+            className="flex items-center gap-1.5 text-slate-500 transition hover:text-slate-900"
           >
             <Image
               src={t.logo}
@@ -1140,7 +1148,7 @@ export function Partners() {
   return (
     <section className="bg-i9-paper">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <p className="label-eyebrow text-slate-400">Parceria de indicação cruzada</p>
+        <p className="label-eyebrow text-slate-600">Parceria de indicação cruzada</p>
         <div className="mt-4 flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-5 sm:flex-row sm:items-center sm:gap-6">
           <Image
             src="/parceiros/pecatech.png"
@@ -1169,7 +1177,7 @@ export function Partners() {
             Pedir produção física
           </a>
         </div>
-        <p className="mt-3 text-xs text-slate-400">
+        <p className="mt-3 text-xs text-slate-600">
           Gráfica, tecnologia e soluções digitais. Parceira de balcão e de bairro.
         </p>
       </div>
@@ -1463,16 +1471,17 @@ export function FinalCta() {
 
 function CountUp({ to, suffix }: { to: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const [n, setN] = useState(0);
+  // O número final vem no HTML (SEO e primeira pintura). Com movimento
+  // permitido, reinicia de 0 e anima quando o elemento entra na tela.
+  const [n, setN] = useState(to);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setN(to);
       return;
     }
     let raf = 0;
-    const t0 = performance.now();
+    let t0 = 0;
     const tick = (t: number) => {
       const p = Math.min(1, (t - t0) / 700);
       setN(Math.round(to * (1 - Math.pow(1 - p, 3))));
@@ -1481,6 +1490,8 @@ function CountUp({ to, suffix }: { to: number; suffix: string }) {
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          setN(0);
+          t0 = performance.now();
           raf = requestAnimationFrame(tick);
           io.disconnect();
         }
@@ -1507,15 +1518,15 @@ export function StripStats() {
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 px-4 py-6 sm:grid-cols-3 sm:px-6">
         <div className="flex items-baseline gap-3">
           <span className="font-display text-3xl font-bold text-i9-blue">
-            <CountUp to={20} suffix="" />
+            <CountUp to={CASES.length} suffix="" />
           </span>
           <span className="text-sm text-slate-600">cases em destaque</span>
         </div>
         <div className="flex items-baseline gap-3">
           <span className="font-display text-3xl font-bold text-i9-blue">
-            +<CountUp to={40} suffix="" />
+            +<CountUp to={ARTES.length} suffix="" />
           </span>
-          <span className="text-sm text-slate-600">projetos entregues</span>
+          <span className="text-sm text-slate-600">artes entregues para clientes</span>
         </div>
         <div className="flex items-baseline gap-3">
           <span className="font-display text-3xl font-bold text-i9-blue">24/7</span>
