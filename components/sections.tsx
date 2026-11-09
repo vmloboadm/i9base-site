@@ -550,13 +550,11 @@ export function InviteEnvelope() {
           track("envelope_demo", { open: open ? "close" : "open" });
         }}
         aria-expanded={open}
-        aria-label={
-          open
-            ? "Fechar a carta de convite especial: você foi convidado!"
-            : "Abrir a carta de convite especial: você foi convidado!"
-        }
         className="relative block aspect-[4/3] w-full [perspective:800px]"
       >
+        <span className="sr-only">
+          {open ? "Fechar" : "Abrir"} a carta de convite
+        </span>
         <span
           aria-hidden
           className={`absolute inset-x-6 top-2 bottom-6 rounded-lg bg-white shadow-xl transition-all duration-700 ${
@@ -1115,7 +1113,7 @@ export function Escada() {
             className="flex flex-col justify-between rounded-xl bg-i9-blue p-6 transition hover:bg-i9-blue-deep"
           >
             <div>
-              <p className="font-display text-sm font-bold text-slate-200">
+              <p className="font-display text-sm font-bold text-white">
                 2 min
               </p>
               <h3 className="font-display mt-1 text-lg font-bold text-white">
