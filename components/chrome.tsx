@@ -49,7 +49,7 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
         className={`mx-auto flex max-w-6xl items-center justify-between px-4 transition-all duration-300 sm:px-6 ${scrolled ? 'h-16 shadow-[0_4px_24px_rgba(37,99,235,0.15)]' : 'h-20'}`}
       >
         <a href={hrefFor('#topo')} className="flex items-center gap-2.5">
-          <Image src="/logo-dark.png" alt="i9BASE" width={1420} height={371} className="h-8 w-auto" />
+          <Image src="/logo-dark.png" alt="i9BASE" width={1352} height={364} className="h-8 w-auto" />
           <span className={`hidden text-[11px] lg:inline ${light ? 'text-slate-500' : 'text-slate-400'}`}>
             Sua base de tecnologia e inovação
           </span>
@@ -128,8 +128,8 @@ export function Footer() {
           <Image
             src="/logo-slate.png"
             alt="i9BASE"
-            width={810}
-            height={756}
+            width={709}
+            height={674}
             className="h-16 w-auto"
           />
           <p className="mt-3 font-display text-sm font-bold text-i9-ink">

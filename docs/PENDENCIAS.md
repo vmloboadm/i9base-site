@@ -12,6 +12,7 @@
 - [ ] Vídeo de preview no hover do card Convites (aguardando mp4; ver `Solution.video`, hoje `undefined`).
 
 ## Decidido e aplicado
+- Logos com transparência (PR2): `logo-dark.png` (azul para fundos escuros), `logo-slate.png` (slate empilhado para fundos claros), `logo-icon.png` (transparente). Originais em backup fora do repo.
 - Preços fora do site (orçamento personalizado no WhatsApp).
 - PT-BR em toda UI, sem travessão.
 - SBC Digital fora do portfólio até ok explícito (vertical de apostas).

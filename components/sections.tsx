@@ -168,11 +168,11 @@ export function Hero() {
               <Image
                 src="/logo-dark.png"
                 alt="i9BASE"
-                width={1420}
-                height={371}
+                width={1352}
+                height={364}
                 priority
                 sizes="(max-width: 1024px) 70vw, 400px"
-                className="h-auto w-full mix-blend-screen"
+                className="h-auto w-full"
               />
               <p className="mt-3 font-display text-xs font-bold uppercase tracking-[0.22em] text-i9-blue-soft">
                 {SLOGAN}
@@ -829,10 +829,11 @@ export function Cases() {
         {list.length === 0 ? (
           <div className="flex flex-col items-center rounded-xl border border-dashed border-slate-300 bg-white py-12 text-center">
             <Image
-              src="/fantasma.png"
+              src="/logo-icon.png"
               alt="Nenhum case aqui ainda"
-              width={72}
-              height={72}
+              width={64}
+              height={64}
+              className="h-16 w-auto"
             />
             <p className="mt-4 text-sm text-slate-500">
               Nenhum case nessa categoria ainda. Chama no WhatsApp e seja o próximo.
