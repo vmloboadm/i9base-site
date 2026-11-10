@@ -39,6 +39,10 @@ body {
   border-radius: 4px;
 }
 
+[id] {
+  scroll-margin-top: 6rem;
+}
+
 /* Malha de planta baixa: fundo técnico do sistema i9BASE */
 .blueprint {
   background-image: linear-gradient(rgba(16, 19, 21, 0.045) 1px, transparent 1px),

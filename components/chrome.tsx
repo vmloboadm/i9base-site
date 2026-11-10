@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SLOGAN } from "@/lib/data";
 
 function withHome(pathname: string | null, href: string) {
@@ -14,6 +14,7 @@ import { track } from "@/lib/analytics";
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuBtn = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
   const hrefFor = (href: string) => withHome(pathname, href);
 
@@ -30,10 +31,19 @@ export function Header() {
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setOpen(false);
+        menuBtn.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', onKey);
     return () => {
       document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKey);
     };
-  }, [open ]);
+  }, [open]);
 
   return (
     <header
@@ -53,7 +63,7 @@ export function Header() {
             <a
               key={item.href}
               href={hrefFor(item.href)}
-              className="text-sm font-medium text-i9-slate hover:text-i9-ink"
+              className="relative text-sm font-medium text-i9-slate transition hover:text-i9-ink after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-0 after:bg-i9-signal after:transition-all hover:after:w-full"
             >
               {item.label}
             </a>
@@ -69,6 +79,7 @@ export function Header() {
           </a>
         </nav>
         <button
+          ref={menuBtn}
           className="rounded-md border border-i9-line bg-i9-paper2 px-3 py-2 text-sm font-semibold text-i9-ink md:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? 'Fechar menu' : 'Abrir menu'}

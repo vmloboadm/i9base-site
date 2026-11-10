@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { WHATSAPP_NUMBER, waLink } from "@/lib/data";
 import { track } from "@/lib/analytics";
@@ -104,6 +104,12 @@ export function Quiz() {
   const [telefone, setTelefone] = useState("");
   const [enviado, setEnviado] = useState(false);
   const [erro, setErro] = useState("");
+  const started = useRef(false);
+  const stepRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    if (started.current) stepRef.current?.focus({ preventScroll: true });
+  }, [etapa]);
 
   const terminou = etapa >= PERGUNTAS.length;
   const resultado = useMemo(
@@ -114,6 +120,7 @@ export function Quiz() {
   function responder(opcao: string) {
     const pergunta = PERGUNTAS[etapa];
     if (!pergunta) return;
+    started.current = true;
     if (etapa === 0)
       track("diagnostico_start", { origem: origem || "direto" });
     track("diagnostico_step", { pergunta: pergunta.id });
@@ -200,7 +207,11 @@ export function Quiz() {
             key={etapa}
             className="mt-4 rounded-sm border border-i9-line bg-i9-paper2 p-6"
           >
-            <h2 className="font-display text-xl font-bold text-i9-ink">
+            <h2
+              ref={stepRef}
+              tabIndex={-1}
+              className="font-display text-xl font-bold text-i9-ink outline-none"
+            >
               {PERGUNTAS[etapa]?.texto}
             </h2>
             <div className="mt-5 grid gap-3">
@@ -244,6 +255,7 @@ export function Quiz() {
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
                 placeholder="Como podemos te chamar?"
+                aria-invalid={!!erro && !nome.trim()}
                 autoComplete="name"
                 className="rounded-sm border border-i9-line bg-i9-paper px-4 py-3 font-normal outline-none focus:border-i9-blue"
               />
@@ -254,12 +266,17 @@ export function Quiz() {
                 value={telefone}
                 onChange={(e) => setTelefone(e.target.value)}
                 placeholder="21999999999"
+                aria-invalid={!!erro && !telefone.trim()}
                 inputMode="tel"
                 autoComplete="tel"
                 className="rounded-sm border border-i9-line bg-i9-paper px-4 py-3 font-normal outline-none focus:border-i9-blue"
               />
             </label>
-            {erro && <p className="text-sm text-red-600">{erro}</p>}
+            {erro && (
+              <p role="alert" className="text-sm font-medium text-red-700">
+                {erro}
+              </p>
+            )}
             <button
               type="submit"
               className="rounded-sm bg-i9-blue px-5 py-4 font-display font-bold text-white transition hover:bg-i9-blue-deep"

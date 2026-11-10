@@ -93,12 +93,14 @@ function Reveal({
 }
 
 function SectionHead({
+  index,
   label,
   title,
   sub,
   dark,
   labelTone,
 }: {
+  index?: string;
   label: string;
   title: string;
   sub: string;
@@ -117,6 +119,7 @@ function SectionHead({
             dark ? "text-i9-blue-soft" : labelTone === "deep" ? "text-i9-blue-deep" : "text-i9-blue"
           }`}
         >
+          {index ? `${index} — ` : ""}
           {label}
         </p>
         <span
@@ -283,6 +286,7 @@ export function Solutions() {
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
           dark
+          index="02"
           label="Soluções"
           title="Escolha por onde começar"
           sub="Quatro trilhas, um destino: seu negócio rodando numa base só. Toque numa trilha para explorar."
@@ -493,6 +497,7 @@ export function CrmSection() {
     <section id="crm" className="border-y border-i9-line bg-i9-paper2">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
+          index="03"
           label="CRM para empresas"
           labelTone="deep"
           title="Atendimento que vira gestão"
@@ -628,6 +633,7 @@ export function Convites() {
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
           dark
+          index="04"
           label="Convites interativos"
           title="A festa começa no convite"
           sub="Convite digital para aniversário, 15 anos, casamento e eventos da família: confirmação de presença, mapa e galeria de fotos em tempo real. Teste aqui como o convidado vive a experiência."
@@ -732,7 +738,7 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
           alt={im.alt || name}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover"
+          className="object-cover transition duration-500 group-hover/car:scale-[1.03]"
           loading="lazy"
         />
       </div>
@@ -758,7 +764,7 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
               alt={im.alt || name}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="object-cover"
+              className="object-cover transition duration-500 group-hover/car:scale-[1.03]"
               loading="lazy"
               draggable={false}
             />
@@ -817,6 +823,7 @@ export function Cases() {
     <section id="cases" className="bg-i9-paper">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
+          index="05"
           label="Cases"
           title="Projetos que viraram resultado"
           sub="Uma seleção do que já entregamos. Cases com várias fotos têm carrossel, toque num case para abrir os detalhes."
@@ -874,7 +881,9 @@ export function Cases() {
                 <article
                   key={c.slug}
                   className={`overflow-hidden rounded-sm border bg-i9-paper2 transition ${
-                    isOpen ? "border-i9-blue" : "border-i9-line hover:border-i9-blue"
+                    isOpen
+                      ? "border-i9-blue shadow-[0_10px_32px_rgba(16,19,21,0.10)]"
+                      : "border-i9-line hover:border-i9-blue hover:shadow-[0_10px_32px_rgba(16,19,21,0.08)]"
                   }`}
                 >
                   <CaseCarousel images={c.images} name={c.name} />
@@ -978,6 +987,7 @@ export function Artes() {
     <section id="artes" className="border-y border-i9-line bg-i9-paper2">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
+          index="06"
           label="Artes e peças"
           title="Design que destaca no feed e no mundo real"
           sub="Uma seleção de peças criadas para clientes: do post ao uniforme, do windbanner ao avental."
@@ -1015,6 +1025,7 @@ export function Diferencial() {
     <section id="diferencial" className="bg-i9-paper">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
+          index="09"
           label="Diferencial"
           title="Por que a i9BASE é diferente"
           sub="A maioria vende peça. A gente entrega a base funcionando."
@@ -1072,6 +1083,7 @@ export function Method() {
     <section id="metodo" className="border-y border-i9-line bg-i9-paper2">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
+          index="07"
           label="Método"
           title="O método que organiza o crescimento"
           sub="Antes de vender qualquer peça, entendemos o negócio. Oito passos, do diagnóstico à fidelização."
@@ -1101,6 +1113,7 @@ export function Escada() {
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
           dark
+          index="08"
           label="Como trabalhamos"
           title="Cinco portas de entrada, um caminho só"
           sub="Você entra pelo que dói hoje e cresce dentro da mesma base. Sem trocar de fornecedor a cada fase."
@@ -1227,7 +1240,8 @@ export function Contact() {
         <div className="grain relative rounded-sm bg-i9-ink p-6 sm:p-10">
           <SectionHead
             dark
-            label="Contato"
+            index="10"
+          label="Contato"
             title="Seu negócio pode ser o próximo"
             sub="Conta o que trava o seu dia no WhatsApp. A gente responde 24h e vê o que dá pra automatizar."
           />
@@ -1401,6 +1415,7 @@ export function Faq() {
     <section id="faq" className="border-t border-i9-line bg-i9-paper2">
       <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         <SectionHead
+          index="11"
           label="Dúvidas frequentes"
           title="Perguntas de quem chega"
           sub="O que todo mundo pergunta antes de chamar. Não achou a sua? Chama no WhatsApp."

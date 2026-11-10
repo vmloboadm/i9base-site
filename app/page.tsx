@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main>
+      <main id="conteudo" tabIndex={-1} className="outline-none">
         <Hero />
         <TechStrip />
         <OfferStrip />
