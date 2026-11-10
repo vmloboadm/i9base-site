@@ -12,7 +12,7 @@ export const CONVITE_VIDEOS: MidiaItem[] = [
     src: "/convites/festa.mp4",
     alt: "Abertura de convite de boteco",
     kind: "video",
-    poster: "/convites/festa-poster.jpg",
+    poster: "/convites/festa-poster.webp",
   },
 ];
 

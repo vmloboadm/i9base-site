@@ -14,7 +14,7 @@ export default function PrivacidadePage() {
   return (
     <>
       <Header />
-      <main className="flex-1 bg-i9-paper">
+      <main id="conteudo" tabIndex={-1} className="flex-1 bg-i9-paper outline-none">
         <div className="mx-auto max-w-3xl px-4 pb-14 pt-28 sm:px-6 sm:pt-32">
           <p className="text-sm font-semibold uppercase tracking-widest text-i9-blue">
             Privacidade

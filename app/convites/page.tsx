@@ -119,7 +119,7 @@ export default function ConvitesPage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="conteudo" tabIndex={-1} className="outline-none">
         <section className="relative overflow-hidden bg-i9-ink text-white">
           <div
             aria-hidden

@@ -73,7 +73,8 @@ export function VideoTile({
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="none"
+          controls={playing}
           aria-label={alt}
           className={className}
         />

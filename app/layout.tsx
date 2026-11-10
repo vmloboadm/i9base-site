@@ -6,7 +6,7 @@ import { JSON_LD } from "@/lib/jsonld";
 const display = Archivo({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+  weight: ["600", "700", "800"],
 });
 
 const body = Inter({
@@ -66,6 +66,12 @@ export default function RootLayout({
       <body
         className={`${display.variable} ${body.variable} ${mono.variable} flex min-h-full flex-col font-body`}
       >
+        <a
+          href="#conteudo"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-i9-ink focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-i9-paper"
+        >
+          Pular para o conteúdo
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
