@@ -54,8 +54,8 @@ export function VideoTile({
     <figure
       className={
         caption
-          ? "frame-corners overflow-hidden rounded-xl border border-slate-200 break-inside-avoid"
-          : "frame-corners overflow-hidden rounded-2xl border border-white/15"
+          ? "frame-corners overflow-hidden rounded-sm border border-i9-line break-inside-avoid"
+          : "frame-corners overflow-hidden rounded-sm border border-white/15"
       }
     >
       <button
@@ -83,13 +83,13 @@ export function VideoTile({
             playing ? "opacity-0" : "opacity-100"
           }`}
         >
-          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 text-i9-ink shadow-lg">
+          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 text-i9-ink">
             {playing ? <PauseIcon /> : <PlayIcon />}
           </span>
         </span>
       </button>
       {caption && (
-        <figcaption className="px-3 py-2 text-xs font-medium text-slate-500">
+        <figcaption className="px-3 py-2 text-xs font-medium text-i9-slate">
           {caption}
         </figcaption>
       )}

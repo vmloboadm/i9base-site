@@ -30,7 +30,7 @@ export default function DiagnosticoPage() {
   return (
     <>
       <Header />
-      <main className="mx-auto w-full max-w-3xl px-5 pb-24 pt-28 sm:pt-32">
+      <main className="blueprint mx-auto w-full max-w-3xl px-5 pb-24 pt-28 sm:pt-32">
         <Suspense fallback={<div className="h-64" />}>
           <Quiz />
         </Suspense>

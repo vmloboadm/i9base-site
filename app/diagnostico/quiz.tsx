@@ -164,7 +164,8 @@ export function Quiz() {
 
   return (
     <section aria-label="Diagnóstico gratuito">
-      <p className="text-sm font-semibold uppercase tracking-widest text-i9-blue">
+      <p className="label-eyebrow flex items-center gap-2 text-i9-blue">
+        <span aria-hidden className="h-2 w-2 bg-i9-signal" />
         Diagnóstico gratuito
       </p>
       <h1 className="font-display mt-2 text-3xl font-bold text-i9-ink sm:text-4xl">
@@ -178,7 +179,7 @@ export function Quiz() {
       {!terminou && (
         <div className="mt-8">
           <div
-            className="h-2 overflow-hidden rounded-full bg-i9-concrete/60"
+            className="h-2 overflow-hidden bg-i9-line"
             role="progressbar"
             aria-label={`Etapa ${etapa} de ${PERGUNTAS.length}`}
             aria-valuenow={etapa}
@@ -193,11 +194,11 @@ export function Quiz() {
             />
           </div>
           <p className="mt-2 text-sm text-i9-slate">
-            Pergunta {etapa + 1} de {PERGUNTAS.length}
+            Pergunta {etapa + 1} / {PERGUNTAS.length}
           </p>
           <div
             key={etapa}
-            className="mt-4 rounded-2xl border border-i9-concrete bg-white p-6 shadow-sm"
+            className="mt-4 rounded-sm border border-i9-line bg-i9-paper2 p-6"
           >
             <h2 className="font-display text-xl font-bold text-i9-ink">
               {PERGUNTAS[etapa]?.texto}
@@ -208,7 +209,7 @@ export function Quiz() {
                   key={opcao}
                   type="button"
                   onClick={() => responder(opcao)}
-                  className="rounded-xl border border-i9-concrete bg-i9-paper px-5 py-4 text-left font-medium text-i9-ink transition hover:border-i9-blue hover:bg-white"
+                  className="rounded-sm border border-i9-line bg-i9-paper px-5 py-4 text-left font-medium text-i9-ink transition hover:border-i9-blue hover:bg-i9-paper2"
                 >
                   {opcao}
                 </button>
@@ -228,7 +229,7 @@ export function Quiz() {
       )}
 
       {terminou && resultado && !enviado && (
-        <div className="mt-8 rounded-2xl border border-i9-concrete bg-white p-6 shadow-sm">
+        <div className="mt-8 rounded-sm border border-i9-line bg-i9-paper2 p-6">
           <p className="text-sm font-semibold uppercase tracking-widest text-i9-blue">
             Seu retrato
           </p>
@@ -244,7 +245,7 @@ export function Quiz() {
                 onChange={(e) => setNome(e.target.value)}
                 placeholder="Como podemos te chamar?"
                 autoComplete="name"
-                className="rounded-xl border border-i9-concrete bg-i9-paper px-4 py-3 font-normal outline-none focus:border-i9-blue"
+                className="rounded-sm border border-i9-line bg-i9-paper px-4 py-3 font-normal outline-none focus:border-i9-blue"
               />
             </label>
             <label className="grid gap-1 text-sm font-medium text-i9-ink">
@@ -255,17 +256,17 @@ export function Quiz() {
                 placeholder="21999999999"
                 inputMode="tel"
                 autoComplete="tel"
-                className="rounded-xl border border-i9-concrete bg-i9-paper px-4 py-3 font-normal outline-none focus:border-i9-blue"
+                className="rounded-sm border border-i9-line bg-i9-paper px-4 py-3 font-normal outline-none focus:border-i9-blue"
               />
             </label>
             {erro && <p className="text-sm text-red-600">{erro}</p>}
             <button
               type="submit"
-              className="rounded-xl bg-i9-blue px-5 py-4 font-display font-bold text-white transition hover:bg-i9-blue-deep"
+              className="rounded-sm bg-i9-blue px-5 py-4 font-display font-bold text-white transition hover:bg-i9-blue-deep"
             >
               Ver meu plano
             </button>
-            <p className="text-xs leading-relaxed text-slate-500">
+            <p className="text-xs leading-relaxed text-i9-slate">
               Usamos seu nome e WhatsApp só para responder este diagnóstico. Nada
               de spam. Ver{" "}
               <Link href="/privacidade" className="underline hover:text-i9-blue">
@@ -278,7 +279,7 @@ export function Quiz() {
       )}
 
       {terminou && resultado && enviado && (
-        <div className="mt-8 rounded-2xl border border-i9-concrete bg-white p-6 text-center shadow-sm">
+        <div className="mt-8 rounded-sm border border-i9-line bg-i9-paper2 p-6 text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-i9-blue">
             Pronto, {nome.trim().split(" ")[0]}
           </p>
@@ -299,7 +300,7 @@ export function Quiz() {
                 origem: origem || "direto",
               })
             }
-            className="font-display mt-6 inline-block rounded-xl bg-[#25d366] px-8 py-4 font-bold text-white transition hover:brightness-95"
+            className="font-display mt-6 inline-block rounded-sm bg-[#25d366] px-8 py-4 font-bold text-white transition hover:brightness-95"
           >
             Receber meu plano no WhatsApp
           </a>

@@ -22,13 +22,13 @@ export default function PrivacidadePage() {
           <h1 className="mt-2 font-display text-3xl font-bold text-i9-ink sm:text-4xl">
             Como tratamos seus dados
           </h1>
-          <p className="mt-3 text-slate-600">
+          <p className="mt-3 text-i9-slate">
             Versão curta e direta: usamos o mínimo de dados para responder o que
             você pediu, não vendemos nada e você pode pedir a exclusão quando
             quiser. Última atualização: novembro de 2026.
           </p>
 
-          <div className="mt-8 space-y-8 rounded-xl border border-slate-200 bg-white p-6 text-sm leading-relaxed text-slate-700 sm:p-8">
+          <div className="mt-8 space-y-8 rounded-sm border border-i9-line bg-i9-paper2 p-6 text-sm leading-relaxed text-slate-700 sm:p-8">
             <section>
               <h2 className="font-display text-lg font-bold text-i9-ink">
                 1. O que coletamos
@@ -111,7 +111,7 @@ export default function PrivacidadePage() {
             </section>
           </div>
 
-          <p className="mt-6 text-xs text-slate-500">
+          <p className="mt-6 text-xs text-i9-slate">
             Dúvida sobre privacidade? Fale com a gente em{" "}
             <a href={`mailto:${CONTACT_EMAIL}`} className="underline">
               {CONTACT_EMAIL}

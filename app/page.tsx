@@ -6,14 +6,12 @@ import {
   Convites,
   CrmSection,
   Diferencial,
-  ValoresBase,
   Escada,
   Hero,
   Method,
   OfferStrip,
   Partners,
   Solutions,
-  StripStats,
   TechStrip,
   Faq,
   FinalCta,
@@ -27,7 +25,6 @@ export default function Home() {
         <Hero />
         <TechStrip />
         <OfferStrip />
-        <StripStats />
         <Solutions />
         <CrmSection />
         <Convites />
@@ -36,7 +33,6 @@ export default function Home() {
         <Method />
         <Escada />
         <Diferencial />
-        <ValoresBase />
         <Partners />
         <Contact />
         <Faq />

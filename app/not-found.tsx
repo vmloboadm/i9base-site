@@ -17,20 +17,20 @@ export default function NotFound() {
           <h1 className="mt-4 font-display text-3xl font-bold text-i9-ink sm:text-4xl">
             Essa página saiu do ar ou nunca existiu
           </h1>
-          <p className="mt-4 text-slate-600">
+          <p className="mt-4 text-i9-slate">
             Confere o endereço ou volta para o início. Se você chegou aqui por um
             link nosso, avisa a gente no WhatsApp que a gente arruma.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Link
               href="/"
-              className="rounded-lg bg-i9-blue px-5 py-3 text-sm font-semibold text-white hover:bg-i9-blue-deep"
+              className="rounded-md bg-i9-blue px-5 py-3 text-sm font-semibold text-white hover:bg-i9-blue-deep"
             >
               Voltar ao início
             </Link>
             <Link
               href="/convites"
-              className="rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-i9-ink hover:border-i9-blue hover:text-i9-blue"
+              className="rounded-md border border-i9-line bg-i9-paper2 px-5 py-3 text-sm font-semibold text-i9-ink hover:border-i9-blue hover:text-i9-blue"
             >
               Ver convites interativos
             </Link>
@@ -38,7 +38,7 @@ export default function NotFound() {
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener"
-              className="rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-i9-ink hover:border-i9-blue hover:text-i9-blue"
+              className="rounded-md border border-i9-line bg-i9-paper2 px-5 py-3 text-sm font-semibold text-i9-ink hover:border-i9-blue hover:text-i9-blue"
             >
               Falar no WhatsApp
             </a>
