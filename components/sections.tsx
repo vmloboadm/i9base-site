@@ -13,18 +13,15 @@ import {
   METHOD,
   PROVAS,
   PROVAS_NOTA,
-  SLOGAN,
   SOLUTIONS,
   STATS,
   TECHS,
   TRACKS,
-  VALORES_BASE,
   WHATSAPP_URL,
   waLink,
   type CaseImage,
 } from "@/lib/data";
 import { track } from "@/lib/analytics";
-import { HeroCanvas } from "@/components/hero-canvas";
 
 function Chevron() {
   return (
@@ -109,22 +106,32 @@ function SectionHead({
   labelTone?: "default" | "deep";
 }) {
   return (
-    <div className="mb-8">
-      <p
-        className={`label-eyebrow ${
-          dark ? "text-i9-blue-soft" : labelTone === "deep" ? "text-i9-blue-deep" : "text-i9-blue"
-        }`}
-      >
-        {label}
-      </p>
+    <div className="mb-10">
+      <div className="flex items-center gap-3">
+        <span
+          aria-hidden
+          className={`h-2 w-2 shrink-0 ${dark ? "bg-i9-signal" : "bg-i9-blue"}`}
+        />
+        <p
+          className={`label-eyebrow ${
+            dark ? "text-i9-blue-soft" : labelTone === "deep" ? "text-i9-blue-deep" : "text-i9-blue"
+          }`}
+        >
+          {label}
+        </p>
+        <span
+          aria-hidden
+          className={`h-px flex-1 ${dark ? "bg-white/15" : "bg-i9-line"}`}
+        />
+      </div>
       <h2
-        className={`mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl ${
+        className={`mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl ${
           dark ? "text-white" : "text-i9-ink"
         }`}
       >
         {title}
       </h2>
-      <p className={`mt-3 max-w-2xl text-base ${dark ? "text-slate-300" : "text-slate-600"}`}>
+      <p className={`mt-3 max-w-2xl text-base ${dark ? "text-slate-300" : "text-i9-slate"}`}>
         {sub}
       </p>
     </div>
@@ -133,119 +140,133 @@ function SectionHead({
 
 export function Hero() {
   return (
-    <section id="topo" className="grain relative overflow-hidden bg-i9-ink text-white">
-      <div
-        aria-hidden
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(900px 480px at 85% -5%, rgba(37,99,235,0.35), transparent 60%), radial-gradient(700px 420px at 8% 20%, rgba(124,58,237,0.22), transparent 60%), linear-gradient(180deg, #0b0f14 0%, #0a1a33 48%, #123063 76%, #f5f6fb 100%)",
-        }}
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-[0.13]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
-          backgroundSize: "56px 56px",
-          maskImage: "radial-gradient(800px 500px at 50% 0%, black 30%, transparent 75%)",
-          WebkitMaskImage: "radial-gradient(800px 500px at 50% 0%, black 30%, transparent 75%)",
-        }}
-      />
-      <HeroCanvas />
-      <div aria-hidden className="absolute -left-24 top-16 h-72 w-72 rounded-full bg-i9-blue/20 blur-[100px]" />
-      <div aria-hidden className="absolute -right-24 top-64 h-80 w-80 rounded-full bg-[#7c3aed]/15 blur-[110px]" />
-      <div className="animate-hero-in relative mx-auto max-w-6xl px-4 pb-10 pt-28 sm:px-6 sm:pt-32">
-        <div className="mt-2 grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+    <section
+      id="topo"
+      className="blueprint relative overflow-hidden border-b border-i9-line bg-i9-paper"
+    >
+      <div className="mx-auto max-w-6xl px-4 pt-24 sm:px-6 sm:pt-28">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-i9-line pb-3 font-mono text-[10px] uppercase tracking-[0.14em] text-i9-slate">
+          <span className="inline-flex items-center gap-1.5">
+            <span aria-hidden className="h-1.5 w-1.5 bg-emerald-600" />
+            Atendimento 24/7
+          </span>
+          <span aria-hidden className="hidden text-i9-concrete sm:inline">/</span>
+          <span className="hidden sm:inline">Campos dos Goytacazes, RJ</span>
+          <span aria-hidden className="hidden text-i9-concrete sm:inline">/</span>
+          <span>Resposta em minutos</span>
+          <span className="ml-auto hidden sm:inline">Ficha 2026.11</span>
+        </div>
+
+        <div className="grid items-start gap-12 pb-14 pt-10 lg:grid-cols-[1.12fr_0.88fr] lg:gap-16 lg:pt-14">
           <div>
-            <p className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-1.5 text-xs font-semibold text-emerald-300">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-              </span>
-              Disponível para novos projetos
+            <p className="label-eyebrow flex items-center gap-2 text-i9-blue">
+              <span aria-hidden className="h-2 w-2 bg-i9-signal" />
+              01 — base operacional
             </p>
-            <div className="mt-5 max-w-sm">
-              <Image
-                src="/logo-dark.png"
-                alt="i9BASE"
-                width={1352}
-                height={364}
-                priority
-                sizes="(max-width: 1024px) 70vw, 400px"
-                className="h-auto w-full"
-              />
-              <p className="mt-3 font-display text-xs font-bold uppercase tracking-[0.22em] text-i9-blue-soft">
-                {SLOGAN}
-              </p>
-            </div>
-            <h1 className="font-display text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
-              A base de tecnologia para o seu negócio
+            <h1 className="mt-4 font-display text-4xl font-extrabold leading-[1.04] tracking-tight text-i9-ink sm:text-5xl lg:text-6xl">
+              A <span className="marker">base</span> de tecnologia
+              <br className="hidden sm:block" /> para o seu negócio
             </h1>
-            <p className="mt-5 max-w-xl text-base text-slate-200 sm:text-lg">
-              Sites, sistemas, automação e inteligência artificial para
-              negócios locais.
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-i9-slate sm:text-lg">
+              Sites, sistemas, automação e inteligência artificial para negócios
+              locais. Uma base só para vender, atender e crescer.
             </p>
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <a
                 href="/diagnostico"
                 onClick={() => track("diagnostico_start", { origem: "hero" })}
-                className="rounded-lg bg-i9-blue px-6 py-3 text-center font-semibold text-white hover:bg-i9-blue-deep"
+                className="rounded-md bg-i9-blue px-6 py-3.5 text-center font-semibold text-white transition hover:bg-i9-blue-deep"
               >
                 Fazer diagnóstico gratuito
               </a>
               <a
-                href={waLink("Oi! Vim pelo site da i9BASE e quero estruturar meu negócio.")}
+                href={waLink(
+                  "Oi! Vim pelo site da i9BASE e quero estruturar meu negócio."
+                )}
                 target="_blank"
                 rel="noopener"
                 onClick={() => track("whatsapp_click", { from: "hero" })}
-                className="rounded-lg border border-white/25 px-6 py-3 text-center font-semibold text-white hover:border-i9-blue-soft hover:text-i9-blue-soft"
+                className="rounded-md border border-i9-ink px-6 py-3.5 text-center font-semibold text-i9-ink transition hover:bg-i9-ink hover:text-i9-paper"
               >
                 Chamar no WhatsApp
               </a>
             </div>
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-300">
-              <span><strong className="font-display text-white">{CASES.length}</strong> cases</span>
-              <span><strong className="font-display text-white">{ESCADA.length}</strong> entradas</span>
-            </div>
+
+            <dl className="mt-10 grid max-w-lg grid-cols-3 gap-px border border-i9-line bg-i9-line">
+              {[
+                { n: String(CASES.length), l: "cases entregues" },
+                { n: String(ARTES.length), l: "artes para clientes" },
+                { n: "24/7", l: "atendimento no WhatsApp" },
+              ].map((s) => (
+                <div key={s.l} className="bg-i9-paper px-4 py-4">
+                  <dt className="font-display text-2xl font-bold text-i9-ink">
+                    {s.n}
+                  </dt>
+                  <dd className="mt-1 font-mono text-[10px] uppercase leading-tight tracking-[0.1em] text-i9-slate">
+                    {s.l}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
+
           <div className="relative">
-            <div
-              aria-hidden
-              className="animate-spin-slower pointer-events-none absolute -right-10 -top-10 hidden h-44 w-44 rounded-full border-2 border-dashed border-i9-blue/40 lg:block"
-            />
-            <div className="rounded-2xl border border-white/15 bg-i9-ink/70 p-6 text-center backdrop-blur-md">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-i9-blue-soft">
-                Diagnóstico gratuito
+            <div aria-hidden className="absolute -left-2 -top-2 h-4 w-4 border-l-2 border-t-2 border-i9-ink" />
+            <div aria-hidden className="absolute -bottom-2 -right-2 h-4 w-4 border-b-2 border-r-2 border-i9-ink" />
+            <div className="border border-i9-ink bg-i9-paper2 p-6 sm:p-7">
+              <div className="flex items-center justify-between border-b border-i9-line pb-3 font-mono text-[10px] uppercase tracking-[0.12em] text-i9-slate">
+                <span>i9base / ficha do projeto</span>
+                <span className="inline-flex items-center gap-1.5 text-emerald-700">
+                  <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
+                  online
+                </span>
+              </div>
+
+              <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.14em] text-i9-slate">
+                O que montamos na sua base
               </p>
-              <p className="font-display mt-2 text-2xl font-bold text-white">
-                4 perguntas, plano na hora
-              </p>
-              <p className="mx-auto mt-2 max-w-xs text-sm text-slate-300">
-                Descubra o que a tecnologia pode destravar no seu negócio.
-              </p>
-              <a
-                href="/diagnostico"
-                onClick={() => track("diagnostico_start", { origem: "hero_card" })}
-                className="font-display mt-5 inline-block rounded-lg bg-i9-blue px-8 py-3 font-bold text-white transition hover:bg-i9-blue-deep"
-              >
-                Começar agora
-              </a>
-            </div>
-            <div
-              aria-hidden
-              className="animate-float-a absolute -left-6 top-2 hidden rounded-xl border border-white/15 bg-i9-ink/85 px-3 py-2 backdrop-blur-md sm:block"
-            >
-              <p className="text-[11px] font-bold text-white">IA atendendo</p>
-              <p className="text-[10px] text-emerald-300">24h, sem pausa</p>
-            </div>
-            <div
-              aria-hidden
-              className="animate-float-b absolute -right-2 bottom-6 hidden rounded-xl border border-white/15 bg-i9-ink/85 px-3 py-2 backdrop-blur-md sm:block"
-            >
-              <p className="text-[11px] font-bold text-white">QR + NFC</p>
-              <p className="text-[10px] text-slate-400">do físico ao digital</p>
+              <ul className="mt-2 divide-y divide-i9-line">
+                {[
+                  "Sites e landing pages",
+                  "Sistemas e CRM",
+                  "Automação no WhatsApp",
+                  "IA no atendimento",
+                ].map((item, i) => (
+                  <li
+                    key={item}
+                    className="flex items-center justify-between gap-4 py-2.5 text-sm font-medium text-i9-ink"
+                  >
+                    <span>{item}</span>
+                    <span
+                      aria-hidden
+                      className="font-mono text-[10px] text-i9-slate"
+                    >
+                      0{i + 1}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-6 bg-i9-ink p-5 text-i9-paper">
+                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-i9-blue-soft">
+                  diagnóstico gratuito
+                </p>
+                <p className="mt-1 font-display text-xl font-bold leading-snug">
+                  4 perguntas, plano na hora
+                </p>
+                <p className="mt-2 text-sm text-slate-300">
+                  Descubra o que destrava o seu negócio antes de gastar.
+                </p>
+                <a
+                  href="/diagnostico"
+                  onClick={() =>
+                    track("diagnostico_start", { origem: "hero_card" })
+                  }
+                  className="mt-4 inline-block bg-i9-signal px-5 py-2.5 font-display text-sm font-bold text-i9-ink transition hover:bg-i9-paper2"
+                >
+                  Começar agora
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -289,8 +310,8 @@ export function Solutions() {
                 aria-controls={`panel-${t.id}`}
                 className={`rounded-lg px-4 py-2 text-sm font-semibold ${
                   active === t.id
-                    ? "bg-i9-blue text-white"
-                    : "border border-white/15 bg-white/5 text-slate-200 hover:border-i9-blue-soft hover:text-white"
+                    ? "bg-i9-signal text-i9-ink"
+                    : "border border-white/15 bg-white/5 text-slate-200 hover:border-i9-signal hover:text-white"
                 }`}
               >
                 {t.name}
@@ -320,20 +341,20 @@ export function Solutions() {
                   return (
                     <div
                       key={s.name}
-                      className={`group relative flex flex-col overflow-hidden rounded-xl border bg-white p-5 transition duration-300 hover:-translate-y-1 ${featured ? 'border-i9-blue shadow-[0_0_40px_rgba(37,99,235,0.25)] sm:col-span-2 lg:col-span-2' : 'border-slate-200 hover:border-transparent hover:shadow-[0_0_40px_rgba(37,99,235,0.3)] hover:ring-1 hover:ring-i9-blue'}`}
+                      className={`group relative flex flex-col overflow-hidden rounded-sm border bg-i9-paper2 p-5 transition ${featured ? 'border-i9-ink sm:col-span-2 lg:col-span-2' : 'border-i9-line hover:border-i9-ink'}`}
                     >
                       {featured && (
-                        <span className="absolute right-4 top-4 rounded-md bg-i9-blue px-2 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+                        <span className="absolute right-4 top-4 bg-i9-signal px-2 py-1 font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-i9-ink">
                           Destaque
                         </span>
                       )}
                       <h3 className="font-display text-base font-bold text-i9-ink group-hover:text-i9-blue">
                         {s.name}
                       </h3>
-                      <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">
+                      <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.14em] text-i9-slate">
                         {TRACKS.find((tk) => tk.id === s.track)?.name}
                       </p>
-                      <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{s.desc}</p>
+                      <p className="mt-2 flex-1 text-sm leading-relaxed text-i9-slate">{s.desc}</p>
                       <p className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-md bg-i9-paper px-2.5 py-1 text-xs font-bold text-i9-blue">
                         {s.badge}
                       </p>
@@ -343,7 +364,7 @@ export function Solutions() {
                           target="_blank"
                           rel="noopener"
                           onClick={() => track('whatsapp_click', { from: 'solution_card', solution: s.name })}
-                          className="flex-1 rounded-lg bg-i9-ink px-4 py-2.5 text-center text-sm font-semibold text-white transition group-hover:bg-i9-blue"
+                          className="mt-1 inline-flex items-center gap-1.5 self-start rounded-md border border-i9-ink px-3.5 py-2 text-sm font-semibold text-i9-ink transition hover:bg-i9-ink hover:text-i9-paper"
                         >
                           Quero essa solução
                         </a>
@@ -351,7 +372,7 @@ export function Solutions() {
                           <a
                             href="/convites"
                             onClick={() => track('cta_click', { from: 'solution_card', to: 'convites_page' })}
-                            className="rounded-lg border border-i9-blue px-4 py-2.5 text-center text-sm font-semibold text-i9-blue hover:bg-i9-blue hover:text-white"
+                            className="rounded-md border border-i9-blue px-4 py-2.5 text-center text-sm font-semibold text-i9-blue hover:bg-i9-blue hover:text-white"
                           >
                             Ver página completa →
                           </a>
@@ -376,7 +397,7 @@ export function Solutions() {
 export function InvitePhone() {
   const [rsvp, setRsvp] = useState<"none" | "yes" | "no">("none");
   return (
-    <div className="mx-auto w-full max-w-[300px] rounded-[2rem] border-8 border-i9-ink bg-i9-ink p-1 shadow-xl">
+    <div className="mx-auto w-full max-w-[300px] rounded-[2rem] border-8 border-i9-ink bg-i9-ink p-1">
       <div className="overflow-hidden rounded-[1.6rem] bg-[#17102b] text-center">
         <div className="mx-auto mt-2 h-1.5 w-16 rounded-full bg-white/20" aria-hidden />
         <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.25em] text-amber-300">
@@ -469,7 +490,7 @@ export function CrmSection() {
     },
   ];
   return (
-    <section id="crm" className="border-y border-slate-200 bg-[#E8EFFD]">
+    <section id="crm" className="border-y border-i9-line bg-i9-paper2">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
           label="CRM para empresas"
@@ -481,7 +502,7 @@ export function CrmSection() {
           <div>
             <ul className="space-y-3">
               {checks.map((c) => (
-                <li key={c} className="flex items-start gap-2.5 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-i9-slate">
+                <li key={c} className="flex items-start gap-2.5 rounded-sm border border-i9-line bg-i9-paper2 px-4 py-3 text-sm font-medium text-i9-slate">
                   <span className="mt-0.5 text-emerald-500">
                     <CheckIcon />
                   </span>
@@ -494,13 +515,13 @@ export function CrmSection() {
               target="_blank"
               rel="noopener"
               onClick={() => track('whatsapp_click', { from: 'crm_section' })}
-              className="mt-6 inline-block rounded-lg bg-i9-blue px-6 py-3 font-semibold text-white hover:bg-i9-blue-deep"
+              className="mt-6 inline-block rounded-md bg-i9-blue px-6 py-3 font-semibold text-white hover:bg-i9-blue-deep"
             >
               Quero CRM na minha empresa
             </a>
           </div>
-          <div aria-label="Exemplo de funil do CRM" className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
-            <div className="flex items-center justify-between border-b border-slate-200 bg-i9-ink px-4 py-3">
+          <div aria-label="Exemplo de funil do CRM" className="overflow-hidden rounded-sm border border-i9-line bg-i9-paper2">
+            <div className="flex items-center justify-between border-b border-i9-line bg-i9-ink px-4 py-3">
               <p className="font-display text-sm font-bold text-white">Funil · Orçamentos</p>
               <span className="rounded-md bg-emerald-400 px-2 py-0.5 text-[11px] font-bold text-i9-ink">
                 4 leads
@@ -509,12 +530,12 @@ export function CrmSection() {
             <div className="grid grid-cols-3 gap-2 p-3">
               {cols.map((col) => (
                 <div key={col.name} className="rounded-lg bg-i9-paper p-2">
-                  <p className="px-1 text-[11px] font-bold uppercase tracking-wide text-slate-600">
+                  <p className="px-1 text-[11px] font-bold uppercase tracking-wide text-i9-slate">
                     {col.name}
                   </p>
                   <div className="mt-2 space-y-2">
                     {col.cards.map((card) => (
-                      <div key={card.n} className="rounded-md border border-slate-200 bg-white p-2 shadow-sm">
+                      <div key={card.n} className="rounded-md border border-i9-line bg-i9-paper2 p-2">
                         <p className="text-xs font-bold text-i9-ink">{card.n}</p>
                         <div className="mt-1.5 flex items-center justify-between">
                           <span className="rounded bg-i9-paper px-1.5 py-0.5 text-[10px] font-semibold text-i9-blue">
@@ -557,7 +578,7 @@ export function InviteEnvelope() {
         </span>
         <span
           aria-hidden
-          className={`absolute inset-x-6 top-2 bottom-6 rounded-lg bg-white shadow-xl transition-all duration-700 ${
+          className={`absolute inset-x-6 top-2 bottom-6 rounded-lg bg-i9-paper2 transition-all duration-700 ${
             open ? "translate-y-[-38%]" : "translate-y-[-6%]"
           }`}
         >
@@ -573,7 +594,7 @@ export function InviteEnvelope() {
             </span>
           </span>
         </span>
-        <span aria-hidden className="absolute inset-0 rounded-xl bg-[#1d4ed8] shadow-2xl" />
+        <span aria-hidden className="absolute inset-0 rounded-sm bg-[#1d4ed8] shadow-2xl" />
         <span
           aria-hidden
           className={`absolute inset-x-0 top-0 h-1/2 origin-top transition-transform duration-500 ${
@@ -583,7 +604,7 @@ export function InviteEnvelope() {
         />
         <span
           aria-hidden
-          className={`absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-br from-amber-300 to-amber-500 font-display text-lg font-bold text-[#5b3a00] shadow-lg transition-all duration-500 ${
+          className={`absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-gradient-to-br from-amber-300 to-amber-500 font-display text-lg font-bold text-[#5b3a00] transition-all duration-500 ${
             open ? "scale-90 opacity-0" : "scale-100 opacity-100"
           }`}
         >
@@ -601,15 +622,9 @@ export function Convites() {
   return (
     <>
     <div className="bg-i9-ink">
-      <Wave fill="#1e40af" />
+      <Wave fill="#101315" />
     </div>
-    <section
-      id="convites"
-      className="text-white"
-      style={{
-        background: "linear-gradient(160deg, #1e40af 0%, #2563eb 55%, #1d4ed8 100%)",
-      }}
-    >
+    <section id="convites" className="bg-i9-ink text-white">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
           dark
@@ -652,7 +667,7 @@ export function Convites() {
               <a
                 href="/convites"
                 onClick={() => track("cta_click", { from: "convites_teaser", to: "convites_page" })}
-                className="rounded-lg bg-white px-6 py-3 text-center font-semibold text-i9-blue hover:bg-i9-paper"
+                className="rounded-md bg-i9-signal px-6 py-3 text-center font-semibold text-i9-ink hover:bg-white"
               >
                 Ver como funciona
               </a>
@@ -661,7 +676,7 @@ export function Convites() {
                 target="_blank"
                 rel="noopener"
                 onClick={() => track("whatsapp_click", { from: "convites" })}
-                className="rounded-lg border border-white/40 px-6 py-3 text-center font-semibold text-white hover:bg-white/10"
+                className="rounded-md border border-white/40 px-6 py-3 text-center font-semibold text-white hover:border-white hover:bg-white/10"
               >
                 Quero um convite como esse
               </a>
@@ -674,13 +689,13 @@ export function Convites() {
                   target="_blank"
                   rel="noopener"
                   onClick={() => track("cta_click", { from: "convites", to: inv.name })}
-                  className="rounded-lg border border-white/30 px-4 py-2 text-sm font-semibold text-white hover:border-white hover:bg-white/10"
+                  className="rounded-md border border-white/30 px-4 py-2 text-sm font-semibold text-white hover:border-white hover:bg-white/10"
                 >
                   Ver exemplo: {inv.name}
                 </a>
               ))}
             </div>
-            <p className="mt-3 text-xs text-blue-100">
+            <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.1em] text-slate-400">
               Exemplos reais de festas de clientes, abertos para visitação.
             </p>
           </div>
@@ -689,7 +704,7 @@ export function Convites() {
       </div>
     </section>
     <div className="bg-i9-paper">
-      <Wave flip fill="#1d4ed8" />
+      <Wave flip fill="#101315" />
     </div>
     </>
   );
@@ -775,7 +790,7 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
             <span
               aria-hidden
               className={`h-1.5 rounded-full transition ${
-                i === index ? "inline-block w-5 bg-white" : "inline-block w-1.5 bg-white/60"
+                i === index ? "inline-block w-5 bg-i9-paper2" : "inline-block w-1.5 bg-white/60"
               }`}
             />
           </button>
@@ -806,17 +821,17 @@ export function Cases() {
           title="Projetos que viraram resultado"
           sub="Uma seleção do que já entregamos. Cases com várias fotos têm carrossel, toque num case para abrir os detalhes."
         />
-        <div className="mb-6 grid gap-4 rounded-xl border border-slate-200 bg-white p-4 sm:grid-cols-2 sm:p-5">
+        <div className="mb-6 grid gap-4 rounded-sm border border-i9-line bg-i9-paper2 p-4 sm:grid-cols-2 sm:p-5">
           {PROVAS.map((p) => (
             <div key={p.name}>
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+              <p className="text-[11px] font-semibold uppercase tracking-wider text-i9-slate">
                 Cliente ativo
               </p>
               <p className="mt-1 font-display text-lg font-bold text-i9-ink">{p.name}</p>
-              <p className="text-sm text-slate-600">{p.metric}</p>
+              <p className="text-sm text-i9-slate">{p.metric}</p>
             </div>
           ))}
-          <p className="text-xs text-slate-500 sm:col-span-2">{PROVAS_NOTA}</p>
+          <p className="text-xs text-i9-slate sm:col-span-2">{PROVAS_NOTA}</p>
         </div>
         <div className="mb-6 flex flex-wrap gap-2">
           {FILTERS.map((f) => (
@@ -831,7 +846,7 @@ export function Cases() {
               className={`rounded-lg px-4 py-2 text-sm font-semibold ${
                 filter === f
                   ? "bg-i9-ink text-white"
-                  : "border border-slate-200 bg-white text-i9-slate hover:border-i9-blue hover:text-i9-blue"
+                  : "border border-i9-line bg-i9-paper2 text-i9-slate hover:border-i9-blue hover:text-i9-blue"
               }`}
             >
               {f}
@@ -839,7 +854,7 @@ export function Cases() {
           ))}
         </div>
         {list.length === 0 ? (
-          <div className="flex flex-col items-center rounded-xl border border-dashed border-slate-300 bg-white py-12 text-center">
+          <div className="flex flex-col items-center rounded-sm border border-dashed border-slate-300 bg-i9-paper2 py-12 text-center">
             <Image
               src="/logo-icon.png"
               alt="Nenhum case aqui ainda"
@@ -847,7 +862,7 @@ export function Cases() {
               height={64}
               className="h-16 w-auto"
             />
-            <p className="mt-4 text-sm text-slate-500">
+            <p className="mt-4 text-sm text-i9-slate">
               Nenhum case nessa categoria ainda. Chama no WhatsApp e seja o próximo.
             </p>
           </div>
@@ -858,8 +873,8 @@ export function Cases() {
               return (
                 <article
                   key={c.slug}
-                  className={`overflow-hidden rounded-xl border bg-white transition ${
-                    isOpen ? "border-i9-blue shadow-lg" : "border-slate-200 hover:border-i9-blue"
+                  className={`overflow-hidden rounded-sm border bg-i9-paper2 transition ${
+                    isOpen ? "border-i9-blue" : "border-i9-line hover:border-i9-blue"
                   }`}
                 >
                   <CaseCarousel images={c.images} name={c.name} />
@@ -875,7 +890,7 @@ export function Cases() {
                       <p className="text-xs font-semibold uppercase tracking-wider text-i9-blue">
                         {c.category} · {c.niche}
                         {c.status && (
-                          <span className="ml-2 inline-block rounded border border-slate-300 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-slate-600">
+                          <span className="ml-2 inline-block rounded border border-slate-300 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-i9-slate">
                             {c.status}
                           </span>
                         )}
@@ -889,7 +904,7 @@ export function Cases() {
                       className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition ${
                         isOpen
                           ? "rotate-90 border-i9-blue bg-i9-blue text-white"
-                          : "border-slate-200 text-i9-slate"
+                          : "border-i9-line text-i9-slate"
                       }`}
                     >
                       <Chevron />
@@ -901,8 +916,8 @@ export function Cases() {
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <div className="border-t border-slate-100 px-5 py-4">
-                      <p className="text-sm leading-relaxed text-slate-600">{c.desc}</p>
+                      <div className="border-t border-i9-line px-5 py-4">
+                      <p className="text-sm leading-relaxed text-i9-slate">{c.desc}</p>
                       {c.result && (
                         <p className="mt-3 rounded-lg bg-i9-paper px-3 py-2 text-sm font-semibold text-i9-blue">
                           {c.result}
@@ -925,7 +940,7 @@ export function Cases() {
                         onClick={() =>
                           track("whatsapp_click", { from: "case_open", solution: c.slug })
                         }
-                        className="mt-4 block rounded-lg bg-i9-blue px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-i9-blue-deep"
+                        className="mt-4 block rounded-md bg-i9-blue px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-i9-blue-deep"
                       >
                         Quero um projeto como esse
                       </a>
@@ -960,7 +975,7 @@ function CrossIcon() {
 
 export function Artes() {
   return (
-    <section id="artes" className="border-y border-slate-200 bg-white">
+    <section id="artes" className="border-y border-i9-line bg-i9-paper2">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
           label="Artes e peças"
@@ -972,7 +987,7 @@ export function Artes() {
           {ARTES.map((a) => (
             <figure
               key={a.src}
-              className="mb-4 overflow-hidden rounded-xl border border-slate-200 break-inside-avoid"
+              className="mb-4 overflow-hidden rounded-sm border border-i9-line break-inside-avoid"
             >
               <Image
                 src={a.src}
@@ -983,7 +998,7 @@ export function Artes() {
                 className="h-auto w-full"
                 loading="lazy"
               />
-              <figcaption className="px-3 py-2 text-xs font-medium text-slate-500">
+              <figcaption className="px-3 py-2 text-xs font-medium text-i9-slate">
                 {a.alt}
               </figcaption>
             </figure>
@@ -1005,13 +1020,13 @@ export function Diferencial() {
           sub="A maioria vende peça. A gente entrega a base funcionando."
         />
         <div className="grid gap-4 md:grid-cols-2">
-          <div className="rounded-xl border border-slate-200 bg-white p-6">
-            <p className="font-display text-base font-bold text-slate-500">
+          <div className="rounded-sm border border-i9-line bg-i9-paper2 p-6">
+            <p className="font-display text-base font-bold text-i9-slate">
               A maioria das agências
             </p>
             <ul className="mt-4 space-y-3">
               {DIFERENCIAL.map((d) => (
-                <li key={d.ruim} className="flex items-start gap-2.5 text-sm text-slate-500">
+                <li key={d.ruim} className="flex items-start gap-2.5 text-sm text-i9-slate">
                   <span className="mt-0.5 text-slate-300">
                     <CrossIcon />
                   </span>
@@ -1020,7 +1035,7 @@ export function Diferencial() {
               ))}
             </ul>
           </div>
-          <div className="rounded-xl border border-i9-blue bg-i9-ink p-6 text-white">
+          <div className="rounded-sm border border-i9-blue bg-i9-ink p-6 text-white">
             <p className="font-display text-base font-bold text-white">A i9BASE</p>
             <ul className="mt-4 space-y-3">
               {DIFERENCIAL.map((d) => (
@@ -1039,10 +1054,10 @@ export function Diferencial() {
           {STATS.map(([n, label]) => (
             <div
               key={label}
-              className="rounded-xl border border-slate-200 bg-white px-4 py-5 text-center"
+              className="rounded-sm border border-i9-line bg-i9-paper2 px-4 py-5 text-center"
             >
-              <p className="font-display text-3xl font-bold text-i9-blue">{n}</p>
-              <p className="mt-1 text-sm text-slate-600">{label}</p>
+              <p className="font-mono text-2xl font-bold text-i9-ink">{n}</p>
+              <p className="mt-1 text-sm text-i9-slate">{label}</p>
             </div>
           ))}
         </div>
@@ -1054,7 +1069,7 @@ export function Diferencial() {
 
 export function Method() {
   return (
-    <section id="metodo" className="border-y border-slate-200 bg-white">
+    <section id="metodo" className="border-y border-i9-line bg-i9-paper2">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <SectionHead
           label="Método"
@@ -1062,7 +1077,7 @@ export function Method() {
           sub="Antes de vender qualquer peça, entendemos o negócio. Oito passos, do diagnóstico à fidelização."
         />
         <Reveal>
-        <ol className="divide-y divide-slate-200 border-y border-slate-200">
+        <ol className="divide-y divide-slate-200 border-y border-i9-line">
           {METHOD.map((m) => (
             <li
               key={m.n}
@@ -1070,7 +1085,7 @@ export function Method() {
             >
               <span className="font-display text-2xl font-bold text-i9-blue">{m.n}</span>
               <h3 className="font-display text-base font-bold text-i9-ink">{m.name}</h3>
-              <p className="text-sm leading-relaxed text-slate-600">{m.desc}</p>
+              <p className="text-sm leading-relaxed text-i9-slate">{m.desc}</p>
             </li>
           ))}
         </ol>
@@ -1094,7 +1109,7 @@ export function Escada() {
           {ESCADA.map((e, i) => (
             <div
               key={e.name}
-              className="rounded-xl border border-white/15 bg-white/5 p-6"
+              className="rounded-sm border border-white/15 bg-white/5 p-6"
             >
               <p className="font-display text-sm font-bold text-i9-blue-soft">
                 {String(i + 1).padStart(2, "0")}
@@ -1110,21 +1125,22 @@ export function Escada() {
           <a
             href="/diagnostico"
             onClick={() => track("diagnostico_start", { origem: "escada" })}
-            className="flex flex-col justify-between rounded-xl bg-i9-blue p-6 transition hover:bg-i9-blue-deep"
+            className="flex flex-col justify-between rounded-sm bg-i9-signal p-6 transition hover:brightness-95"
           >
             <div>
-              <p className="font-display text-sm font-bold text-white">
+              <p className="font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-i9-ink/80">
                 2 min
               </p>
-              <h3 className="font-display mt-1 text-lg font-bold text-white">
+              <h3 className="font-display mt-2 text-lg font-bold text-i9-ink">
                 Não sabe por onde entrar?
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-white">
+              <p className="mt-2 text-sm leading-relaxed text-i9-ink/80">
                 Responda 4 perguntas e receba o plano certo para o seu momento.
               </p>
             </div>
-            <span className="font-display mt-4 inline-block font-bold text-white">
+            <span className="mt-4 inline-flex items-center gap-2 font-display text-sm font-bold text-i9-ink">
               Fazer diagnóstico gratuito
+              <span aria-hidden>→</span>
             </span>
           </a>
         </div>
@@ -1135,16 +1151,16 @@ export function Escada() {
 
 export function TechStrip() {
   return (
-    <section aria-label="Tecnologia" className="border-b border-slate-200/70 bg-white">
+    <section aria-label="Tecnologia" className="border-b border-i9-line bg-i9-paper">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-7 gap-y-3 px-4 py-5 sm:px-6">
-        <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500">
+        <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-i9-slate">
           Nossa base de tecnologia
         </span>
         {TECHS.map((t) => (
           <span
             key={t.name}
             title={t.name}
-            className="flex items-center gap-1.5 text-slate-500 transition hover:text-slate-900"
+            className="flex items-center gap-1.5 text-i9-slate transition hover:text-slate-900"
           >
             <Image
               src={t.logo}
@@ -1166,20 +1182,20 @@ export function Partners() {
   return (
     <section className="bg-i9-paper">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-        <p className="label-eyebrow text-slate-600">Parceria de indicação cruzada</p>
-        <div className="mt-4 flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-5 sm:flex-row sm:items-center sm:gap-6">
+        <p className="label-eyebrow text-i9-slate">Parceria de indicação cruzada</p>
+        <div className="mt-4 flex flex-col gap-4 rounded-sm border border-i9-line bg-i9-paper2 p-5 sm:flex-row sm:items-center sm:gap-6">
           <Image
             src="/parceiros/pecatech.png"
             alt="Peça Tech, gráfica, tecnologia e soluções digitais"
             width={800}
             height={800}
             sizes="(max-width: 640px) 50vw, 180px"
-            className="h-28 w-28 shrink-0 rounded-xl border border-slate-100 bg-white object-contain p-1"
+            className="h-28 w-28 shrink-0 rounded-sm border border-i9-line bg-i9-paper2 object-contain p-1"
             loading="lazy"
           />
           <div className="flex-1">
             <p className="font-display text-lg font-bold text-i9-ink">Peça Tech</p>
-            <p className="mt-1 text-sm text-slate-600">
+            <p className="mt-1 text-sm text-i9-slate">
               Papelaria, informática e lan house. A gente se indica de verdade:
               quem chega lá conhece o digital, quem chega aqui resolve o físico.
               Sem vínculo oficial, com confiança de vizinho.
@@ -1190,50 +1206,14 @@ export function Partners() {
             target="_blank"
             rel="noopener"
             onClick={() => track('whatsapp_click', { from: 'partners' })}
-            className="shrink-0 rounded-lg border border-i9-blue px-4 py-2 text-center text-sm font-semibold text-i9-blue hover:bg-i9-blue hover:text-white"
+            className="shrink-0 rounded-md border border-i9-blue px-4 py-2 text-center text-sm font-semibold text-i9-blue hover:bg-i9-blue hover:text-white"
           >
             Pedir produção física
           </a>
         </div>
-        <p className="mt-3 text-xs text-slate-600">
+        <p className="mt-3 text-xs text-i9-slate">
           Gráfica, tecnologia e soluções digitais. Parceira de balcão e de bairro.
         </p>
-      </div>
-    </section>
-  );
-}
-
-export function ValoresBase() {
-  return (
-    <section id="valores" className="border-t border-slate-200 bg-white">
-      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <SectionHead
-          label="Valores base"
-          title="Preço de partida, sem surpresa"
-          sub="Tabela de apoio. O orçamento final é personalizado após entender o seu caso."
-        />
-        <div className="overflow-hidden rounded-xl border border-slate-200">
-          <ul className="divide-y divide-slate-100 bg-white">
-            {VALORES_BASE.map((v) => (
-              <li key={v.nome}>
-                <a
-                  href={waLink('Oi! Vi na tabela e quero saber sobre: ' + v.nome + ' (' + v.base + ').')}
-                  target="_blank"
-                  rel="noopener"
-                  onClick={() => track('whatsapp_click', { from: 'valores', solution: v.nome })}
-                  className="group flex items-center justify-between gap-4 px-5 py-3.5 transition hover:bg-i9-paper"
-                >
-                  <span className="text-sm font-medium text-i9-slate group-hover:text-i9-ink">
-                    {v.nome}
-                  </span>
-                  <span className="shrink-0 rounded-md bg-i9-paper px-2.5 py-1 text-sm font-bold text-i9-blue group-hover:bg-i9-blue group-hover:text-white">
-                    {v.base}
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
     </section>
   );
@@ -1242,13 +1222,9 @@ export function ValoresBase() {
 export function Contact() {
   const [msg, setMsg] = useState("");
   return (
-    <section
-      id="contato"
-      className="text-white"
-      style={{ background: "linear-gradient(180deg, #f5f6fb 0%, #dbe4f5 30%, #0b0f14 78%)" }}
-    >
+    <section id="contato" className="border-t border-i9-line bg-i9-paper text-white">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <div className="grain relative rounded-2xl bg-i9-ink p-6 sm:p-10">
+        <div className="grain relative rounded-sm bg-i9-ink p-6 sm:p-10">
           <SectionHead
             dark
             label="Contato"
@@ -1256,7 +1232,7 @@ export function Contact() {
             sub="Conta o que trava o seu dia no WhatsApp. A gente responde 24h e vê o que dá pra automatizar."
           />
           <div className="grid gap-4 lg:grid-cols-2">
-            <div className="rounded-xl border border-white/10 bg-white/5 p-6">
+            <div className="rounded-sm border border-white/10 bg-white/5 p-6">
               <label
                 htmlFor="cta-msg"
                 className="text-sm font-semibold text-white"
@@ -1271,13 +1247,13 @@ export function Contact() {
                 onChange={(e) => setMsg(e.target.value)}
                 placeholder="Ex: preciso de um site para minha lanchonete e quero atender pelo WhatsApp"
                 aria-describedby="cta-msg-hint cta-msg-count"
-                className="mt-2 w-full rounded-lg border border-white/15 bg-i9-ink px-3 py-2.5 text-sm text-white placeholder:text-slate-500"
+                className="mt-2 w-full rounded-md border border-white/15 bg-i9-ink px-3 py-2.5 text-sm text-white placeholder:text-i9-slate"
               />
               <div className="mt-1.5 flex items-center justify-between">
                 <p id="cta-msg-hint" className="text-xs text-slate-400">
                   Escreva com suas palavras, sem pressa.
                 </p>
-                <p id="cta-msg-count" className="text-xs text-slate-500">
+                <p id="cta-msg-count" className="text-xs text-i9-slate">
                   {msg.length}/300
                 </p>
               </div>
@@ -1304,7 +1280,7 @@ export function Contact() {
                 target="_blank"
                 rel="noopener"
                 onClick={() => track("whatsapp_click", { from: "contact_card" })}
-                className="rounded-xl border border-white/10 bg-white/5 p-6 hover:border-i9-blue-soft"
+                className="rounded-sm border border-white/10 bg-white/5 p-6 hover:border-i9-blue-soft"
               >
                 <p className="font-display text-base font-bold text-white">WhatsApp</p>
                 <p className="mt-1 text-sm text-slate-300">
@@ -1317,7 +1293,7 @@ export function Contact() {
                 target="_blank"
                 rel="noopener"
                 onClick={() => track("cta_click", { from: "contact_card", to: "instagram" })}
-                className="rounded-xl border border-white/10 bg-white/5 p-6 hover:border-i9-blue-soft"
+                className="rounded-sm border border-white/10 bg-white/5 p-6 hover:border-i9-blue-soft"
               >
                 <p className="font-display text-base font-bold text-white">Instagram @i9base</p>
                 <p className="mt-1 text-sm text-slate-300">
@@ -1325,7 +1301,7 @@ export function Contact() {
                 </p>
                 <p className="mt-2 text-sm font-semibold text-i9-blue-soft">Seguir</p>
               </a>
-              <div className="rounded-xl border border-white/10 bg-white/5 p-6">
+              <div className="rounded-sm border border-white/10 bg-white/5 p-6">
                 <p className="font-display text-base font-bold text-white">E-mail</p>
                 <p className="mt-1 text-sm text-slate-300">{CONTACT_EMAIL}</p>
               </div>
@@ -1341,9 +1317,9 @@ function OfferDot() {
   return (
     <span
       aria-hidden
-      className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-i9-blue"
+      className="flex h-6 w-6 shrink-0 items-center justify-center bg-i9-signal"
     >
-      <svg viewBox="0 0 12 12" className="h-3 w-3 fill-white" aria-hidden>
+      <svg viewBox="0 0 12 12" className="h-3 w-3 fill-i9-ink" aria-hidden>
         <path d="M6.5 1 11 6.5 6.5 12 5 10.5 8 7.5H1V5.5h7L5 2.5Z" />
       </svg>
     </span>
@@ -1368,7 +1344,7 @@ export function OfferStrip() {
               <OfferDot />
               <span className="text-sm font-semibold text-slate-100">{n}</span>
             </span>
-            <span aria-hidden className="text-xs font-bold text-i9-blue">
+            <span aria-hidden className="text-xs font-bold text-i9-signal">
               ◆
             </span>
           </span>
@@ -1422,28 +1398,28 @@ const FAQ_ITEMS = [
 
 export function Faq() {
   return (
-    <section id="faq" className="border-t border-slate-200 bg-white">
+    <section id="faq" className="border-t border-i9-line bg-i9-paper2">
       <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         <SectionHead
           label="Dúvidas frequentes"
           title="Perguntas de quem chega"
           sub="O que todo mundo pergunta antes de chamar. Não achou a sua? Chama no WhatsApp."
         />
-        <div className="divide-y divide-slate-200 rounded-xl border border-slate-200">
+        <div className="divide-y divide-slate-200 rounded-sm border border-i9-line">
           {FAQ_ITEMS.map((f) => (
             <details key={f.q} className="group px-5 py-4">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-base font-bold text-i9-ink">
                 {f.q}
                 <span
                   aria-hidden
-                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-slate-200 text-i9-blue transition group-open:rotate-45"
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-i9-line text-i9-blue transition group-open:rotate-45"
                 >
                   <svg viewBox="0 0 12 12" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round">
                     <path d="M6 1v10 M1 6h10" />
                   </svg>
                 </span>
               </summary>
-              <p className="mt-2 pr-10 text-sm leading-relaxed text-slate-600">{f.a}</p>
+              <p className="mt-2 pr-10 text-sm leading-relaxed text-i9-slate">{f.a}</p>
             </details>
           ))}
         </div>
@@ -1470,85 +1446,17 @@ export function FinalCta() {
             target="_blank"
             rel="noopener"
             onClick={() => track("whatsapp_click", { from: "final_cta" })}
-            className="rounded-lg bg-i9-blue px-8 py-3.5 font-semibold text-white hover:bg-i9-blue-deep"
+            className="rounded-md bg-i9-signal px-8 py-3.5 font-semibold text-i9-ink hover:bg-white"
           >
             Quero um orçamento
           </a>
           <a
             href="/diagnostico"
             onClick={() => track("diagnostico_start", { origem: "final_cta" })}
-            className="rounded-lg border border-white/25 px-8 py-3.5 font-semibold text-white hover:border-i9-blue-soft hover:text-i9-blue-soft"
+            className="rounded-md border border-white/25 px-8 py-3.5 font-semibold text-white hover:border-white hover:text-white"
           >
             Fazer diagnóstico gratuito
           </a>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function CountUp({ to, suffix }: { to: number; suffix: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  // O número final vem no HTML (SEO e primeira pintura). Com movimento
-  // permitido, reinicia de 0 e anima quando o elemento entra na tela.
-  const [n, setN] = useState(to);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return;
-    }
-    let raf = 0;
-    let t0 = 0;
-    const tick = (t: number) => {
-      const p = Math.min(1, (t - t0) / 700);
-      setN(Math.round(to * (1 - Math.pow(1 - p, 3))));
-      if (p < 1) raf = requestAnimationFrame(tick);
-    };
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setN(0);
-          t0 = performance.now();
-          raf = requestAnimationFrame(tick);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.4 }
-    );
-    io.observe(el);
-    return () => {
-      cancelAnimationFrame(raf);
-      io.disconnect();
-    };
-  }, [to]);
-  return (
-    <span ref={ref} className="tabular-nums">
-      {n}
-      {suffix}
-    </span>
-  );
-}
-
-export function StripStats() {
-  return (
-    <section className="border-b border-slate-200 bg-white">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 px-4 py-6 sm:grid-cols-3 sm:px-6">
-        <div className="flex items-baseline gap-3">
-          <span className="font-display text-3xl font-bold text-i9-blue">
-            <CountUp to={CASES.length} suffix="" />
-          </span>
-          <span className="text-sm text-slate-600">cases em destaque</span>
-        </div>
-        <div className="flex items-baseline gap-3">
-          <span className="font-display text-3xl font-bold text-i9-blue">
-            +<CountUp to={ARTES.length} suffix="" />
-          </span>
-          <span className="text-sm text-slate-600">artes entregues para clientes</span>
-        </div>
-        <div className="flex items-baseline gap-3">
-          <span className="font-display text-3xl font-bold text-i9-blue">24/7</span>
-          <span className="text-sm text-slate-600">atendimento no WhatsApp</span>
         </div>
       </div>
     </section>

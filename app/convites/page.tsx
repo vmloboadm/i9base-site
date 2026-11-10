@@ -40,7 +40,7 @@ function CheckIcon() {
 function VideoHero() {
   if (CONVITE_VIDEOS.length === 0) {
     return (
-      <div className="frame-corners relative flex aspect-video items-center justify-center overflow-hidden rounded-2xl border border-white/15 bg-i9-ink2">
+      <div className="frame-corners relative flex aspect-video items-center justify-center overflow-hidden rounded-sm border border-white/15 bg-i9-ink2">
         <div className="px-6 text-center">
           <p className="font-display text-lg font-bold text-white">
             Vídeo da festa aqui
@@ -74,7 +74,7 @@ function Gallery() {
       <h2 className="font-display text-2xl font-bold text-i9-ink sm:text-3xl">
         Da festa, na hora
       </h2>
-      <p className="mt-2 max-w-2xl text-sm text-slate-600">
+      <p className="mt-2 max-w-2xl text-sm text-i9-slate">
         Fotos reais de festas de clientes. Toque no vídeo para assistir.
       </p>
       {hasVideo ? (
@@ -96,7 +96,7 @@ function Gallery() {
           {CONVITE_FOTOS.map((f) => (
             <figure
               key={f.src}
-              className="mb-4 overflow-hidden rounded-xl border border-slate-200 break-inside-avoid"
+              className="mb-4 overflow-hidden rounded-sm border border-i9-line break-inside-avoid"
             >
               <Image
                 src={f.src}
@@ -123,16 +123,17 @@ export default function ConvitesPage() {
         <section className="relative overflow-hidden bg-i9-ink text-white">
           <div
             aria-hidden
-            className="absolute inset-0"
+            className="absolute inset-0 opacity-[0.06]"
             style={{
-              background:
-                "linear-gradient(180deg, #0b0f14 0%, #0a1a33 60%, #123063 100%)",
+              backgroundImage:
+                "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
+              backgroundSize: "32px 32px",
             }}
           />
           <div className="relative mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
           <div className="grid items-center gap-10 md:grid-cols-2">
             <div>
-              <p className="label-eyebrow text-i9-blue-soft">Convites interativos</p>
+              <p className="label-eyebrow flex items-center gap-2 text-i9-blue-soft"><span aria-hidden className="h-2 w-2 bg-i9-signal" />Convites interativos</p>
               <h1 className="mt-3 font-display text-4xl font-bold tracking-tight sm:text-5xl">
                 Convites que ninguém esquece
               </h1>
@@ -145,7 +146,7 @@ export default function ConvitesPage() {
                   href={waLink("Oi! Quero um convite como esse para meu evento.")}
                   target="_blank"
                   rel="noopener"
-                  className="rounded-lg bg-i9-blue px-6 py-3 text-center font-semibold text-white hover:bg-i9-blue-deep"
+                  className="rounded-md bg-i9-signal px-6 py-3 text-center font-semibold text-i9-ink hover:bg-white"
                 >
                   Quero um convite como esse
                 </a>
@@ -155,7 +156,7 @@ export default function ConvitesPage() {
                     href={inv.url}
                     target="_blank"
                     rel="noopener"
-                    className="rounded-lg border border-white/25 px-6 py-3 text-center font-semibold text-white hover:border-i9-blue-soft hover:text-i9-blue-soft"
+                    className="rounded-md border border-white/25 px-6 py-3 text-center font-semibold text-white hover:border-white hover:text-white"
                   >
                     Ver exemplo: {inv.name}
                   </a>
@@ -173,7 +174,7 @@ export default function ConvitesPage() {
           </div>
         </section>
 
-        <section className="border-y border-slate-200 bg-white">
+        <section className="border-y border-i9-line bg-i9-paper2">
           <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
             <h2 className="font-display text-2xl font-bold text-i9-ink sm:text-3xl">
               O que vem no convite
@@ -182,7 +183,7 @@ export default function ConvitesPage() {
               {CONVITE_FEATURES.map((f) => (
                 <div
                   key={f.name}
-                  className="rounded-xl border border-slate-200 bg-i9-paper p-5"
+                  className="rounded-sm border border-i9-line bg-i9-paper p-5"
                 >
                   <span
                     aria-hidden
@@ -195,7 +196,7 @@ export default function ConvitesPage() {
                   <p className="mt-3 font-display text-base font-bold text-i9-ink">
                     {f.name}
                   </p>
-                  <p className="mt-1 text-sm text-slate-600">{f.desc}</p>
+                  <p className="mt-1 text-sm text-i9-slate">{f.desc}</p>
                 </div>
               ))}
             </div>
@@ -235,7 +236,7 @@ export default function ConvitesPage() {
                       <p className="font-display text-base font-bold text-i9-ink">
                         {f.name}
                       </p>
-                      <p className="mt-1 text-sm text-slate-600">{f.desc}</p>
+                      <p className="mt-1 text-sm text-i9-slate">{f.desc}</p>
                     </div>
                   </li>
                 ))}
@@ -244,9 +245,9 @@ export default function ConvitesPage() {
           </div>
         </section>
 
-        <section className="border-y border-slate-200 bg-white">
+        <section className="border-y border-i9-line bg-i9-paper2">
           <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-            <div className="grid items-center gap-8 rounded-2xl border border-i9-blue bg-i9-ink p-6 text-white sm:p-10 md:grid-cols-2">
+            <div className="grid items-center gap-8 rounded-sm border border-i9-blue bg-i9-ink p-6 text-white sm:p-10 md:grid-cols-2">
               <div>
                 <p className="label-eyebrow text-i9-blue-soft">Upsell</p>
                 <h2 className="mt-3 font-display text-2xl font-bold sm:text-3xl">
@@ -262,12 +263,12 @@ export default function ConvitesPage() {
                   href={waLink("Oi! Quero adicionar centro de mesa com QR no meu convite.")}
                   target="_blank"
                   rel="noopener"
-                  className="mt-6 inline-block rounded-lg bg-white px-6 py-3 font-semibold text-i9-blue hover:bg-i9-paper"
+                  className="mt-6 inline-block rounded-md bg-i9-paper2 px-6 py-3 font-semibold text-i9-blue hover:bg-i9-paper"
                 >
                   Quero adicionar
                 </a>
               </div>
-              <div className="frame-corners flex aspect-square items-center justify-center rounded-2xl border border-white/15 bg-white/5">
+              <div className="frame-corners flex aspect-square items-center justify-center rounded-sm border border-white/15 bg-white/5">
                 <div className="text-center">
                   <p className="font-display text-5xl font-bold text-white">NFC</p>
                   <p className="mt-2 text-sm text-slate-300">
@@ -325,10 +326,10 @@ export default function ConvitesPage() {
               ].map((p) => (
                 <div
                   key={p.id}
-                  className={`flex flex-col rounded-xl border bg-white p-6 ${
+                  className={`flex flex-col rounded-sm border bg-i9-paper2 p-6 ${
                     p.destaque
                       ? "border-i9-blue shadow-[0_0_40px_rgba(37,99,235,0.25)]"
-                      : "border-slate-200"
+                      : "border-i9-line"
                   }`}
                 >
                   {p.destaque && (
@@ -337,10 +338,10 @@ export default function ConvitesPage() {
                     </span>
                   )}
                   <p className="font-display text-xl font-bold text-i9-ink">{p.name}</p>
-                  <p className="mt-1 text-sm text-slate-600">{p.desc}</p>
+                  <p className="mt-1 text-sm text-i9-slate">{p.desc}</p>
                   <ul className="mt-4 flex-1 space-y-2.5">
                     {p.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-sm text-slate-600">
+                      <li key={f} className="flex items-start gap-2 text-sm text-i9-slate">
                         <span className="mt-0.5 text-i9-blue">
                           <CheckIcon />
                         </span>
@@ -354,7 +355,7 @@ export default function ConvitesPage() {
                     )}
                     event="convite_pacote"
                     attrs={{ pacote: p.id }}
-                    className={`mt-5 block rounded-lg px-4 py-2.5 text-center text-sm font-semibold ${
+                    className={`mt-5 block rounded-md px-4 py-2.5 text-center text-sm font-semibold ${
                       p.destaque
                         ? "bg-i9-blue text-white hover:bg-i9-blue-deep"
                         : "border border-i9-blue text-i9-blue hover:bg-i9-blue hover:text-white"
@@ -369,7 +370,7 @@ export default function ConvitesPage() {
         </section>
 
         {DEPOIMENTOS.length > 0 && (
-          <section className="border-t border-slate-200 bg-white">
+          <section className="border-t border-i9-line bg-i9-paper2">
             <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
               <h2 className="font-display text-2xl font-bold text-i9-ink sm:text-3xl">
                 Quem festejou com a gente
@@ -378,14 +379,14 @@ export default function ConvitesPage() {
                 {DEPOIMENTOS.map((d) => (
                   <figure
                     key={d.nome}
-                    className="rounded-xl border border-slate-200 bg-i9-paper p-5"
+                    className="rounded-sm border border-i9-line bg-i9-paper p-5"
                   >
-                    <blockquote className="text-sm text-slate-600">
+                    <blockquote className="text-sm text-i9-slate">
                       {d.texto}
                     </blockquote>
                     <figcaption className="mt-3 text-sm font-bold text-i9-ink">
                       {d.nome}
-                      <span className="block text-xs font-medium text-slate-500">
+                      <span className="block text-xs font-medium text-i9-slate">
                         {d.papel}
                       </span>
                     </figcaption>
@@ -397,11 +398,11 @@ export default function ConvitesPage() {
         )}
 
         <div className="bg-i9-paper">
-          <Wave fill="#2563eb" />
+          <Wave fill="#101315" />
         </div>
         <section className="bg-i9-blue text-white">
           <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-            <div className="frame-corners rounded-2xl border border-white/60 p-8 text-center sm:p-12">
+            <div className="frame-corners rounded-sm border border-white/60 p-8 text-center sm:p-12">
               <h2 className="mx-auto max-w-xl font-display text-3xl font-bold sm:text-4xl">
                 Sua festa merece um convite à altura
               </h2>
@@ -412,7 +413,7 @@ export default function ConvitesPage() {
                 href={waLink("Oi! Quero um convite para minha festa. Me conta como funciona.")}
                 target="_blank"
                 rel="noopener"
-                className="mt-6 inline-block rounded-lg bg-white px-8 py-3 font-semibold text-i9-blue hover:bg-i9-paper"
+                className="mt-6 inline-block rounded-md bg-i9-paper2 px-8 py-3 font-semibold text-i9-blue hover:bg-i9-paper"
               >
                 Falar sobre meu evento
               </a>

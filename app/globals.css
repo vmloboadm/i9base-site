@@ -2,15 +2,19 @@
 
 @theme {
   --color-i9-blue: #2563eb;
-  --color-i9-blue-deep: #1e40af;
-  --color-i9-blue-soft: #60a5fa;
-  --color-i9-ink: #0b0f14;
-  --color-i9-ink2: #121820;
-  --color-i9-paper: #f5f6fb;
-  --color-i9-concrete: #d6d6d6;
-  --color-i9-slate: #3a4a5c;
-  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --color-i9-blue-deep: #1d4ed8;
+  --color-i9-blue-soft: #93b4ff;
+  --color-i9-ink: #101315;
+  --color-i9-ink2: #171c1e;
+  --color-i9-paper: #f4f2ec;
+  --color-i9-paper2: #fbfaf6;
+  --color-i9-line: #dcd8ca;
+  --color-i9-signal: #ffc53d;
+  --color-i9-concrete: #cfcbbd;
+  --color-i9-slate: #47524e;
+  --font-display: "Archivo", "Inter", system-ui, sans-serif;
   --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
 html {
@@ -35,6 +39,19 @@ body {
   border-radius: 4px;
 }
 
+/* Malha de planta baixa: fundo técnico do sistema i9BASE */
+.blueprint {
+  background-image: linear-gradient(rgba(16, 19, 21, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 19, 21, 0.045) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Marca-texto de sinalização */
+.marker {
+  background: linear-gradient(transparent 58%, rgba(255, 197, 61, 0.6) 58%);
+  padding: 0 0.08em;
+}
+
 /* Moldura técnica: cantos em colchete, assinatura do sistema i9BASE */
 .frame-corners {
   position: relative;
@@ -45,7 +62,7 @@ body {
   position: absolute;
   width: 22px;
   height: 22px;
-  border: 2px solid rgba(96, 165, 250, 0.7);
+  border: 2px solid rgba(16, 19, 21, 0.35);
   pointer-events: none;
 }
 .frame-corners::before {
@@ -62,10 +79,10 @@ body {
 }
 
 .label-eyebrow {
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 

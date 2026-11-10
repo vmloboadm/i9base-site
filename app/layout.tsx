@@ -1,18 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Archivo, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { JSON_LD } from "@/lib/jsonld";
 
-const display = Space_Grotesk({
+const display = Archivo({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["500", "600", "700", "800"],
 });
 
 const body = Inter({
   variable: "--font-body",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+});
+
+const mono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
 });
 
 export const metadata: Metadata = {
@@ -58,7 +64,7 @@ export default function RootLayout({
         </noscript>
       </head>
       <body
-        className={`${display.variable} ${body.variable} flex min-h-full flex-col font-body`}
+        className={`${display.variable} ${body.variable} ${mono.variable} flex min-h-full flex-col font-body`}
       >
         <script
           type="application/ld+json"
