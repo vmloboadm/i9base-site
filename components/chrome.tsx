@@ -11,12 +11,11 @@ function withHome(pathname: string | null, href: string) {
 import { INSTAGRAM_URL, NAV, WHATSAPP_URL, waLink } from "@/lib/data";
 import { track } from "@/lib/analytics";
 
-export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
+export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const hrefFor = (href: string) => withHome(pathname, href);
-  const light = tone === "light";
 
   useEffect(() => {
     track('page_view', { page: pathname === '/' ? 'home' : pathname });
@@ -40,9 +39,7 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
     <header
       className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
         scrolled
-          ? light
-            ? 'border-b border-slate-200 bg-white/80 shadow-sm backdrop-blur-xl'
-            : 'border-b border-[rgba(37,99,235,0.15)] bg-[#0b0f14]/75 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl'
+          ? 'border-b border-i9-line bg-i9-paper/90 backdrop-blur-xl'
           : 'border-b border-transparent bg-transparent'
       }`}>
       <div
@@ -50,16 +47,13 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
       >
         <a href={hrefFor('#topo')} className="flex items-center gap-2.5">
           <Image src="/logo-dark.png" alt="i9BASE" width={1352} height={364} className="h-8 w-auto" />
-          <span className={`hidden text-[11px] lg:inline ${light ? 'text-slate-500' : 'text-slate-400'}`}>
-            Sua base de tecnologia e inovação
-          </span>
         </a>
-        <nav className="hidden items-center gap-6 md:flex">
+        <nav className="hidden items-center gap-5 md:flex">
           {NAV.map((item) => (
             <a
               key={item.href}
               href={hrefFor(item.href)}
-              className={`text-sm font-medium ${light ? 'text-i9-slate hover:text-i9-ink' : 'text-slate-300 hover:text-white'}`}
+              className="text-sm font-medium text-i9-slate hover:text-i9-ink"
             >
               {item.label}
             </a>
@@ -69,13 +63,13 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
             target="_blank"
             rel="noopener"
             onClick={() => track('whatsapp_click', { from: 'header' })}
-            className="rounded-lg bg-i9-blue px-4 py-2 text-sm font-semibold text-white hover:bg-i9-blue-deep"
+            className="whitespace-nowrap rounded-md bg-i9-ink px-4 py-2 text-sm font-semibold text-i9-paper transition hover:bg-i9-blue-deep"
           >
             Chamar no WhatsApp
           </a>
         </nav>
         <button
-          className={`rounded-lg px-3 py-2 text-sm font-semibold md:hidden ${light ? 'border border-slate-200 bg-white/70 text-i9-ink' : 'border border-white/15 text-white'}`}
+          className="rounded-md border border-i9-line bg-i9-paper2 px-3 py-2 text-sm font-semibold text-i9-ink md:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? 'Fechar menu' : 'Abrir menu'}
           aria-expanded={open}
@@ -83,11 +77,11 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
           {open ? 'Fechar' : 'Menu'}
         </button>
       </div>
-      <div aria-hidden className="animate-lightline h-px bg-[linear-gradient(90deg,transparent,rgba(37,99,235,0.8),transparent)] bg-[length:200%_100%]" />
+      <div aria-hidden className="h-px bg-i9-line" />
       {open && (
-        <nav className="fixed inset-0 top-0 z-50 flex flex-col bg-i9-ink px-6 pb-10 pt-24 md:hidden">
+        <nav className="fixed inset-0 top-0 z-50 flex flex-col bg-i9-paper px-6 pb-10 pt-24 md:hidden">
           <button
-            className="absolute right-4 top-5 rounded-lg border border-white/15 px-3 py-2 text-sm font-semibold text-white"
+            className="absolute right-4 top-5 rounded-md border border-i9-line px-3 py-2 text-sm font-semibold text-i9-ink"
             onClick={() => setOpen(false)}
             aria-label="Fechar menu"
           >
@@ -99,7 +93,7 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
               href={hrefFor(item.href)}
               onClick={() => setOpen(false)}
               style={{ animationDelay: (i * 60) + 'ms' }}
-              className="animate-drawer-item border-b border-white/10 py-4 font-display text-2xl font-bold text-white"
+              className="animate-drawer-item border-b border-i9-line py-4 font-display text-2xl font-bold text-i9-ink"
             >
               {item.label}
             </a>
@@ -109,7 +103,7 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
             target="_blank"
             rel="noopener"
             style={{ animationDelay: (NAV.length * 60) + 'ms' }}
-            className="animate-drawer-item mt-6 rounded-lg bg-i9-blue px-4 py-3 text-center font-semibold text-white"
+            className="animate-drawer-item mt-6 rounded-md bg-i9-blue px-4 py-3 text-center font-semibold text-white"
           >
             Chamar no WhatsApp
           </a>
@@ -122,29 +116,29 @@ export function Header({ tone = "dark" }: { tone?: "dark" | "light" }) {
 export function Footer() {
   const pathname = usePathname();
   return (
-    <footer className="border-t border-slate-200 bg-white">
+    <footer className="border-t border-i9-line bg-i9-ink">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-3">
         <div>
           <Image
-            src="/logo-slate.png"
+            src="/logo-dark.png"
             alt="i9BASE"
-            width={709}
-            height={674}
-            className="h-16 w-auto"
+            width={1352}
+            height={364}
+            className="h-8 w-auto"
           />
-          <p className="mt-3 font-display text-sm font-bold text-i9-ink">
+          <p className="mt-4 font-display text-sm font-bold text-white">
             {SLOGAN}
           </p>
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-slate-400">
             Estruture, automatize e evolua.
           </p>
         </div>
         <div>
-          <p className="label-eyebrow text-slate-600">Navegação</p>
+          <p className="label-eyebrow text-slate-400">Navegação</p>
           <ul className="mt-3 space-y-2 text-sm">
             {NAV.map((item) => (
               <li key={item.href}>
-                <a href={withHome(pathname, item.href)} className="text-i9-slate hover:text-i9-blue">
+                <a href={withHome(pathname, item.href)} className="text-slate-300 hover:text-white">
                   {item.label}
                 </a>
               </li>
@@ -152,14 +146,14 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <p className="label-eyebrow text-slate-600">Fale com a gente</p>
+          <p className="label-eyebrow text-slate-400">Fale com a gente</p>
           <ul className="mt-3 space-y-2 text-sm">
             <li>
               <a
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener"
-                className="text-i9-slate hover:text-i9-blue"
+                className="text-slate-300 hover:text-white"
               >
                 WhatsApp, 24h todos os dias
               </a>
@@ -169,7 +163,7 @@ export function Footer() {
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener"
-                className="text-i9-slate hover:text-i9-blue"
+                className="text-slate-300 hover:text-white"
               >
                 Instagram @i9base
               </a>
@@ -177,14 +171,14 @@ export function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-slate-200">
-        <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4 text-xs text-slate-600 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4 font-mono text-[10px] uppercase tracking-[0.1em] text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <span>© 2026 i9BASE. Todos os direitos reservados.</span>
           <span>
             Campos dos Goytacazes e região ·{" "}
             <a
               href={withHome(pathname, "/privacidade")}
-              className="underline hover:text-i9-blue"
+              className="underline hover:text-white"
             >
               Política de privacidade
             </a>

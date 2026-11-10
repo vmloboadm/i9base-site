@@ -10,7 +10,7 @@ export const metadata = {
 export default function NotFound() {
   return (
     <>
-      <Header tone="light" />
+      <Header />
       <main className="flex flex-1 items-center bg-i9-paper">
         <div className="mx-auto w-full max-w-2xl px-4 py-20 text-center sm:px-6">
           <p className="font-display text-6xl font-bold text-i9-blue">404</p>

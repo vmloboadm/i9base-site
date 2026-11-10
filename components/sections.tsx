@@ -13,7 +13,6 @@ import {
   METHOD,
   PROVAS,
   PROVAS_NOTA,
-  SLOGAN,
   SOLUTIONS,
   STATS,
   TECHS,
@@ -24,7 +23,6 @@ import {
   type CaseImage,
 } from "@/lib/data";
 import { track } from "@/lib/analytics";
-import { HeroCanvas } from "@/components/hero-canvas";
 
 function Chevron() {
   return (
@@ -109,22 +107,32 @@ function SectionHead({
   labelTone?: "default" | "deep";
 }) {
   return (
-    <div className="mb-8">
-      <p
-        className={`label-eyebrow ${
-          dark ? "text-i9-blue-soft" : labelTone === "deep" ? "text-i9-blue-deep" : "text-i9-blue"
-        }`}
-      >
-        {label}
-      </p>
+    <div className="mb-10">
+      <div className="flex items-center gap-3">
+        <span
+          aria-hidden
+          className={`h-2 w-2 shrink-0 ${dark ? "bg-i9-signal" : "bg-i9-blue"}`}
+        />
+        <p
+          className={`label-eyebrow ${
+            dark ? "text-i9-blue-soft" : labelTone === "deep" ? "text-i9-blue-deep" : "text-i9-blue"
+          }`}
+        >
+          {label}
+        </p>
+        <span
+          aria-hidden
+          className={`h-px flex-1 ${dark ? "bg-white/15" : "bg-i9-line"}`}
+        />
+      </div>
       <h2
-        className={`mt-3 font-display text-3xl font-bold tracking-tight sm:text-4xl ${
+        className={`mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl ${
           dark ? "text-white" : "text-i9-ink"
         }`}
       >
         {title}
       </h2>
-      <p className={`mt-3 max-w-2xl text-base ${dark ? "text-slate-300" : "text-slate-600"}`}>
+      <p className={`mt-3 max-w-2xl text-base ${dark ? "text-slate-300" : "text-i9-slate"}`}>
         {sub}
       </p>
     </div>
@@ -133,119 +141,133 @@ function SectionHead({
 
 export function Hero() {
   return (
-    <section id="topo" className="grain relative overflow-hidden bg-i9-ink text-white">
-      <div
-        aria-hidden
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(900px 480px at 85% -5%, rgba(37,99,235,0.35), transparent 60%), radial-gradient(700px 420px at 8% 20%, rgba(124,58,237,0.22), transparent 60%), linear-gradient(180deg, #0b0f14 0%, #0a1a33 48%, #123063 76%, #f5f6fb 100%)",
-        }}
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-[0.13]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
-          backgroundSize: "56px 56px",
-          maskImage: "radial-gradient(800px 500px at 50% 0%, black 30%, transparent 75%)",
-          WebkitMaskImage: "radial-gradient(800px 500px at 50% 0%, black 30%, transparent 75%)",
-        }}
-      />
-      <HeroCanvas />
-      <div aria-hidden className="absolute -left-24 top-16 h-72 w-72 rounded-full bg-i9-blue/20 blur-[100px]" />
-      <div aria-hidden className="absolute -right-24 top-64 h-80 w-80 rounded-full bg-[#7c3aed]/15 blur-[110px]" />
-      <div className="animate-hero-in relative mx-auto max-w-6xl px-4 pb-10 pt-28 sm:px-6 sm:pt-32">
-        <div className="mt-2 grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+    <section
+      id="topo"
+      className="blueprint relative overflow-hidden border-b border-i9-line bg-i9-paper"
+    >
+      <div className="mx-auto max-w-6xl px-4 pt-24 sm:px-6 sm:pt-28">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-i9-line pb-3 font-mono text-[10px] uppercase tracking-[0.14em] text-i9-slate">
+          <span className="inline-flex items-center gap-1.5">
+            <span aria-hidden className="h-1.5 w-1.5 bg-emerald-600" />
+            Atendimento 24/7
+          </span>
+          <span aria-hidden className="hidden text-i9-concrete sm:inline">/</span>
+          <span className="hidden sm:inline">Campos dos Goytacazes, RJ</span>
+          <span aria-hidden className="hidden text-i9-concrete sm:inline">/</span>
+          <span>Resposta em minutos</span>
+          <span className="ml-auto hidden sm:inline">Ficha 2026.11</span>
+        </div>
+
+        <div className="grid items-start gap-12 pb-14 pt-10 lg:grid-cols-[1.12fr_0.88fr] lg:gap-16 lg:pt-14">
           <div>
-            <p className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-1.5 text-xs font-semibold text-emerald-300">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-              </span>
-              Disponível para novos projetos
+            <p className="label-eyebrow flex items-center gap-2 text-i9-blue">
+              <span aria-hidden className="h-2 w-2 bg-i9-signal" />
+              01 — base operacional
             </p>
-            <div className="mt-5 max-w-sm">
-              <Image
-                src="/logo-dark.png"
-                alt="i9BASE"
-                width={1352}
-                height={364}
-                priority
-                sizes="(max-width: 1024px) 70vw, 400px"
-                className="h-auto w-full"
-              />
-              <p className="mt-3 font-display text-xs font-bold uppercase tracking-[0.22em] text-i9-blue-soft">
-                {SLOGAN}
-              </p>
-            </div>
-            <h1 className="font-display text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
-              A base de tecnologia para o seu negócio
+            <h1 className="mt-4 font-display text-4xl font-extrabold leading-[1.04] tracking-tight text-i9-ink sm:text-5xl lg:text-6xl">
+              A <span className="marker">base</span> de tecnologia
+              <br className="hidden sm:block" /> para o seu negócio
             </h1>
-            <p className="mt-5 max-w-xl text-base text-slate-200 sm:text-lg">
-              Sites, sistemas, automação e inteligência artificial para
-              negócios locais.
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-i9-slate sm:text-lg">
+              Sites, sistemas, automação e inteligência artificial para negócios
+              locais. Uma base só para vender, atender e crescer.
             </p>
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <a
                 href="/diagnostico"
                 onClick={() => track("diagnostico_start", { origem: "hero" })}
-                className="rounded-lg bg-i9-blue px-6 py-3 text-center font-semibold text-white hover:bg-i9-blue-deep"
+                className="rounded-md bg-i9-blue px-6 py-3.5 text-center font-semibold text-white transition hover:bg-i9-blue-deep"
               >
                 Fazer diagnóstico gratuito
               </a>
               <a
-                href={waLink("Oi! Vim pelo site da i9BASE e quero estruturar meu negócio.")}
+                href={waLink(
+                  "Oi! Vim pelo site da i9BASE e quero estruturar meu negócio."
+                )}
                 target="_blank"
                 rel="noopener"
                 onClick={() => track("whatsapp_click", { from: "hero" })}
-                className="rounded-lg border border-white/25 px-6 py-3 text-center font-semibold text-white hover:border-i9-blue-soft hover:text-i9-blue-soft"
+                className="rounded-md border border-i9-ink px-6 py-3.5 text-center font-semibold text-i9-ink transition hover:bg-i9-ink hover:text-i9-paper"
               >
                 Chamar no WhatsApp
               </a>
             </div>
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-300">
-              <span><strong className="font-display text-white">{CASES.length}</strong> cases</span>
-              <span><strong className="font-display text-white">{ESCADA.length}</strong> entradas</span>
-            </div>
+
+            <dl className="mt-10 grid max-w-lg grid-cols-3 gap-px border border-i9-line bg-i9-line">
+              {[
+                { n: String(CASES.length), l: "cases entregues" },
+                { n: String(ARTES.length), l: "artes para clientes" },
+                { n: "24/7", l: "atendimento no WhatsApp" },
+              ].map((s) => (
+                <div key={s.l} className="bg-i9-paper px-4 py-4">
+                  <dt className="font-display text-2xl font-bold text-i9-ink">
+                    {s.n}
+                  </dt>
+                  <dd className="mt-1 font-mono text-[10px] uppercase leading-tight tracking-[0.1em] text-i9-slate">
+                    {s.l}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
+
           <div className="relative">
-            <div
-              aria-hidden
-              className="animate-spin-slower pointer-events-none absolute -right-10 -top-10 hidden h-44 w-44 rounded-full border-2 border-dashed border-i9-blue/40 lg:block"
-            />
-            <div className="rounded-2xl border border-white/15 bg-i9-ink/70 p-6 text-center backdrop-blur-md">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-i9-blue-soft">
-                Diagnóstico gratuito
+            <div aria-hidden className="absolute -left-2 -top-2 h-4 w-4 border-l-2 border-t-2 border-i9-ink" />
+            <div aria-hidden className="absolute -bottom-2 -right-2 h-4 w-4 border-b-2 border-r-2 border-i9-ink" />
+            <div className="border border-i9-ink bg-i9-paper2 p-6 sm:p-7">
+              <div className="flex items-center justify-between border-b border-i9-line pb-3 font-mono text-[10px] uppercase tracking-[0.12em] text-i9-slate">
+                <span>i9base / ficha do projeto</span>
+                <span className="inline-flex items-center gap-1.5 text-emerald-700">
+                  <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
+                  online
+                </span>
+              </div>
+
+              <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.14em] text-i9-slate">
+                O que montamos na sua base
               </p>
-              <p className="font-display mt-2 text-2xl font-bold text-white">
-                4 perguntas, plano na hora
-              </p>
-              <p className="mx-auto mt-2 max-w-xs text-sm text-slate-300">
-                Descubra o que a tecnologia pode destravar no seu negócio.
-              </p>
-              <a
-                href="/diagnostico"
-                onClick={() => track("diagnostico_start", { origem: "hero_card" })}
-                className="font-display mt-5 inline-block rounded-lg bg-i9-blue px-8 py-3 font-bold text-white transition hover:bg-i9-blue-deep"
-              >
-                Começar agora
-              </a>
-            </div>
-            <div
-              aria-hidden
-              className="animate-float-a absolute -left-6 top-2 hidden rounded-xl border border-white/15 bg-i9-ink/85 px-3 py-2 backdrop-blur-md sm:block"
-            >
-              <p className="text-[11px] font-bold text-white">IA atendendo</p>
-              <p className="text-[10px] text-emerald-300">24h, sem pausa</p>
-            </div>
-            <div
-              aria-hidden
-              className="animate-float-b absolute -right-2 bottom-6 hidden rounded-xl border border-white/15 bg-i9-ink/85 px-3 py-2 backdrop-blur-md sm:block"
-            >
-              <p className="text-[11px] font-bold text-white">QR + NFC</p>
-              <p className="text-[10px] text-slate-400">do físico ao digital</p>
+              <ul className="mt-2 divide-y divide-i9-line">
+                {[
+                  "Sites e landing pages",
+                  "Sistemas e CRM",
+                  "Automação no WhatsApp",
+                  "IA no atendimento",
+                ].map((item, i) => (
+                  <li
+                    key={item}
+                    className="flex items-center justify-between gap-4 py-2.5 text-sm font-medium text-i9-ink"
+                  >
+                    <span>{item}</span>
+                    <span
+                      aria-hidden
+                      className="font-mono text-[10px] text-i9-slate"
+                    >
+                      0{i + 1}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-6 bg-i9-ink p-5 text-i9-paper">
+                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-i9-blue-soft">
+                  diagnóstico gratuito
+                </p>
+                <p className="mt-1 font-display text-xl font-bold leading-snug">
+                  4 perguntas, plano na hora
+                </p>
+                <p className="mt-2 text-sm text-slate-300">
+                  Descubra o que destrava o seu negócio antes de gastar.
+                </p>
+                <a
+                  href="/diagnostico"
+                  onClick={() =>
+                    track("diagnostico_start", { origem: "hero_card" })
+                  }
+                  className="mt-4 inline-block bg-i9-signal px-5 py-2.5 font-display text-sm font-bold text-i9-ink transition hover:bg-white"
+                >
+                  Começar agora
+                </a>
+              </div>
             </div>
           </div>
         </div>
