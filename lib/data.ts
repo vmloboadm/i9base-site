@@ -194,15 +194,15 @@ export const CASES: CaseItem[] = [
     ],
   },
   {
-    slug: "voxey-ai",
-    name: "Voxey AI",
+    slug: "agente-ia-whatsapp",
+    name: "Agente de Atendimento 24/7",
     category: "Sistemas",
-    niche: "Agente IA & Atendimento 24/7",
-    desc: "Plataforma de agentes autônomos com RAG para atendimento humanizado 24h integrado diretamente ao WhatsApp oficial com transbordo humano sem fila.",
+    niche: "Agente IA & Atendimento WhatsApp",
+    desc: "Plataforma de agentes autônomos com IA e RAG para atendimento humanizado 24h integrado diretamente ao WhatsApp oficial, com triagem inteligente e transbordo humano sem fila.",
     tags: ["Agente IA", "RAG / pgvector", "Python FastAPI", "WhatsApp WAHA"],
     images: [
-      img("/cases/afranio-hero.webp", "Agente Inteligente Voxey AI"),
-      img("/cases/afranio-port.webp", "Painel de Atendimento Voxey AI"),
+      img("/cases/afranio-hero.webp", "Agente Inteligente de Atendimento"),
+      img("/cases/afranio-port.webp", "Painel de Atendimento e Triagem"),
     ],
   },
   {
