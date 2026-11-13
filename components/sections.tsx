@@ -786,13 +786,20 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
   if (images.length === 1) {
     const im = images[0];
     return (
-      <div className="relative aspect-[4/3]">
+      <div className="group/car relative aspect-[4/3] overflow-hidden bg-i9-ink2">
+        <Image
+          src={im.src}
+          alt=""
+          fill
+          aria-hidden
+          className="scale-110 object-cover opacity-25 blur-xl"
+        />
         <Image
           src={im.src}
           alt={im.alt || name}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover transition duration-500 group-hover/car:scale-[1.03]"
+          className="relative z-10 object-contain p-2 transition duration-500 group-hover/car:scale-[1.02]"
           loading="lazy"
         />
       </div>
@@ -800,7 +807,7 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
   }
 
   return (
-    <div className="group/car relative aspect-[4/3] overflow-hidden bg-i9-paper">
+    <div className="group/car relative aspect-[4/3] overflow-hidden bg-i9-ink2">
       <div
         ref={trackRef}
         onScroll={(e) => {
@@ -812,13 +819,20 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
         style={{ scrollbarWidth: "none" }}
       >
         {images.map((im) => (
-          <div key={im.src} className="relative h-full w-full shrink-0 snap-center">
+          <div key={im.src} className="relative h-full w-full shrink-0 snap-center overflow-hidden">
+            <Image
+              src={im.src}
+              alt=""
+              fill
+              aria-hidden
+              className="scale-110 object-cover opacity-25 blur-xl"
+            />
             <Image
               src={im.src}
               alt={im.alt || name}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="object-cover transition duration-500 group-hover/car:scale-[1.03]"
+              className="relative z-10 object-contain p-2 transition duration-500 group-hover/car:scale-[1.02]"
               loading="lazy"
               draggable={false}
             />
@@ -828,18 +842,18 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
       <button
         onClick={() => go(index - 1)}
         aria-label="Foto anterior"
-        className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-i9-ink/70 px-3 py-2 text-base font-bold text-white opacity-0 transition group-hover/car:opacity-100 focus:opacity-100"
+        className="absolute left-2 top-1/2 -translate-y-1/2 z-20 rounded-full bg-i9-ink/80 px-3 py-2 text-base font-bold text-white opacity-0 transition group-hover/car:opacity-100 focus:opacity-100"
       >
         ‹
       </button>
       <button
         onClick={() => go(index + 1)}
         aria-label="Próxima foto"
-        className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-i9-ink/70 px-3 py-2 text-base font-bold text-white opacity-0 transition group-hover/car:opacity-100 focus:opacity-100"
+        className="absolute right-2 top-1/2 -translate-y-1/2 z-20 rounded-full bg-i9-ink/80 px-3 py-2 text-base font-bold text-white opacity-0 transition group-hover/car:opacity-100 focus:opacity-100"
       >
         ›
       </button>
-      <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1.5">
+      <div className="absolute bottom-2 left-0 right-0 z-20 flex justify-center gap-1.5">
         {images.map((im, i) => (
           <button
             key={im.src}
@@ -850,13 +864,13 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
             <span
               aria-hidden
               className={`h-1.5 rounded-full transition ${
-                i === index ? "inline-block w-5 bg-i9-paper2" : "inline-block w-1.5 bg-white/60"
+                i === index ? "inline-block w-5 bg-white" : "inline-block w-1.5 bg-white/60"
               }`}
             />
           </button>
         ))}
       </div>
-      <span className="absolute right-2 top-2 rounded-md bg-i9-ink/70 px-2 py-0.5 text-[11px] font-semibold text-white">
+      <span className="absolute right-2 top-2 z-20 rounded-md bg-i9-ink/80 px-2 py-0.5 text-[11px] font-semibold text-white">
         {index + 1}/{images.length}
       </span>
     </div>
