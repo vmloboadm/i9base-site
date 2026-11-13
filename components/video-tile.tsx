@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useState } from "react";
 import { track } from "@/lib/analytics";
 
@@ -26,6 +27,7 @@ export function VideoTile({
   className,
   caption,
   playLabel,
+  posterPriority,
 }: {
   src: string;
   poster?: string;
@@ -33,6 +35,7 @@ export function VideoTile({
   className: string;
   caption?: string;
   playLabel?: string;
+  posterPriority?: boolean;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -42,8 +45,7 @@ export function VideoTile({
     if (!v) return;
     if (v.paused) {
       track("video_play", { video: src });
-      v.play().catch(() => {});
-      setPlaying(true);
+      v.play().then(() => setPlaying(true)).catch(() => {});
     } else {
       v.pause();
       setPlaying(false);
@@ -54,8 +56,8 @@ export function VideoTile({
     <figure
       className={
         caption
-          ? "frame-corners overflow-hidden rounded-sm border border-i9-line break-inside-avoid"
-          : "frame-corners overflow-hidden rounded-sm border border-white/15"
+          ? "frame-corners w-full overflow-hidden rounded-sm border border-i9-line break-inside-avoid"
+          : "frame-corners w-full overflow-hidden rounded-sm border border-white/15"
       }
     >
       <button
@@ -66,18 +68,35 @@ export function VideoTile({
         }
         className="relative block w-full cursor-pointer"
       >
-        <video
-          ref={ref}
-          src={src}
-          poster={poster}
-          muted
-          loop
-          playsInline
-          preload="none"
-          controls={playing}
-          aria-label={alt}
-          className={className}
-        />
+        <span className={`relative block ${className}`}>
+          {poster && (
+            <Image
+              src={poster}
+              alt=""
+              fill
+              priority={posterPriority}
+              fetchPriority={posterPriority ? "high" : undefined}
+              unoptimized
+              sizes="(max-width: 640px) 90vw, 384px"
+              className={`object-cover transition-opacity duration-300 ${
+                playing ? "opacity-0" : "opacity-100"
+              }`}
+            />
+          )}
+          <video
+            ref={ref}
+            src={src}
+            muted
+            loop
+            playsInline
+            preload="none"
+            controls={playing}
+            aria-label={alt}
+            className={`absolute inset-0 h-full w-full object-cover ${
+              playing ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        </span>
         <span
           aria-hidden
           className={`absolute inset-0 flex items-center justify-center bg-i9-ink/30 transition ${

@@ -22,6 +22,8 @@ import {
   type CaseImage,
 } from "@/lib/data";
 import { track } from "@/lib/analytics";
+import { VideoTile } from "@/components/video-tile";
+import { PreContactForm } from "@/components/pre-contact-form";
 
 function Chevron() {
   return (
@@ -636,36 +638,33 @@ export function Convites() {
           index="04"
           label="Convites interativos"
           title="A festa começa no convite"
-          sub="Convite digital para aniversário, 15 anos, casamento e eventos da família: confirmação de presença, mapa e galeria de fotos em tempo real. Teste aqui como o convidado vive a experiência."
+          sub="Convite digital para aniversário, 15 anos, casamento e eventos da família: confirmação de presença em 1 toque, mapa e mural de fotos ao vivo no telão."
         />
-        <div className="grid items-center gap-8 md:grid-cols-2">
-          <div>
+        <div className="grid items-center gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-7">
             <ul className="space-y-4 text-sm leading-relaxed text-blue-50">
-              <li>
+              <li className="rounded-lg border border-white/10 bg-white/5 p-4">
                 <strong className="font-display text-base font-bold text-white">
-                  Para a família
+                  Para os anfitriões e família
                 </strong>
-                <p className="mt-1">
-                  Confirmação organizada, sem planilha e sem correria no
-                  WhatsApp. Você sabe quem vem antes da festa começar.
+                <p className="mt-1 text-slate-300">
+                  Confirmação organizada em tempo real, sem planilhas confusas e sem correria no WhatsApp. Você sabe exatamente a lista de convidados confirmados antes do evento.
                 </p>
               </li>
-              <li>
+              <li className="rounded-lg border border-white/10 bg-white/5 p-4">
                 <strong className="font-display text-base font-bold text-white">
                   Para o convidado
                 </strong>
-                <p className="mt-1">
-                  Abre no celular, confirma com um toque, vê mapa e participa
-                  da galeria ao vivo durante o evento.
+                <p className="mt-1 text-slate-300">
+                  Abertura animada direto no celular, confirmação de presença com 1 toque, localização com traçado de rota e acesso rápido às informações da festa.
                 </p>
               </li>
-              <li>
+              <li className="rounded-lg border border-white/10 bg-white/5 p-4">
                 <strong className="font-display text-base font-bold text-white">
-                  Na festa também
+                  Na festa física: Telão e QR na mesa
                 </strong>
-                <p className="mt-1">
-                  Centro de mesa, cardápio e tag com QR que leva à galeria,
-                  com a parceira Peça Tech.
+                <p className="mt-1 text-slate-300">
+                  Displays acrílicos de mesa com QR Code integrado. Os convidados tiram fotos com seus próprios celulares e elas aparecem na hora no telão do evento.
                 </p>
               </li>
             </ul>
@@ -673,18 +672,18 @@ export function Convites() {
               <a
                 href="/convites"
                 onClick={() => track("cta_click", { from: "convites_teaser", to: "convites_page" })}
-                className="rounded-md bg-i9-signal px-6 py-3 text-center font-semibold text-i9-ink hover:bg-white"
+                className="rounded-md bg-i9-signal px-6 py-3 text-center font-semibold text-i9-ink hover:bg-white transition"
               >
-                Ver como funciona
+                Ver demonstração completa
               </a>
               <a
-                href={waLink("Oi! Quero um convite como esse para meu evento.")}
+                href={waLink("Oi! Quero um convite interativo para o meu evento.")}
                 target="_blank"
                 rel="noopener"
                 onClick={() => track("whatsapp_click", { from: "convites" })}
-                className="rounded-md border border-white/40 px-6 py-3 text-center font-semibold text-white hover:border-white hover:bg-white/10"
+                className="rounded-md border border-white/40 px-6 py-3 text-center font-semibold text-white hover:border-white hover:bg-white/10 transition"
               >
-                Quero um convite como esse
+                Solicitar orçamento no WhatsApp
               </a>
             </div>
             <div className="mt-5 flex flex-wrap gap-2">
@@ -695,17 +694,72 @@ export function Convites() {
                   target="_blank"
                   rel="noopener"
                   onClick={() => track("cta_click", { from: "convites", to: inv.name })}
-                  className="rounded-md border border-white/30 px-4 py-2 text-sm font-semibold text-white hover:border-white hover:bg-white/10"
+                  className="rounded-md border border-white/20 bg-white/5 px-3.5 py-1.5 text-xs font-semibold text-slate-200 hover:border-white/40 hover:bg-white/10 transition"
                 >
-                  Ver exemplo: {inv.name}
+                  Exemplo: {inv.name}
                 </a>
               ))}
             </div>
             <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.1em] text-slate-400">
-              Exemplos reais de festas de clientes, abertos para visitação.
+              Exemplos reais de festas realizadas com nossa stack interativa.
             </p>
           </div>
-          <InviteEnvelope />
+
+          <div className="lg:col-span-5">
+            <div className="mx-auto max-w-[280px] sm:max-w-[300px]">
+              <div className="relative overflow-hidden rounded-[2.5rem] border-[6px] border-slate-700 bg-i9-ink p-2 shadow-2xl ring-1 ring-white/15">
+                <div className="absolute left-1/2 top-3 z-30 flex h-4 w-24 -translate-x-1/2 items-center justify-center rounded-full bg-slate-900/90">
+                  <div className="mr-2 h-2 w-2 rounded-full bg-slate-950" />
+                  <div className="h-1 w-8 rounded-full bg-slate-700" />
+                </div>
+                <div className="relative overflow-hidden rounded-[2rem] bg-black">
+                  <VideoTile
+                    src="/convites/festa.mp4"
+                    poster="/convites/festa-poster.webp"
+                    alt="Vídeo demonstração do convite interativo abrindo"
+                    className="aspect-[9/16] w-full object-cover"
+                    playLabel="Reproduzir vídeo do convite"
+                  />
+                </div>
+              </div>
+              <p className="mt-2 text-center text-xs text-slate-400">
+                Toque no vídeo para ver a animação de abertura
+              </p>
+
+              <div className="mt-4 grid grid-cols-3 gap-2">
+                <div className="overflow-hidden rounded-lg border border-white/15 bg-white/5">
+                  <Image
+                    src="/convites/festa-01.webp"
+                    alt="Display físico com QR Code na mesa da festa"
+                    width={120}
+                    height={120}
+                    className="aspect-square w-full object-cover"
+                  />
+                  <p className="p-1 text-center text-[9px] font-medium text-slate-300">Display na mesa</p>
+                </div>
+                <div className="overflow-hidden rounded-lg border border-white/15 bg-white/5">
+                  <Image
+                    src="/convites/festa-02.webp"
+                    alt="Confirmação de presença no smartphone"
+                    width={120}
+                    height={120}
+                    className="aspect-square w-full object-cover"
+                  />
+                  <p className="p-1 text-center text-[9px] font-medium text-slate-300">Confirmação</p>
+                </div>
+                <div className="overflow-hidden rounded-lg border border-white/15 bg-white/5">
+                  <Image
+                    src="/convites/festa-04.webp"
+                    alt="Mural ao vivo no telão da festa"
+                    width={120}
+                    height={120}
+                    className="aspect-square w-full object-cover"
+                  />
+                  <p className="p-1 text-center text-[9px] font-medium text-slate-300">Mural no telão</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -990,30 +1044,31 @@ export function Artes() {
           index="06"
           label="Artes e peças"
           title="Design que destaca no feed e no mundo real"
-          sub="Uma seleção de peças criadas para clientes: do post ao uniforme, do windbanner ao avental."
+          sub="Uma seleção padronizada de peças criadas para clientes: de identidades visuais e uniformes a materiais físicos de ponto de venda."
         />
         <Reveal>
-        <div className="columns-2 gap-4 md:columns-3">
-          {ARTES.map((a) => (
-            <figure
-              key={a.src}
-              className="mb-4 overflow-hidden rounded-sm border border-i9-line break-inside-avoid"
-            >
-              <Image
-                src={a.src}
-                alt={a.alt}
-                width={600}
-                height={600}
-                sizes="(max-width: 768px) 50vw, 33vw"
-                className="h-auto w-full"
-                loading="lazy"
-              />
-              <figcaption className="px-3 py-2 text-xs font-medium text-i9-slate">
-                {a.alt}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            {ARTES.map((a) => (
+              <figure
+                key={a.src}
+                className="group flex flex-col overflow-hidden rounded-xl border border-i9-line bg-white shadow-xs transition hover:shadow-md"
+              >
+                <div className="relative aspect-square w-full overflow-hidden bg-i9-paper2">
+                  <Image
+                    src={a.src}
+                    alt={a.alt}
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+                <figcaption className="p-3 text-xs font-medium text-i9-slate">
+                  {a.alt}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </Reveal>
       </div>
     </section>
@@ -1233,92 +1288,100 @@ export function Partners() {
 }
 
 export function Contact() {
-  const [msg, setMsg] = useState("");
   return (
     <section id="contato" className="border-t border-i9-line bg-i9-paper text-white">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        <div className="grain relative rounded-sm bg-i9-ink p-6 sm:p-10">
+        <div className="grain relative rounded-2xl bg-i9-ink p-6 sm:p-10 lg:p-12 border border-white/10 shadow-2xl">
           <SectionHead
             dark
             index="10"
-          label="Contato"
-            title="Seu negócio pode ser o próximo"
-            sub="Conta o que trava o seu dia no WhatsApp. A gente responde 24h e vê o que dá pra automatizar."
+            label="Contato & Diagnóstico"
+            title="Vamos tirar o seu projeto do papel?"
+            sub="Fale diretamente com quem projeta e desenvolve. Sem intermediários, com alinhamento técnico ágil e foco no resultado da sua empresa."
           />
-          <div className="grid gap-4 lg:grid-cols-2">
-            <div className="rounded-sm border border-white/10 bg-white/5 p-6">
-              <label
-                htmlFor="cta-msg"
-                className="text-sm font-semibold text-white"
-              >
-                O que você precisa?
-              </label>
-              <textarea
-                id="cta-msg"
-                rows={4}
-                maxLength={300}
-                value={msg}
-                onChange={(e) => setMsg(e.target.value)}
-                placeholder="Ex: preciso de um site para minha lanchonete e quero atender pelo WhatsApp"
-                aria-describedby="cta-msg-hint cta-msg-count"
-                className="mt-2 w-full rounded-md border border-white/15 bg-i9-ink px-3 py-2.5 text-sm text-white placeholder:text-i9-slate"
-              />
-              <div className="mt-1.5 flex items-center justify-between">
-                <p id="cta-msg-hint" className="text-xs text-slate-400">
-                  Escreva com suas palavras, sem pressa.
+          <div className="grid items-start gap-8 lg:grid-cols-12">
+            {/* Coluna Esquerda: Informações B2B institucionais */}
+            <div className="flex flex-col justify-between space-y-4 lg:col-span-5">
+              <div className="rounded-xl border border-white/10 bg-white/5 p-5">
+                <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-i9-blue-soft">
+                  Atendimento Técnico Direto
+                </span>
+                <p className="mt-1 font-display text-lg font-bold text-white">
+                  Vinicius Lobo
                 </p>
-                <p id="cta-msg-count" className="text-xs text-i9-slate">
-                  {msg.length}/300
+                <p className="text-xs text-slate-300">
+                  Engenharia de Software & Soluções Digitais
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-slate-300">
+                  Sem intermediários ou atendentes sem conhecimento técnico. Você conversa diretamente com o desenvolvedor responsável pela arquitetura e entrega do seu projeto.
                 </p>
               </div>
-              <a
-                href={waLink(
-                  msg.trim()
-                    ? `Oi! Vim pelo site da i9BASE. ${msg.trim()}`
-                    : "Oi! Vim pelo site da i9BASE e quero conversar sobre meu negócio."
-                )}
-                target="_blank"
-                rel="noopener"
-                onClick={() => track("whatsapp_click", { from: "contact_form" })}
-                className="mt-4 block rounded-lg bg-[#25d366] px-6 py-3 text-center font-semibold text-white hover:brightness-95"
-              >
-                Enviar pelo WhatsApp
-              </a>
-              <p className="mt-3 text-xs text-slate-400">
-                Cai direto na nossa conversa, com atendimento automático 24h.
-              </p>
-            </div>
-            <div className="flex flex-col gap-4">
+
               <a
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener"
-                onClick={() => track("whatsapp_click", { from: "contact_card" })}
-                className="rounded-sm border border-white/10 bg-white/5 p-6 hover:border-i9-blue-soft"
+                onClick={() => track("whatsapp_click", { from: "contact_left_wa" })}
+                className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 p-4 transition hover:border-i9-blue hover:bg-white/10"
               >
-                <p className="font-display text-base font-bold text-white">WhatsApp</p>
-                <p className="mt-1 text-sm text-slate-300">
-                  Atendimento automático 24h, todos os dias. Orçamento base na hora.
-                </p>
-                <p className="mt-2 text-sm font-semibold text-i9-blue-soft">Chamar agora</p>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                    WhatsApp Direto
+                  </p>
+                  <p className="mt-0.5 font-display text-base font-bold text-white">
+                    (21) 99835-1729
+                  </p>
+                </div>
+                <span className="rounded-full bg-emerald-500/20 px-2.5 py-1 text-xs font-medium text-emerald-400">
+                  Disponível
+                </span>
               </a>
+
+              <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+                <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  E-mail Institucional
+                </p>
+                <p className="mt-0.5 font-display text-base font-bold text-white">
+                  {CONTACT_EMAIL}
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+                <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  Localização & Atendimento
+                </p>
+                <p className="mt-0.5 font-display text-base font-bold text-white">
+                  Campos dos Goytacazes — RJ
+                </p>
+                <p className="mt-1 text-xs text-slate-400">
+                  Atendimento presencial na região e remoto em todo o Brasil.
+                </p>
+              </div>
+
               <a
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener"
-                onClick={() => track("cta_click", { from: "contact_card", to: "instagram" })}
-                className="rounded-sm border border-white/10 bg-white/5 p-6 hover:border-i9-blue-soft"
+                onClick={() => track("cta_click", { from: "contact_left_ig", to: "instagram" })}
+                className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 p-4 transition hover:border-i9-blue hover:bg-white/10"
               >
-                <p className="font-display text-base font-bold text-white">Instagram @i9base</p>
-                <p className="mt-1 text-sm text-slate-300">
-                  Bastidores, cases e novidades da base.
-                </p>
-                <p className="mt-2 text-sm font-semibold text-i9-blue-soft">Seguir</p>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                    Instagram
+                  </p>
+                  <p className="mt-0.5 font-display text-base font-bold text-white">
+                    @i9base
+                  </p>
+                </div>
+                <span className="text-xs font-semibold text-i9-blue-soft">
+                  Acompanhar ↗
+                </span>
               </a>
-              <div className="rounded-sm border border-white/10 bg-white/5 p-6">
-                <p className="font-display text-base font-bold text-white">E-mail</p>
-                <p className="mt-1 text-sm text-slate-300">{CONTACT_EMAIL}</p>
-              </div>
+            </div>
+
+            {/* Coluna Direita: Pré-formulário de contato estruturado */}
+            <div className="lg:col-span-7">
+              <PreContactForm />
             </div>
           </div>
         </div>

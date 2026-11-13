@@ -170,6 +170,54 @@ const img = (src: string, alt: string): CaseImage => ({ src, alt });
 
 export const CASES: CaseItem[] = [
   {
+    slug: "gym-fitness",
+    name: "Gym Fitness",
+    category: "Sistemas",
+    niche: "Gestão Operacional & CRM",
+    desc: "Plataforma web de gestão de alunos e planos com CRM integrado ao WhatsApp, webhooks de conversão e réguas de pós-visita para captação e retenção.",
+    tags: ["Next.js 15", "Supabase", "CRM WhatsApp", "Web App"],
+    images: [
+      img("/cases/rota-facil.webp", "Plataforma Gym Fitness"),
+      img("/cases/rota-checkin.webp", "Controle Operacional Gym Fitness"),
+    ],
+  },
+  {
+    slug: "jumper",
+    name: "Jumper Barbershop",
+    category: "Sistemas",
+    niche: "Agendamento & Automação",
+    desc: "Web App para agendamento online de horários e serviços com sincronização em tempo real e confirmações automáticas pré-horário no WhatsApp.",
+    tags: ["Agendamento Online", "WhatsApp WAHA", "Next.js"],
+    images: [
+      img("/cases/paga-1.webp", "Sistema de Agendamento Jumper"),
+      img("/cases/paga-2.webp", "Confirmações no WhatsApp Jumper"),
+    ],
+  },
+  {
+    slug: "voxey-ai",
+    name: "Voxey AI",
+    category: "Sistemas",
+    niche: "Agente IA & Atendimento 24/7",
+    desc: "Plataforma de agentes autônomos com RAG para atendimento humanizado 24h integrado diretamente ao WhatsApp oficial com transbordo humano sem fila.",
+    tags: ["Agente IA", "RAG / pgvector", "Python FastAPI", "WhatsApp WAHA"],
+    images: [
+      img("/cases/afranio-hero.webp", "Agente Inteligente Voxey AI"),
+      img("/cases/afranio-port.webp", "Painel de Atendimento Voxey AI"),
+    ],
+  },
+  {
+    slug: "catalogo-digital",
+    name: "Catálogo & Cardápio Digital PWA",
+    category: "Sistemas",
+    niche: "Vendas Diretas & Delivery",
+    desc: "Aplicação PWA mobile-first para pedidos rápidos sem intermediários. Carrinho em tempo real, cálculo de entrega e despacho formatado direto para o WhatsApp sem comissão por venda.",
+    tags: ["PWA", "Mobile-First", "Sem Taxas por Venda"],
+    images: [
+      img("/cases/gigidog-cardapio.webp", "Catálogo Digital PWA"),
+      img("/cases/alien-burger.webp", "Cardápio Interativo Mobile"),
+    ],
+  },
+  {
     slug: "paga-facil",
     name: "Paga Fácil",
     category: "Sistemas",

@@ -55,12 +55,13 @@ function VideoHero() {
   }
   const v = CONVITE_VIDEOS[0];
   return (
-    <div className="relative mx-auto max-w-sm">
+    <div className="relative mx-auto w-full max-w-sm">
       <VideoTile
         src={v.src}
         poster={v.poster}
         alt={v.alt}
         className="aspect-[9/16] w-full object-cover"
+        posterPriority
       />
     </div>
   );
