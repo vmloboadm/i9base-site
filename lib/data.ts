@@ -170,27 +170,28 @@ const img = (src: string, alt: string): CaseImage => ({ src, alt });
 
 export const CASES: CaseItem[] = [
   {
-    slug: "gym-fitness",
-    name: "Gym Fitness",
-    category: "Sistemas",
-    niche: "Gestão Operacional & CRM",
-    desc: "Plataforma web de gestão de alunos e planos com CRM integrado ao WhatsApp, webhooks de conversão e réguas de pós-visita para captação e retenção.",
-    tags: ["Next.js 15", "Supabase", "CRM WhatsApp", "Web App"],
+    slug: "jumper-for-man",
+    name: "Jumper For Man",
+    category: "Sites",
+    niche: "Loja Virtual & Tráfego Pago",
+    desc: "Site profissional de alta conversão para a marca Jumper For Man. Catálogo com 1.360 variações de grade e estoque, gestão de atendimento integrado no WhatsApp e campanhas de tráfego pago para atração contínua.",
+    tags: ["Loja Virtual", "Gestão de Tráfego", "Atendimento WhatsApp", "E-commerce"],
     images: [
-      img("/cases/rota-facil.webp", "Plataforma Gym Fitness"),
-      img("/cases/rota-checkin.webp", "Controle Operacional Gym Fitness"),
+      img("/cases/jumper-hero.webp", "Loja Virtual Jumper For Man"),
+      img("/cases/jumper-look.webp", "Catálogo Lookbook Jumper For Man"),
+      img("/cases/jumper-produtos.webp", "Linha de Vestuário e Grade"),
     ],
   },
   {
-    slug: "jumper",
-    name: "Jumper Barbershop",
-    category: "Sistemas",
-    niche: "Agendamento & Automação",
-    desc: "Web App para agendamento online de horários e serviços com sincronização em tempo real e confirmações automáticas pré-horário no WhatsApp.",
-    tags: ["Agendamento Online", "WhatsApp WAHA", "Next.js"],
+    slug: "off-lingerie",
+    name: "OFF Lingerie by Ju Mattos",
+    category: "Branding",
+    niche: "Identidade & Estrutura Digital",
+    desc: "Posicionamento completo de marca feminina premium: direção visual, paleta exclusiva, tipografia, embalagens, frascos e estrutura digital de apresentação e vendas.",
+    tags: ["Branding Completo", "Identidade Visual", "Direção de Arte", "Packaging"],
     images: [
-      img("/cases/paga-1.webp", "Sistema de Agendamento Jumper"),
-      img("/cases/paga-2.webp", "Confirmações no WhatsApp Jumper"),
+      img("/cases/off-lingerie-brand.webp", "Brand Direction OFF Lingerie"),
+      img("/cases/off-lingerie-mockup.webp", "Embalagens e Identidade Visual OFF Lingerie"),
     ],
   },
   {
@@ -215,6 +216,18 @@ export const CASES: CaseItem[] = [
     images: [
       img("/cases/gigidog-cardapio.webp", "Catálogo Digital PWA"),
       img("/cases/alien-burger.webp", "Cardápio Interativo Mobile"),
+    ],
+  },
+  {
+    slug: "rota-facil-tour",
+    name: "RotaFácil Tour",
+    category: "Sistemas",
+    niche: "Tecnologia & Gestão para Turismo",
+    desc: "Consultoria e tecnologia para turismo: painel de controle operacional com reservas, gestão de passageiros, check-in por QR Code e integração de atendimento no WhatsApp.",
+    tags: ["Sistema Web", "Gestão de Turismo", "QR Code Check-in", "Dashboard"],
+    images: [
+      img("/cases/rota-tour-painel.webp", "Painel de Marca e Dashboard RotaFácil Tour"),
+      img("/cases/rota-checkin.webp", "Check-in por QR Code RotaFácil"),
     ],
   },
   {
@@ -393,19 +406,6 @@ export const CASES: CaseItem[] = [
       img("/cases/gigidog-uniforme.webp", "Uniforme GigiDog"),
       img("/cases/gigidog-wind.webp", "Windbanner GigiDog"),
       img("/cases/gigidog-cardapio.webp", "Cardápio GigiDog"),
-    ],
-  },
-  {
-    slug: "rota-facil",
-    name: "Rota Fácil",
-    category: "Sistemas",
-    niche: "Transporte escolar",
-    desc: "Gestão de rotas com check-in por QR Code e painel administrativo.",
-    tags: ["Sistema web", "App", "QR Code"],
-    status: "Proposta",
-    images: [
-      img("/cases/rota-facil.webp", "Apresentação Rota Fácil"),
-      img("/cases/rota-checkin.webp", "Check-in por QR Code Rota Fácil"),
     ],
   },
   {
