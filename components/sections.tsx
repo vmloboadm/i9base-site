@@ -20,6 +20,7 @@ import {
   WHATSAPP_URL,
   waLink,
   type CaseImage,
+  type Arte,
 } from "@/lib/data";
 import { track } from "@/lib/analytics";
 import { VideoTile } from "@/components/video-tile";
@@ -727,34 +728,47 @@ export function Convites() {
               </p>
 
               <div className="mt-4 grid grid-cols-3 gap-2">
-                <div className="overflow-hidden rounded-lg border border-white/15 bg-white/5">
-                  <Image
-                    src="/convites/festa-01.webp"
-                    alt="Display físico com QR Code na mesa da festa"
-                    width={120}
-                    height={120}
-                    className="aspect-square w-full object-cover"
-                  />
+                <div className="overflow-hidden rounded-lg border border-white/15 bg-slate-950">
+                  <div className="relative aspect-square w-full overflow-hidden">
+                    <Image
+                      src="/convites/festa-01.webp"
+                      alt=""
+                      fill
+                      aria-hidden
+                      className="scale-125 object-cover opacity-25 blur-lg"
+                    />
+                    <Image
+                      src="/convites/festa-01.webp"
+                      alt="Display físico com QR Code na mesa da festa"
+                      fill
+                      sizes="120px"
+                      className="relative z-10 object-contain p-1"
+                    />
+                  </div>
                   <p className="p-1 text-center text-[9px] font-medium text-slate-300">Display na mesa</p>
                 </div>
-                <div className="overflow-hidden rounded-lg border border-white/15 bg-white/5">
-                  <Image
-                    src="/convites/festa-02.webp"
-                    alt="Confirmação de presença no smartphone"
-                    width={120}
-                    height={120}
-                    className="aspect-square w-full object-cover"
-                  />
+                <div className="overflow-hidden rounded-lg border border-white/15 bg-slate-950">
+                  <div className="relative aspect-square w-full overflow-hidden">
+                    <Image
+                      src="/convites/festa-02.webp"
+                      alt="Confirmação de presença no smartphone"
+                      fill
+                      sizes="120px"
+                      className="object-cover"
+                    />
+                  </div>
                   <p className="p-1 text-center text-[9px] font-medium text-slate-300">Confirmação</p>
                 </div>
-                <div className="overflow-hidden rounded-lg border border-white/15 bg-white/5">
-                  <Image
-                    src="/convites/festa-04.webp"
-                    alt="Mural ao vivo no telão da festa"
-                    width={120}
-                    height={120}
-                    className="aspect-square w-full object-cover"
-                  />
+                <div className="overflow-hidden rounded-lg border border-white/15 bg-slate-950">
+                  <div className="relative aspect-square w-full overflow-hidden">
+                    <Image
+                      src="/convites/festa-04.webp"
+                      alt="Mural ao vivo no telão da festa"
+                      fill
+                      sizes="120px"
+                      className="object-cover"
+                    />
+                  </div>
                   <p className="p-1 text-center text-[9px] font-medium text-slate-300">Mural no telão</p>
                 </div>
               </div>
@@ -799,7 +813,7 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
           alt={im.alt || name}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="relative z-10 object-contain p-2 transition duration-500 group-hover/car:scale-[1.02]"
+          className="relative z-10 object-contain p-2.5 sm:p-3 transition duration-500 group-hover/car:scale-[1.02]"
           loading="lazy"
         />
       </div>
@@ -832,7 +846,7 @@ function CaseCarousel({ images, name }: { images: CaseImage[]; name: string }) {
               alt={im.alt || name}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className="relative z-10 object-contain p-2 transition duration-500 group-hover/car:scale-[1.02]"
+              className="relative z-10 object-contain p-2.5 sm:p-3 transition duration-500 group-hover/car:scale-[1.02]"
               loading="lazy"
               draggable={false}
             />
@@ -1051,6 +1065,18 @@ function CrossIcon() {
 }
 
 export function Artes() {
+  const [selectedArte, setSelectedArte] = useState<Arte | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedArte(null);
+    };
+    if (selectedArte) {
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [selectedArte]);
+
   return (
     <section id="artes" className="border-y border-i9-line bg-i9-paper2">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
@@ -1065,25 +1091,89 @@ export function Artes() {
             {ARTES.map((a) => (
               <figure
                 key={a.src}
-                className="group flex flex-col overflow-hidden rounded-xl border border-i9-line bg-white shadow-xs transition hover:shadow-md"
+                onClick={() => setSelectedArte(a)}
+                className="group flex flex-col overflow-hidden rounded-xl border border-i9-line bg-white shadow-xs transition hover:border-i9-blue hover:shadow-md cursor-pointer"
+                title={`Clique para ampliar ${a.alt}`}
               >
-                <div className="relative aspect-square w-full overflow-hidden bg-i9-paper2">
+                <div className="relative aspect-square w-full overflow-hidden bg-i9-ink2">
+                  {/* Fundo ambiente desfocado das cores da arte para preenchimento harmônico */}
+                  <Image
+                    src={a.src}
+                    alt=""
+                    fill
+                    aria-hidden
+                    className="scale-125 object-cover opacity-25 blur-xl"
+                  />
+                  {/* Arte principal 100% enquadrada com object-contain - sem nenhum corte de logo, texto ou borda */}
                   <Image
                     src={a.src}
                     alt={a.alt}
                     fill
                     sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="relative z-10 object-contain p-3 transition duration-300 group-hover:scale-105"
                     loading="lazy"
                   />
+                  {/* Ícone sutil de zoom no hover */}
+                  <span className="absolute bottom-2 right-2 z-20 flex h-7 w-7 items-center justify-center rounded-full bg-black/60 text-white opacity-0 transition group-hover:opacity-100 shadow-sm">
+                    <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+                    </svg>
+                  </span>
                 </div>
-                <figcaption className="p-3 text-xs font-medium text-i9-slate">
-                  {a.alt}
+                <figcaption className="flex items-center justify-between p-3 text-xs font-medium text-i9-slate">
+                  <span className="truncate">{a.alt}</span>
+                  <span className="shrink-0 text-[10px] font-semibold text-i9-blue opacity-0 transition group-hover:opacity-100">
+                    Ampliar ↗
+                  </span>
                 </figcaption>
               </figure>
             ))}
           </div>
         </Reveal>
+
+        {/* Modal Lightbox para visualização completa em alta definição */}
+        {selectedArte && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-md transition-opacity"
+            onClick={() => setSelectedArte(null)}
+          >
+            <div
+              className="relative flex max-h-[95vh] max-w-4xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-i9-ink2 p-4 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setSelectedArte(null)}
+                aria-label="Fechar visualização"
+                className="absolute right-3 top-3 z-30 flex h-9 w-9 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md transition hover:bg-white/40"
+              >
+                ✕
+              </button>
+              <div className="relative h-[65vh] w-[85vw] max-w-3xl sm:h-[75vh]">
+                <Image
+                  src={selectedArte.src}
+                  alt={selectedArte.alt}
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+              <div className="mt-3 flex flex-col gap-2 border-t border-white/10 pt-3 sm:flex-row sm:items-center sm:justify-between text-white">
+                <div>
+                  <p className="text-sm font-semibold">{selectedArte.alt}</p>
+                  <p className="text-xs text-slate-400">Design criado pela equipe da i9BASE</p>
+                </div>
+                <a
+                  href={waLink(`Oi! Vi o design "${selectedArte.alt}" no site e quero um projeto de design e artes para a minha marca.`)}
+                  target="_blank"
+                  rel="noopener"
+                  className="inline-flex items-center justify-center rounded-lg bg-i9-blue px-4 py-2 text-xs font-bold text-white transition hover:bg-i9-blue-deep"
+                >
+                  Pedir no WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
